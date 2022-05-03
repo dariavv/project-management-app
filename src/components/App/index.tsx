@@ -1,12 +1,13 @@
 import React, { FC, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { NotFound } from '../../modules/NotFound';
+import { AppStore } from '../../store';
 
 const Main = React.lazy(() => import('../../modules/Main'));
 
 export const App: FC = () => {
   return (
-    <>
+    <AppStore>
       <Routes>
         <Route
           path="/"
@@ -18,6 +19,6 @@ export const App: FC = () => {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </AppStore>
   );
 };
