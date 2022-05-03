@@ -1,24 +1,16 @@
-import React, { FC, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { NotFound } from 'modules/NotFound';
+import { FC } from 'react';
 import { AppStore } from 'store';
-
-const Main = React.lazy(() => import('modules/Main'));
+import { AppRouter } from 'router/AppRouter';
+import { Layout } from 'modules/Layout';
+import { GlobalStyle } from 'theme/global';
 
 export const App: FC = () => {
   return (
     <AppStore>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Suspense fallback={'Loader...'}>
-              <Main />
-            </Suspense>
-          }
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <GlobalStyle />
+      <Layout>
+        <AppRouter />
+      </Layout>
     </AppStore>
   );
 };
