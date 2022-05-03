@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setLanguage } from '../../store/reducers/exampleSlice';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { setLanguage } from 'store/reducers/exampleSlice';
 
 const Main: FC = () => {
   const { language } = useAppSelector((state) => state.example);
