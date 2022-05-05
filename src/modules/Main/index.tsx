@@ -4,7 +4,7 @@ import { setLanguage } from 'store/reducers/exampleSlice';
 import { Title } from 'theme';
 import * as Styled from './styled';
 import { useTranslations } from 'hooks/useTranslations';
-import i18n from 'i18n';
+import i18n from 'locales/i18n';
 import { EN, RU } from 'constants/languages';
 
 const Main: FC = () => {
