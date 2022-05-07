@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { NotFound } from 'modules/NotFound';
-import { Spin } from 'antd';
+import { Loader } from 'components';
 
 const Main = React.lazy(() => import('modules/Main'));
 const Welcome = React.lazy(() => import('modules/Welcome'));
@@ -15,7 +15,7 @@ export const AppRouter = () => {
       <Route
         path="/welcome"
         element={
-          <Suspense fallback={<Spin size="large" />}>
+          <Suspense fallback={<Loader />}>
             <Welcome />
           </Suspense>
         }
@@ -23,7 +23,7 @@ export const AppRouter = () => {
       <Route
         path="/signin"
         element={
-          <Suspense fallback={<Spin size="large" />}>
+          <Suspense fallback={<Loader />}>
             <SignIn />
           </Suspense>
         }
@@ -31,7 +31,7 @@ export const AppRouter = () => {
       <Route
         path="/signup"
         element={
-          <Suspense fallback={<Spin size="large" />}>
+          <Suspense fallback={<Loader />}>
             <SignUp />
           </Suspense>
         }
@@ -39,7 +39,7 @@ export const AppRouter = () => {
       <Route
         path="/"
         element={
-          <Suspense fallback={<Spin size="large" />}>
+          <Suspense fallback={<Loader />}>
             <Main />
           </Suspense>
         }
@@ -47,7 +47,7 @@ export const AppRouter = () => {
       <Route
         path="/board/:id"
         element={
-          <Suspense fallback={<Spin size="large" />}>
+          <Suspense fallback={<Loader />}>
             <Board />
           </Suspense>
         }
