@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
+import { Button } from 'components';
 
 const Welcome: FC = () => {
   const { t } = useTranslations('main');
