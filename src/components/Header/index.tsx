@@ -37,7 +37,7 @@ export const Header: FC = () => {
           unCheckedChildren={language}
           onChange={handleChange}
         />
-        <Button marg="0 20px">LogIn</Button>
+        <Button m="0 20px">LogIn</Button>
         <Button>LogOut</Button>
       </div>
     </Styled.Header>
