@@ -4,10 +4,16 @@ import i18n from 'locales/i18n';
 import { setLanguage } from 'store/reducers/exampleSlice';
 import { useTranslations } from 'hooks/useTranslations';
 import { EN, RU } from 'constants/languages';
+import { Switch } from 'antd';
+import { Button } from 'components';
 import * as Styled from './styled';
 
-export const Header: FC = () => {
-  // TODO: save language to local storage, remove local state
+type HeaderProps = {
+  handleLogOut: () => void;
+};
+
+// TODO: save language to local storage, remove local state
+export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
   const [isChecked, setIsChecked] = useState(false);
   const { language } = useAppSelector((state) => state.example);
   const dispatch = useAppDispatch();
@@ -26,16 +32,18 @@ export const Header: FC = () => {
 
   return (
     <Styled.Header>
-      <h2>{t('title')}</h2>
+      <Styled.Logo>LOGO</Styled.Logo>
       <div>
-        <h3>{language}</h3>
-        <input
-          type="checkbox"
-          name="language"
+        <Switch
           id="language"
-          onChange={handleChange}
           checked={isChecked}
+          checkedChildren={language}
+          unCheckedChildren={language}
+          onChange={handleChange}
         />
+        <Button type="primary" onClick={handleLogOut}>
+          {t('log_out')}
+        </Button>
       </div>
     </Styled.Header>
   );

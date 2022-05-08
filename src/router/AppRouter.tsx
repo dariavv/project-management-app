@@ -6,6 +6,7 @@ import { useAppDispatch } from 'hooks';
 import { setToken } from 'store/reducers/authSlice';
 import { ProtectedRoute } from './ProtecterdRoute';
 import { removeFromStorage, setToStorage } from 'utils/localStorage';
+import { Layout } from 'modules/Layout';
 
 const Main = React.lazy(() => import('modules/Main'));
 const Welcome = React.lazy(() => import('modules/Welcome'));
@@ -42,7 +43,9 @@ export const AppRouter = () => {
         element={
           <Suspense fallback={<Loader />}>
             <ProtectedRoute>
-              <Main handleLogOut={handleLogOut} />
+              <Layout handleLogOut={handleLogOut}>
+                <Main />
+              </Layout>
             </ProtectedRoute>
           </Suspense>
         }
@@ -76,7 +79,9 @@ export const AppRouter = () => {
         element={
           <Suspense fallback={<Loader />}>
             <ProtectedRoute>
-              <Board />
+              <Layout handleLogOut={handleLogOut}>
+                <Board />
+              </Layout>
             </ProtectedRoute>
           </Suspense>
         }

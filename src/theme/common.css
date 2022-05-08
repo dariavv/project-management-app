@@ -15,6 +15,7 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 
 @media only screen and (max-width: 1280px) {
