@@ -10,7 +10,7 @@ const Welcome: FC = () => {
   return (
     <Styled.Welcome>
       <Styled.WelcomeButton>
-        <Button type="primary" marginRight="20px" onClick={() => navigate('/signin')}>
+        <Button type="primary" marg="0 20px 0 0" onClick={() => navigate('/signin')}>
           {t('sign_in')}
         </Button>
         <Button type="primary" onClick={() => navigate('/signup')}>

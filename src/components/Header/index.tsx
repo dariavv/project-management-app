@@ -5,6 +5,8 @@ import { setLanguage } from 'store/reducers/exampleSlice';
 import { useTranslations } from 'hooks/useTranslations';
 import { EN, RU } from 'constants/languages';
 import * as Styled from './styled';
+import { Switch } from 'antd';
+import { Button } from 'components/Button';
 
 export const Header: FC = () => {
   // TODO: save language to local storage, remove local state
@@ -26,16 +28,17 @@ export const Header: FC = () => {
 
   return (
     <Styled.Header>
-      <h2>{t('title')}</h2>
+      <Styled.Logo>LOGO</Styled.Logo>
       <div>
-        <h3>{language}</h3>
-        <input
-          type="checkbox"
-          name="language"
+        <Switch
           id="language"
-          onChange={handleChange}
           checked={isChecked}
+          checkedChildren={language}
+          unCheckedChildren={language}
+          onChange={handleChange}
         />
+        <Button marg="0 20px">LogIn</Button>
+        <Button>LogOut</Button>
       </div>
     </Styled.Header>
   );
