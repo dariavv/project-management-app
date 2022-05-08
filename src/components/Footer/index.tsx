@@ -1,16 +1,14 @@
 import { Avatar } from 'antd';
 import { FC } from 'react';
 import { WrapperFooter, Border } from './styled';
+import rssLogo from 'assets/images/RSLogo.jpg';
 
 export const Footer: FC = () => (
   <>
     <WrapperFooter>
       <Border>
         <a href="https://rs.school/react/" target="_blank" rel="noreferrer">
-          <Avatar
-            size={54}
-            src="https://s.dou.ua/CACHE/images/img/announces/rs-school/1062e890062f840b9ccbfdd510ae4410.jpg"
-          >
+          <Avatar size={54} src={rssLogo}>
             RS
           </Avatar>
         </a>
