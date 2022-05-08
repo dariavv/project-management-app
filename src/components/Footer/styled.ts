@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRIMARY } from '../../constants/colors';
+import { PRIMARY } from 'constants/colors';
 
 export const WrapperFooter = styled.section`
   display: flex;
