@@ -29,7 +29,7 @@ export const Title = styled.div`
   color: ${PRIMARY};
 `;
 
-export const BlockP = styled.div`
+export const Description = styled.div`
   width: 60%;
   height: auto;
   font-size: 1.2rem;
