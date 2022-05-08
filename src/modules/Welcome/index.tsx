@@ -18,7 +18,7 @@ const Welcome: FC = () => {
       <Button type="primary" onClick={() => navigate('/signup')}>
         {t('sign_up')}
       </Button>
-      {token && <Link to="/">Go to Main page</Link>}
+      {token && <Link to="/">{t('go_to_main')}</Link>}
     </div>
   );
 };

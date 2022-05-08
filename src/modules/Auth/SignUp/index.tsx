@@ -14,7 +14,7 @@ const SignUp: FC = () => {
   return (
     <div>
       <h2>{t('sign_up')}</h2>
-      <Link to="/signin">Already have an account? Sign in</Link>
+      <Link to="/signin">{t('sign_up_account')}</Link>
     </div>
   );
 };

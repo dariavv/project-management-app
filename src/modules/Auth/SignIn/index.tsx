@@ -19,7 +19,7 @@ const SignIn: FC<SignInProps> = ({ handleSignIn }) => {
   return (
     <div>
       <h2>{t('sign_in')}</h2>
-      <Link to="/signup">Sign up for an account</Link>
+      <Link to="/signup">{t('sign_in_account')}</Link>
       <Button type="primary" onClick={handleSignIn}>
         {t('sign_in')}
       </Button>
