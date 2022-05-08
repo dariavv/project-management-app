@@ -8,7 +8,7 @@ const Welcome: FC = () => {
   const { t } = useTranslations('main');
   const navigate = useNavigate();
   return (
-    <Styled.Welcome>
+    <Styled.Container>
       <Styled.WelcomeButton>
         <Button type="primary" m="0 20px 0 0" onClick={() => navigate('/signin')}>
           {t('sign_in')}
@@ -18,7 +18,7 @@ const Welcome: FC = () => {
         </Button>
       </Styled.WelcomeButton>
       <Styled.Wrapper>
-        <Styled.h2>Welcome!</Styled.h2>
+        <Styled.Title>Welcome!</Styled.Title>
         <Styled.BlockP>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
           been the industrys standard dummy text ever since the 1500s, when an unknown printer took
@@ -27,8 +27,8 @@ const Welcome: FC = () => {
           unchanged.
         </Styled.BlockP>
       </Styled.Wrapper>
-      <Footer></Footer>
-    </Styled.Welcome>
+      <Footer />
+    </Styled.Container>
   );
 };
 

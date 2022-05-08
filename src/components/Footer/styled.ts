@@ -19,3 +19,7 @@ export const Border = styled.div`
   padding: 20px 10px 0 10px;
   border-top: 2px solid ${PRIMARY};
 `;
+
+export const RSLogo = styled.image`
+  background-image: url(assets/images/RSLogo.jpg);
+`;
