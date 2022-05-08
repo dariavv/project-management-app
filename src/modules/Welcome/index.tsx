@@ -1,11 +1,14 @@
 import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { Button } from 'components';
+import { useAppSelector } from 'hooks';
 
 const Welcome: FC = () => {
+  const { token } = useAppSelector((state) => state.auth);
   const { t } = useTranslations('main');
   const navigate = useNavigate();
+
   return (
     <div>
       <h2>Welcome Page</h2>
@@ -15,6 +18,7 @@ const Welcome: FC = () => {
       <Button type="primary" onClick={() => navigate('/signup')}>
         {t('sign_up')}
       </Button>
+      {token && <Link to="/">Go to Main page</Link>}
     </div>
   );
 };

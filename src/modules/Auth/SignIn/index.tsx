@@ -1,11 +1,28 @@
 import { FC } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
+import { Button } from 'components';
+import { useAppSelector } from 'hooks';
 
-const SignIn: FC = () => {
+type SignInProps = {
+  handleSignIn: () => void;
+};
+
+const SignIn: FC<SignInProps> = ({ handleSignIn }) => {
+  const { token } = useAppSelector((state) => state.auth);
   const { t } = useTranslations('main');
+
+  if (token) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <div>
       <h2>{t('sign_in')}</h2>
+      <Link to="/signup">Sign up for an account</Link>
+      <Button type="primary" onClick={handleSignIn}>
+        {t('sign_in')}
+      </Button>
     </div>
   );
 };

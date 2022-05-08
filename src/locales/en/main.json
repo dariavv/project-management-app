@@ -1,5 +1,6 @@
 {
   "title": "Project Management App",
   "sign_in": "Sign in",
-  "sign_up": "Sign up"
+  "sign_up": "Sign up",
+  "log_out": "Log out"
 }
