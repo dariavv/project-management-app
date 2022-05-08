@@ -11,28 +11,30 @@ const Welcome: FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Styled.Container>
-      <Styled.WelcomeButton>
-        <Button type="primary" m="0 20px 0 0" onClick={() => navigate('/signin')}>
-          {t('sign_in')}
-        </Button>
-        <Button type="primary" onClick={() => navigate('/signup')}>
-          {t('sign_up')}
-        </Button>
-      </Styled.WelcomeButton>
-      <Styled.Wrapper>
-        <Styled.Title>Welcome!</Styled.Title>
-        <Styled.Description>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-          been the industrys standard dummy text ever since the 1500s, when an unknown printer took
-          a galley of type and scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting, remaining essentially
-          unchanged.
-        </Styled.Description>
-        {token && <Link to="/">{t('go_to_main')}</Link>}
-      </Styled.Wrapper>
+    <>
+      <Styled.Container>
+        <Styled.ButtonsContainer>
+          <Button type="primary" m="0 20px 0 0" onClick={() => navigate('/signin')}>
+            {t('sign_in')}
+          </Button>
+          <Button type="primary" onClick={() => navigate('/signup')}>
+            {t('sign_up')}
+          </Button>
+        </Styled.ButtonsContainer>
+        <Styled.Info>
+          <Styled.Title>Welcome!</Styled.Title>
+          <Styled.Description>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+            has been the industrys standard dummy text ever since the 1500s, when an unknown printer
+            took a galley of type and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting, remaining
+            essentially unchanged.
+          </Styled.Description>
+          {token && <Link to="/">{t('go_to_main')}</Link>}
+        </Styled.Info>
+      </Styled.Container>
       <Footer />
-    </Styled.Container>
+    </>
   );
 };
 

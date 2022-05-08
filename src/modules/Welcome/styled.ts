@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
-export const Container = styled.div`
+export const Container = styled.main`
   height: 100%;
   margin: 0;
   padding: 0;
@@ -10,14 +10,14 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const Wrapper = styled.div`
+export const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-export const WelcomeButton = styled.div`
+export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin: 40px 60px;
