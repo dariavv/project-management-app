@@ -5,6 +5,7 @@ import { AppRouter } from 'router/AppRouter';
 import { setToken } from 'store/reducers/authSlice';
 import { getFromStorage } from 'utils/localStorage';
 
+// TODO: refactoring auth with HOC approach
 export const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { token } = useAppSelector((state) => state.auth);
