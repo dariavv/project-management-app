@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
-export const Container = styled.main`
+export const Container = styled.div`
   height: 100%;
   margin: 0;
   padding: 0;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
-export const WrapperFooter = styled.section`
+export const WrapperFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
