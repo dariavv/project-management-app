@@ -32,7 +32,7 @@ export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
 
   return (
     <Styled.Header>
-      <Styled.Logo>LOGO</Styled.Logo>
+      <Styled.Logo>LOGO0</Styled.Logo>
       <div>
         <Switch
           id="language"

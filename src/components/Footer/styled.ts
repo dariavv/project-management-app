@@ -6,7 +6,7 @@ export const WrapperFooter = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  position: absolute;
+  position: sticky;
   bottom: 0;
   width: 100%;
 `;

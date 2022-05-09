@@ -9,6 +9,8 @@ export const Header = styled.div`
   aglin-items: center;
   padding: 20px 40px;
   background-color: ${PRIMARY};
+  position: sticky;
+  bottom: 0;
 `;
 
 export const Logo = styled.div`
