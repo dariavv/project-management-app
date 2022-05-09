@@ -9,11 +9,17 @@ export const Header = styled.div`
   aglin-items: center;
   padding: 20px 40px;
   background-color: ${PRIMARY};
+  z-index: 2;
   position: sticky;
-  bottom: 0;
+  top: 0;
 `;
 
 export const Logo = styled.div`
   font-weight: 700;
   color: white;
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;

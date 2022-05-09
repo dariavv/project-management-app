@@ -1,25 +1,28 @@
+import { WHITE, DARK } from './../../constants/colors';
 import styled from 'styled-components';
-import { PRIMARY } from 'constants/colors';
+import { GREY } from 'constants/colors';
+import { TextBold } from 'theme';
 
-export const WrapperFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+export const ContainerFooter = styled.div`
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
   padding: 20px 40px;
   position: sticky;
   bottom: 0;
   width: 100%;
+  background-color: ${DARK};
+  color: ${WHITE};
+  font-weight: 700;
 `;
 
-export const Border = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 20px 10px 0 10px;
-  border-top: 2px solid ${PRIMARY};
+export const TextLink = styled.div`
+  color: ${GREY};
+  ${TextBold};
 `;
 
-export const RSLogo = styled.image`
-  background-image: url(assets/images/RSLogo.jpg);
+export const RSLogo = styled.div`
+  height: 15px;
+  weight: 15px;
+  background-image: url(assets/images/logo_rs.png);
 `;

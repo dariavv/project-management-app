@@ -4,7 +4,6 @@ import { useTranslations } from 'hooks/useTranslations';
 import { Button, Footer } from 'components';
 import { useAppSelector } from 'hooks';
 import * as Styled from './styled';
-import { Header } from 'antd/lib/layout/layout';
 
 const Welcome: FC = () => {
   const { token } = useAppSelector((state) => state.auth);
@@ -13,7 +12,6 @@ const Welcome: FC = () => {
 
   return (
     <>
-      <Header />
       <Styled.Container>
         <Styled.ButtonsContainer>
           <Button type="primary" m="0 20px 0 0" onClick={() => navigate('/signin')}>

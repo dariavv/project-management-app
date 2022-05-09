@@ -6,5 +6,6 @@
   "sign_up_account": "Already have an account? Sign in",
   "sign_in_account": "Sign up for an account",
   "go_to_main": "Go to Main page",
-  "not_found": "page not found"
+  "not_found": "page not found",
+  "create": "Create"
 }
