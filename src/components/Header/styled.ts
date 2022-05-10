@@ -9,9 +9,8 @@ export const Header = styled.div`
   aglin-items: center;
   padding: 20px 40px;
   background-color: ${WHITE};
-  z-index: 2;
+  z-index: 1;
   position: sticky;
-  top: 0;
   box-shadow: 0 0px 20px rgba(0, 0, 0, 0.2);
 `;
 

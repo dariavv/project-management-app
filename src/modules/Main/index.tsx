@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Col, Row, Space, Modal } from 'antd';
+import { Col, Row, Modal } from 'antd';
 import * as Styled from './styled';
 import { BorderItem } from 'components/BoardItem';
 

@@ -13,7 +13,7 @@ export const BorderItem: FC<BoardItem> = ({ title, description, showModal }) => 
   return (
     <>
       <ContainerCard>
-        <Card title={title} size="small">
+        <Card title={title} size="small" color="#yellow">
           <p>{description}</p>
           <ContainerIcon>
             <EditOutlined style={{ padding: '0 5px 0 0' }} /> <DeleteOutlined onClick={showModal} />

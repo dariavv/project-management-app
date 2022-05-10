@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 export const ContainerFooter = styled.div`
   display: flex;
-  // justify-content: space-between;
-  // align-items: center;
+  justify-content: space-between;
+  align-items: center;
   padding: 5px 40px;
   position: sticky;
   top: 100%;
@@ -27,4 +27,9 @@ export const RSLogo = styled.div`
   height: 15px;
   weight: 15px;
   background-image: url(assets/images/logo_rs.png);
+`;
+
+export const SizeIcon = styled.div`
+  color: ${GREY};
+  height: 33%;
 `;
