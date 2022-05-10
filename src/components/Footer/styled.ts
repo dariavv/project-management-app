@@ -1,16 +1,18 @@
 import { WHITE, DARK } from './../../constants/colors';
-import styled from 'styled-components';
 import { GREY } from 'constants/colors';
 import { TextBold } from 'theme';
+import styled from 'styled-components';
 
 export const ContainerFooter = styled.div`
-  // display: flex;
+  display: flex;
   // justify-content: space-between;
   // align-items: center;
-  padding: 20px 40px;
+  padding: 5px 40px;
   position: sticky;
-  bottom: 0;
+  top: 100%;
+  z-index: 3;
   width: 100%;
+  height: 110px;
   background-color: ${DARK};
   color: ${WHITE};
   font-weight: 700;

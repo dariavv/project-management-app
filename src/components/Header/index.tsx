@@ -4,11 +4,12 @@ import i18n from 'locales/i18n';
 import { setLanguage } from 'store/reducers/exampleSlice';
 import { useTranslations } from 'hooks/useTranslations';
 import { EN, RU } from 'constants/languages';
-import { Switch } from 'antd';
+import { Col, Row, Switch } from 'antd';
 import { Button } from 'components';
-import * as Styled from './styled';
 import { useNavigate } from 'react-router-dom';
 import { ButtonsContainer } from './styled';
+import appLogo from 'assets/images/logo_app.png';
+import * as Styled from './styled';
 
 type HeaderProps = {
   handleLogOut: () => void;
@@ -35,9 +36,20 @@ export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
 
   return (
     <Styled.Header>
-      <Styled.Logo>LOGO</Styled.Logo>
+      {' '}
+      <Row>
+        <Styled.Logo>
+          <Col span={12}>
+            {' '}
+            <img src={appLogo} alt="RSS" width={35} />
+          </Col>
+          <Col span={12}>LOGO</Col>
+        </Styled.Logo>
+      </Row>
       <div>
-        <Button m="0 10px 0 0">{t('create')}</Button>
+        <Button type="primary" m="0 10px 0 0">
+          {t('create')}
+        </Button>
         <Switch
           id="language"
           checked={isChecked}
@@ -48,10 +60,10 @@ export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
       </div>
       <ButtonsContainer>
         <div>
-          <Button m="0 10px 0 0" onClick={() => navigate('/signin')}>
+          <Button type="primary" m="0 10px 0 0" onClick={() => navigate('/signin')}>
             {t('sign_in')}
           </Button>
-          <Button m="0 20px 0 0" onClick={() => navigate('/signup')}>
+          <Button type="primary" m="0 20px 0 0" onClick={() => navigate('/signup')}>
             {t('sign_up')}
           </Button>
         </div>
