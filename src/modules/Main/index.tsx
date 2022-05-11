@@ -31,7 +31,6 @@ const Main: FC = () => {
               key={index}
             >
               <BorderItem title={'Title'} description={'Description'} showModal={showModal} />
-              index{index}
             </Col>
           ))}
         </Row>
