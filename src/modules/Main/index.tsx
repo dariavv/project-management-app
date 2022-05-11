@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Col, Row, Modal } from 'antd';
 import { BorderItem } from 'components/BoardItem';
 import * as Styled from './styled';
@@ -6,6 +6,10 @@ import * as Styled from './styled';
 // TODO: move Log out button to Header
 const Main: FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -18,6 +22,7 @@ const Main: FC = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
   return (
     <>
       <Styled.Main>
@@ -30,6 +35,7 @@ const Main: FC = () => {
               key={index}
             >
               <BorderItem title={'Title'} description={'Description'} showModal={showModal} />
+              index{index}
             </Col>
           ))}
         </Row>
