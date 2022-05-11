@@ -28,8 +28,3 @@ export const RSLogo = styled.div`
   weight: 15px;
   background-image: url(assets/images/logo_rs.png);
 `;
-
-export const SizeIcon = styled.div`
-  color: ${GREY};
-  height: 33%;
-`;

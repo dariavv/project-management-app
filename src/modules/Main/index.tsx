@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Col, Row, Modal } from 'antd';
-import * as Styled from './styled';
 import { BorderItem } from 'components/BoardItem';
+import * as Styled from './styled';
 
 // TODO: move Log out button to Header
 const Main: FC = () => {
@@ -11,7 +11,7 @@ const Main: FC = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
+  const handleSubmit = () => {
     setIsModalVisible(false);
   };
 
@@ -21,15 +21,25 @@ const Main: FC = () => {
   return (
     <>
       <Styled.Main>
-        <Row gutter={[16, 16]}>
+        <Row justify="center">
           {new Array(40).fill(null).map((_, index) => (
-            <Col className="gutter-row" span={8} key={index}>
+            <Col
+              xs={{ span: 12, offset: 1 }}
+              lg={{ span: 6, offset: 1 }}
+              className="gutter-row"
+              key={index}
+            >
               <BorderItem title={'Title'} description={'Description'} showModal={showModal} />
             </Col>
           ))}
         </Row>
       </Styled.Main>
-      <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal
+        title="Basic Modal"
+        visible={isModalVisible}
+        onOk={handleSubmit}
+        onCancel={handleCancel}
+      >
         <p>Are you sure you want to DELETE?</p>
       </Modal>
     </>

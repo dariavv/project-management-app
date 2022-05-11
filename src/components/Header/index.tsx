@@ -36,11 +36,9 @@ export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
 
   return (
     <Styled.Header>
-      {' '}
       <Row>
         <Styled.Logo>
           <Col span={12}>
-            {' '}
             <img src={appLogo} alt="RSS" width={35} />
           </Col>
           <Col span={12}>LOGO</Col>
