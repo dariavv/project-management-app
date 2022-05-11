@@ -4,8 +4,11 @@ import i18n from 'locales/i18n';
 import { setLanguage } from 'store/reducers/exampleSlice';
 import { useTranslations } from 'hooks/useTranslations';
 import { EN, RU } from 'constants/languages';
-import { Switch } from 'antd';
+import { Col, Row, Switch } from 'antd';
 import { Button } from 'components';
+import { useNavigate } from 'react-router-dom';
+import { ButtonsContainer } from './styled';
+import appLogo from 'assets/images/logo_app.png';
 import * as Styled from './styled';
 
 type HeaderProps = {
@@ -18,6 +21,7 @@ export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
   const { language } = useAppSelector((state) => state.example);
   const dispatch = useAppDispatch();
   const { t } = useTranslations('main');
+  const navigate = useNavigate();
 
   const handleChange = useCallback(() => {
     setIsChecked(!isChecked);
@@ -32,8 +36,18 @@ export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
 
   return (
     <Styled.Header>
-      <Styled.Logo>LOGO</Styled.Logo>
+      <Row>
+        <Styled.Logo>
+          <Col span={12}>
+            <img src={appLogo} alt="RSS" width={35} />
+          </Col>
+          <Col span={12}>LOGO</Col>
+        </Styled.Logo>
+      </Row>
       <div>
+        <Button type="primary" m="0 10px 0 0">
+          {t('create')}
+        </Button>
         <Switch
           id="language"
           checked={isChecked}
@@ -41,10 +55,22 @@ export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
           unCheckedChildren={language}
           onChange={handleChange}
         />
-        <Button type="primary" onClick={handleLogOut}>
-          {t('log_out')}
-        </Button>
       </div>
+      <ButtonsContainer>
+        <div>
+          <Button type="primary" m="0 10px 0 0" onClick={() => navigate('/signin')}>
+            {t('sign_in')}
+          </Button>
+          <Button type="primary" m="0 20px 0 0" onClick={() => navigate('/signup')}>
+            {t('sign_up')}
+          </Button>
+        </div>
+        <div>
+          <Button type="primary" onClick={handleLogOut}>
+            {t('log_out')}
+          </Button>
+        </div>
+      </ButtonsContainer>
     </Styled.Header>
   );
 };
