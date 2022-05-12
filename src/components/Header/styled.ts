@@ -6,7 +6,7 @@ export const Header = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  aglin-items: center;
+  align-items: center;
   padding: 20px 40px;
   background-color: ${WHITE};
   z-index: 1;
