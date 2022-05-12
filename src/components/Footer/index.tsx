@@ -1,34 +1,33 @@
-import { Avatar } from 'antd';
+import { Col, Space } from 'antd';
 import { FC } from 'react';
-import { WrapperFooter, Border } from './styled';
-import rssLogo from 'assets/images/RSLogo.jpg';
+import { ContainerFooter, TextLink } from './styled';
+import rssLogo from 'assets/images/logo_rs.png';
+import { GithubOutlined } from '@ant-design/icons';
 
 export const Footer: FC = () => (
   <>
-    <WrapperFooter>
-      <Border>
+    <ContainerFooter>
+      <Col span={6}>
         <a href="https://rs.school/react/" target="_blank" rel="noreferrer">
-          <Avatar size={54} src={rssLogo}>
-            RS
-          </Avatar>
+          <img src={rssLogo} alt="RSS" width={150} />
         </a>
-        <p>© 2022</p>
-        <Avatar.Group
-          maxPopoverTrigger="click"
-          size="large"
-          maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf', cursor: 'pointer' }}
-        >
-          <a href="https://github.com/dariavv" target="_blank" rel="noreferrer">
-            <Avatar style={{ backgroundColor: '#56D667' }}>Daria</Avatar>
+      </Col>
+      <Col span={8}>
+        <Space align="start">© 2022 Team 57</Space>
+      </Col>
+      <Space align="end">
+        <Col span={10}>
+          <a
+            href="https://github.com/dariavv/project-management-app"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <TextLink>
+              <GithubOutlined style={{ fontSize: '3rem' }} />
+            </TextLink>
           </a>
-          <a href="https://github.com/GBaykov" target="_blank" rel="noreferrer">
-            <Avatar style={{ backgroundColor: '#6BB7FF' }}>Gleb</Avatar>
-          </a>
-          <a href="https://github.com/Olga-plus" target="_blank" rel="noreferrer">
-            <Avatar style={{ backgroundColor: '#CDFD5D' }}>Olga</Avatar>
-          </a>
-        </Avatar.Group>
-      </Border>
-    </WrapperFooter>
+        </Col>
+      </Space>
+    </ContainerFooter>
   </>
 );
