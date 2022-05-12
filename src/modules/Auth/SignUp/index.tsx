@@ -14,7 +14,7 @@ type FormValues = {
 
 const SignUp = () => {
   const { t } = useTranslations('main');
-  const { token } = useAppSelector((state) => state.auth);
+  const { token, status } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -41,7 +41,6 @@ const SignUp = () => {
   return (
     <div>
       <h2>{t('sign_up')}</h2>
-      <Link to="/signin">{t('sign_up_account')}</Link>
       <Form
         name="basic"
         labelCol={{
@@ -63,7 +62,7 @@ const SignUp = () => {
           rules={[
             {
               required: true,
-              message: 'Please input your username!',
+              message: 'Please input your name!',
             },
           ]}
         >
@@ -76,7 +75,7 @@ const SignUp = () => {
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
+              message: 'Please input your login!',
             },
           ]}
         >
@@ -102,10 +101,11 @@ const SignUp = () => {
             span: 16,
           }}
         >
+          <Link to="/signin">{t('sign_up_account')}</Link>
           <Button type="primary" htmlType="button" onClick={() => navigate('/welcome')}>
             {t('cancel')}
           </Button>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={status === 'loading'}>
             {t('sign_up')}
           </Button>
         </Form.Item>

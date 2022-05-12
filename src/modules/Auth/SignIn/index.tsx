@@ -12,7 +12,7 @@ type FormValues = {
 };
 
 const SignIn: FC = () => {
-  const { token } = useAppSelector((state) => state.auth);
+  const { token, status } = useAppSelector((state) => state.auth);
   const { t } = useTranslations('main');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -40,8 +40,6 @@ const SignIn: FC = () => {
   return (
     <div>
       <h2>{t('sign_in')}</h2>
-      <Link to="/signup">{t('sign_in_account')}</Link>
-
       <Form
         name="basic"
         labelCol={{
@@ -63,7 +61,7 @@ const SignIn: FC = () => {
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
+              message: 'Please input your login!',
             },
           ]}
         >
@@ -89,10 +87,11 @@ const SignIn: FC = () => {
             span: 16,
           }}
         >
+          <Link to="/signup">{t('sign_in_account')}</Link>
           <Button type="primary" htmlType="button" onClick={() => navigate('/welcome')}>
             {t('cancel')}
           </Button>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={status === 'loading'}>
             {t('sign_in')}
           </Button>
         </Form.Item>

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import request from 'axios';
-import { authService } from 'services/auth';
+import { authService } from 'services';
 import { User } from 'types';
+import { openNotificationError, openNotificationSuccess } from 'utils/notifications';
 
 interface AuthState {
   token: string | null;
@@ -23,12 +24,10 @@ export interface SignInParams extends Pick<User, 'login'> {
 export const signUp = createAsyncThunk('auth/signup', async (data: SignUpParams, thunkAPI) => {
   try {
     const response = await authService.signUp(data);
-    console.log('signUp response', response);
     return response;
   } catch (error) {
     if (request.isAxiosError(error) && error.response) {
-      console.log('Error signUp', error);
-      const message = error.message || error.toString();
+      const message = (error.response && error.response.data) || error.message || error.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -37,19 +36,17 @@ export const signUp = createAsyncThunk('auth/signup', async (data: SignUpParams,
 export const signIn = createAsyncThunk('auth/signin', async (data: SignInParams, thunkAPI) => {
   try {
     const response = await authService.signIn(data);
-    console.log('signIN response', response);
     return response;
   } catch (error) {
     if (request.isAxiosError(error) && error.response) {
-      console.log('Error signIN', error);
-      const message = error.message || error.toString();
+      const message = (error.response && error.response.data) || error.message || error.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
 });
 
-export const logOut = createAsyncThunk('auth/logout', async () => {
-  await authService.logOut();
+export const logOut = createAsyncThunk('auth/logout', () => {
+  authService.logOut();
 });
 
 const authSlice = createSlice({
@@ -64,32 +61,32 @@ const authSlice = createSlice({
     [signUp.pending.toString()]: (state) => {
       state.status = 'loading';
     },
-    [signUp.fulfilled.toString()]: (state, action) => {
-      // TODO: show success toast
-      console.log('signUp.fulfilled', action.payload);
+    [signUp.fulfilled.toString()]: (state) => {
       state.status = 'idle';
+      openNotificationSuccess({ message: 'Success' });
     },
-    [signUp.rejected.toString()]: (state) => {
-      // TODO: show failed toast
+    [signUp.rejected.toString()]: (state, action) => {
       state.status = 'failed';
+      openNotificationError({
+        message: 'Error',
+        description: action.payload.message,
+      });
     },
     [signIn.pending.toString()]: (state) => {
       state.status = 'loading';
     },
     [signIn.fulfilled.toString()]: (state, action) => {
-      if (action.payload.token) {
-        // TODO: show success toast
-        state.token = action.payload.token;
-      }
-      if (action.payload.error) {
-        // TODO: show failed toast
-      }
+      state.token = action.payload.token;
+      openNotificationSuccess({ message: 'Success' });
       state.status = 'idle';
     },
-    [signIn.rejected.toString()]: (state) => {
-      // TODO: show failed toast
+    [signIn.rejected.toString()]: (state, action) => {
       state.token = null;
       state.status = 'failed';
+      openNotificationError({
+        message: 'Error',
+        description: action.payload.message,
+      });
     },
     [logOut.fulfilled.toString()]: (state) => {
       state.token = null;
