@@ -31,6 +31,7 @@ const SignUp = () => {
   );
 
   const handleSubmitFailed = (errorInfo: unknown) => {
+    // TODO: handle form using react-hook-form
     console.log('Failed:', errorInfo);
   };
 

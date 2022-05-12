@@ -29,10 +29,10 @@ const SignIn: FC = () => {
   );
 
   const handleSubmitFailed = (errorInfo: unknown) => {
+    // TODO: handle form using react-hook-form
     console.log('Failed:', errorInfo);
   };
 
-  // remove and wrap sign in to HOC
   if (token) {
     return <Navigate to="/" replace />;
   }

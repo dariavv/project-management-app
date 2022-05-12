@@ -77,7 +77,6 @@ const authSlice = createSlice({
     },
     [signIn.fulfilled.toString()]: (state, action) => {
       state.token = action.payload.token;
-      openNotificationSuccess({ message: 'Success' });
       state.status = 'idle';
     },
     [signIn.rejected.toString()]: (state, action) => {
