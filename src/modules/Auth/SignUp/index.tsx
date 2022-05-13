@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
-import { useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form } from 'antd';
+import { signUp } from 'store/reducers/authSlice';
 import {
   StyledButtonCont,
   StyledForm,
@@ -12,31 +13,47 @@ import {
   StyledLink,
   StyledPassInput,
 } from '../styled';
-import { Button, Footer, Header } from 'components';
+import { Button, Footer } from 'components';
 
-export type ISignUp = {
+type FormValues = {
   name: string;
   login: string;
   password: string;
 };
 
 const SignUp: FC = () => {
-  const { token } = useAppSelector((state) => state.auth);
   const { t } = useTranslations('main');
-  const handleLogOut = () => {};
+  const { token, status } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = useCallback(
+    (values: FormValues) => {
+      const formValues = {
+        name: values.name,
+        login: values.login,
+        password: values.password,
+      };
+      dispatch(signUp(formValues));
+    },
+    [dispatch],
+  );
+
+  const handleSubmitFailed = (errorInfo: unknown) => {
+    // TODO: handle form using react-hook-form
+    console.log('Failed:', errorInfo);
+  };
+
   if (token) {
     return <Navigate to="/" replace />;
   }
-  const onFinish = (values: ISignUp) => {
-    console.log('Success:', values);
-  };
+
   return (
     <>
-      <Header handleLogOut={handleLogOut} />
       <StyledForm>
         <StyledHeadingWord>{t('sign_up')}</StyledHeadingWord>
         <Form
-          onFinish={onFinish}
+          onFinish={handleSubmit}
+          onFinishFailed={handleSubmitFailed}
           name="basic"
           labelCol={{
             span: 8,
@@ -50,16 +67,16 @@ const SignUp: FC = () => {
           autoComplete="off"
         >
           <StyledFormItem
-            name="login"
-            label="Login"
-            rules={[{ required: true, message: 'Please input your Login!' }]}
+            name="name"
+            label="Name"
+            rules={[{ required: true, message: 'Please input your Name!' }]}
           >
             <StyledInput />
           </StyledFormItem>
           <StyledFormItem
-            name="name"
-            label="Name"
-            rules={[{ required: true, message: 'Please input your Name!' }]}
+            name="login"
+            label="Login"
+            rules={[{ required: true, message: 'Please input your Login!' }]}
           >
             <StyledInput />
           </StyledFormItem>
@@ -76,7 +93,7 @@ const SignUp: FC = () => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={status === 'loading'}>
               {t('sign_up')}
             </Button>
           </StyledButtonCont>

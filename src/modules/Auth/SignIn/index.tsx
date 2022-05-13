@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
-import { Button, Footer, Header } from 'components';
-
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form } from 'antd';
-import { useAppSelector } from 'hooks';
+import { signIn } from 'store/reducers/authSlice';
+import { Button, Footer } from 'components';
 import {
   StyledButtonCont,
   StyledForm,
@@ -15,24 +15,31 @@ import {
   StyledPassInput,
 } from '../styled';
 
-type SignInProps = {
-  handleSignIn: () => void;
-};
-export type ISignIn = {
+type FormValues = {
   login: string;
   password: string;
 };
 
-const SignIn: FC<SignInProps> = ({ handleSignIn }) => {
-  const { token } = useAppSelector((state) => state.auth);
-
+const SignIn: FC = () => {
+  const { token, status } = useAppSelector((state) => state.auth);
   const { t } = useTranslations('main');
+  const dispatch = useAppDispatch();
 
-  const onFinish = (values: ISignIn) => {
-    console.log('Success:', values);
-    handleSignIn();
+  const handleSubmit = useCallback(
+    (values: FormValues) => {
+      const formValues = {
+        login: values.login,
+        password: values.password,
+      };
+      dispatch(signIn(formValues));
+    },
+    [dispatch],
+  );
+
+  const handleSubmitFailed = (errorInfo: unknown) => {
+    // TODO: handle form using react-hook-form
+    console.log('Failed:', errorInfo);
   };
-  const handleLogOut = () => {};
 
   if (token) {
     return <Navigate to="/" replace />;
@@ -40,12 +47,12 @@ const SignIn: FC<SignInProps> = ({ handleSignIn }) => {
 
   return (
     <>
-      <Header handleLogOut={handleLogOut} />
       <StyledForm>
         <StyledHeadingWord>{t('sign_in')}</StyledHeadingWord>
         <Form
-          onFinish={onFinish}
           name="basic"
+          onFinish={handleSubmit}
+          onFinishFailed={handleSubmitFailed}
           labelCol={{
             span: 8,
           }}
@@ -77,7 +84,7 @@ const SignIn: FC<SignInProps> = ({ handleSignIn }) => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={status === 'loading'}>
               {t('sign_in')}
             </Button>
           </StyledButtonCont>

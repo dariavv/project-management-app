@@ -1,38 +1,31 @@
-import { FC, useCallback, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'hooks';
-import i18n from 'locales/i18n';
-import { setLanguage } from 'store/reducers/exampleSlice';
-import { useTranslations } from 'hooks/useTranslations';
-import { EN, RU } from 'constants/languages';
-import { Col, Row, Switch } from 'antd';
-import { Button } from 'components';
+import { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ButtonsContainer } from './styled';
+import i18n from 'locales/i18n';
+import { Col, Row, Select } from 'antd';
+import { Button } from 'components';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { useTranslations } from 'hooks/useTranslations';
+import { logOut } from 'store/reducers/authSlice';
+import { EN, RU } from 'constants/languages';
+import { getFromStorage, setToStorage } from 'utils/localStorage';
 import appLogo from 'assets/images/logo_app.png';
 import * as Styled from './styled';
 
-type HeaderProps = {
-  handleLogOut: () => void;
-};
-
-// TODO: save language to local storage, remove local state
-export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const { language } = useAppSelector((state) => state.example);
-  const dispatch = useAppDispatch();
+export const Header: FC = () => {
   const { t } = useTranslations('main');
+  const { token } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const language = getFromStorage('language') || EN;
 
-  const handleChange = useCallback(() => {
-    setIsChecked(!isChecked);
-    if (isChecked) {
-      dispatch(setLanguage(EN));
-      i18n.changeLanguage(EN);
-    } else {
-      dispatch(setLanguage(RU));
-      i18n.changeLanguage(RU);
-    }
-  }, [dispatch, isChecked]);
+  const handleChange = (value: string) => {
+    setToStorage('language', value);
+    i18n.changeLanguage(value);
+  };
+
+  const handleLogOut = useCallback(() => {
+    dispatch(logOut());
+  }, [dispatch]);
 
   return (
     <Styled.Header>
@@ -44,33 +37,30 @@ export const Header: FC<HeaderProps> = ({ handleLogOut }) => {
           <Col span={12}>LOGO</Col>
         </Styled.Logo>
       </Row>
-      <div>
-        <Button type="primary" m="0 10px 0 0">
-          {t('create')}
-        </Button>
-        <Switch
-          id="language"
-          checked={isChecked}
-          checkedChildren={language}
-          unCheckedChildren={language}
-          onChange={handleChange}
-        />
-      </div>
-      <ButtonsContainer>
-        <div>
+      <Select defaultValue={language} style={{ width: 70 }} onChange={handleChange}>
+        <Select.Option value={EN}>{EN.toUpperCase()}</Select.Option>
+        <Select.Option value={RU}>{RU.toUpperCase()}</Select.Option>
+      </Select>
+      {!token && (
+        <Styled.ButtonsContainer>
           <Button type="primary" m="0 10px 0 0" onClick={() => navigate('/signin')}>
             {t('sign_in')}
           </Button>
           <Button type="primary" m="0 20px 0 0" onClick={() => navigate('/signup')}>
             {t('sign_up')}
           </Button>
-        </div>
-        <div>
+        </Styled.ButtonsContainer>
+      )}
+      {token && (
+        <Styled.ButtonsContainer>
+          <Button type="primary" m="10px" bgc="red">
+            {t('create_new_board')}
+          </Button>
           <Button type="primary" onClick={handleLogOut}>
             {t('log_out')}
           </Button>
-        </div>
-      </ButtonsContainer>
+        </Styled.ButtonsContainer>
+      )}
     </Styled.Header>
   );
 };
