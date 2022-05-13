@@ -5,27 +5,23 @@ import { Col, Row, Select } from 'antd';
 import { Button } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
-import { setLanguage } from 'store/reducers/languageSlice';
 import { logOut } from 'store/reducers/authSlice';
 import { EN, RU } from 'constants/languages';
+import { getFromStorage, setToStorage } from 'utils/localStorage';
 import appLogo from 'assets/images/logo_app.png';
 import * as Styled from './styled';
 
-// TODO: save language to local storage, remove local state
 export const Header: FC = () => {
-  const { language } = useAppSelector((state) => state.language);
+  const { t } = useTranslations('main');
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  const { t } = useTranslations('main');
   const navigate = useNavigate();
+  const language = getFromStorage('language') || EN;
 
-  const handleChange = useCallback(
-    (value: string) => {
-      dispatch(setLanguage(value));
-      i18n.changeLanguage(value);
-    },
-    [dispatch],
-  );
+  const handleChange = (value: string) => {
+    setToStorage('language', value);
+    i18n.changeLanguage(value);
+  };
 
   const handleLogOut = useCallback(() => {
     dispatch(logOut());
