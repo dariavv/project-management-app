@@ -1,11 +1,11 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import i18n from 'locales/i18n';
-import { Col, Row, Switch } from 'antd';
+import { Col, Row, Select } from 'antd';
 import { Button } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
-import { setLanguage } from 'store/reducers/exampleSlice';
+import { setLanguage } from 'store/reducers/languageSlice';
 import { logOut } from 'store/reducers/authSlice';
 import { EN, RU } from 'constants/languages';
 import appLogo from 'assets/images/logo_app.png';
@@ -13,23 +13,19 @@ import * as Styled from './styled';
 
 // TODO: save language to local storage, remove local state
 export const Header: FC = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const { language } = useAppSelector((state) => state.example);
+  const { language } = useAppSelector((state) => state.language);
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const { t } = useTranslations('main');
   const navigate = useNavigate();
 
-  const handleChange = useCallback(() => {
-    setIsChecked(!isChecked);
-    if (isChecked) {
-      dispatch(setLanguage(EN));
-      i18n.changeLanguage(EN);
-    } else {
-      dispatch(setLanguage(RU));
-      i18n.changeLanguage(RU);
-    }
-  }, [dispatch, isChecked]);
+  const handleChange = useCallback(
+    (value: string) => {
+      dispatch(setLanguage(value));
+      i18n.changeLanguage(value);
+    },
+    [dispatch],
+  );
 
   const handleLogOut = useCallback(() => {
     dispatch(logOut());
@@ -45,18 +41,10 @@ export const Header: FC = () => {
           <Col span={12}>LOGO</Col>
         </Styled.Logo>
       </Row>
-      <div>
-        <Button type="primary" m="0 10px 0 0">
-          {t('create_new_board')}
-        </Button>
-        <Switch
-          id="language"
-          checked={isChecked}
-          checkedChildren={language}
-          unCheckedChildren={language}
-          onChange={handleChange}
-        />
-      </div>
+      <Select defaultValue={language} style={{ width: 70 }} onChange={handleChange}>
+        <Select.Option value={EN}>{EN.toUpperCase()}</Select.Option>
+        <Select.Option value={RU}>{RU.toUpperCase()}</Select.Option>
+      </Select>
       {!token && (
         <Styled.ButtonsContainer>
           <Button type="primary" m="0 10px 0 0" onClick={() => navigate('/signin')}>
@@ -68,9 +56,14 @@ export const Header: FC = () => {
         </Styled.ButtonsContainer>
       )}
       {token && (
-        <Button type="primary" onClick={handleLogOut}>
-          {t('log_out')}
-        </Button>
+        <Styled.ButtonsContainer>
+          <Button type="primary" m="10px" bgc="red">
+            {t('create_new_board')}
+          </Button>
+          <Button type="primary" onClick={handleLogOut}>
+            {t('log_out')}
+          </Button>
+        </Styled.ButtonsContainer>
       )}
     </Styled.Header>
   );

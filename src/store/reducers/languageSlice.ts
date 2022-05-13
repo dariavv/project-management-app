@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface ExampleState {
+interface LanguageState {
   language: 'en' | 'ru';
 }
 
-const initialState: ExampleState = {
+const initialState: LanguageState = {
   language: 'en',
 };
 
-const exampleSlice = createSlice({
+const languageSlice = createSlice({
   name: 'language',
   initialState,
   reducers: {
@@ -18,7 +18,7 @@ const exampleSlice = createSlice({
   },
 });
 
-const { reducer, actions } = exampleSlice;
+const { reducer, actions } = languageSlice;
 
 export const { setLanguage } = actions;
-export const exampleReducer = reducer;
+export const languageReducer = reducer;
