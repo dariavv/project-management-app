@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Provider } from 'react-redux';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { exampleReducer } from './reducers/exampleSlice';
 import { authReducer } from './reducers/authSlice';
 
 type AppStoreProps = {
@@ -10,7 +9,6 @@ type AppStoreProps = {
 
 export const store = configureStore({
   reducer: {
-    example: exampleReducer,
     auth: authReducer,
   },
 });
