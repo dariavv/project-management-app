@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
@@ -15,7 +15,6 @@ type FormValues = {
 const SignUp = () => {
   const { t } = useTranslations('main');
   const { token, status } = useAppSelector((state) => state.auth);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleSubmit = useCallback(
@@ -103,9 +102,6 @@ const SignUp = () => {
           }}
         >
           <Link to="/signin">{t('sign_up_account')}</Link>
-          <Button type="primary" htmlType="button" onClick={() => navigate('/welcome')}>
-            {t('cancel')}
-          </Button>
           <Button type="primary" htmlType="submit" loading={status === 'loading'}>
             {t('sign_up')}
           </Button>

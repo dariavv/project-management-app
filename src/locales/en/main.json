@@ -1,11 +1,10 @@
 {
-  "title": "Project Management App",
   "sign_in": "Sign in",
   "sign_up": "Sign up",
   "log_out": "Log out",
   "sign_up_account": "Already have an account? Sign in",
   "sign_in_account": "Sign up for an account",
-  "go_to_main": "Go to Main page",
+  "go_to_boards": "Go to your boards",
   "not_found": "page not found",
   "create_new_board": "Create new board",
   "cancel": "Cancel"

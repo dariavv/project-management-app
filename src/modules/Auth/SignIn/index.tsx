@@ -1,5 +1,5 @@
 import { FC, useCallback } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Button } from 'components';
@@ -14,7 +14,6 @@ type FormValues = {
 const SignIn: FC = () => {
   const { token, status } = useAppSelector((state) => state.auth);
   const { t } = useTranslations('main');
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleSubmit = useCallback(
@@ -88,9 +87,6 @@ const SignIn: FC = () => {
           }}
         >
           <Link to="/signup">{t('sign_in_account')}</Link>
-          <Button type="primary" htmlType="button" onClick={() => navigate('/welcome')}>
-            {t('cancel')}
-          </Button>
           <Button type="primary" htmlType="submit" loading={status === 'loading'}>
             {t('sign_in')}
           </Button>

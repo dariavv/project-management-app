@@ -1,5 +1,5 @@
 import { FC, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { Button, Footer } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
@@ -21,7 +21,9 @@ const Welcome: FC = () => {
       <Styled.Container>
         {token && (
           <Styled.ButtonsContainer>
-            <Link to="/">{t('go_to_main')}</Link>
+            <Button type="primary" onClick={() => navigate('/')}>
+              {t('go_to_boards')}
+            </Button>
             <Button type="primary" onClick={handleLogOut}>
               {t('log_out')}
             </Button>
