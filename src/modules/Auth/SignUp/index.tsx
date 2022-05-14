@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { useAppDispatch, useAppSelector } from 'hooks';
@@ -26,7 +26,7 @@ type FormValues = {
   password: string;
 };
 
-const SignUp = () => {
+const SignUp: FC = () => {
   const { t } = useTranslations('main');
   const { token, status } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -65,16 +65,16 @@ const SignUp = () => {
           autoComplete="off"
         >
           <StyledFormItem
-            name="login"
-            label="Login"
-            rules={[{ required: true, message: 'Please input your Login!' }]}
+            name="name"
+            label="Name"
+            rules={[{ required: true, message: 'Please input your Name!' }]}
           >
             <Input />
           </StyledFormItem>
           <StyledFormItem
-            name="name"
-            label="Name"
-            rules={[{ required: true, message: 'Please input your Name!' }]}
+            name="login"
+            label="Login"
+            rules={[{ required: true, message: 'Please input your Login!' }]}
           >
             <Input />
           </StyledFormItem>

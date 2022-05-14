@@ -19,10 +19,6 @@ type FormValues = {
   login: string;
   password: string;
 };
-export type ISignIn = {
-  login: string;
-  password: string;
-};
 
 const SignIn: FC = () => {
   const { token, status } = useAppSelector((state) => state.auth);
