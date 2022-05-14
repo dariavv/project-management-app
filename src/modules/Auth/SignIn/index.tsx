@@ -1,18 +1,17 @@
 import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
-import { Button, Footer, Header } from 'components';
+import { Footer } from 'components';
 
-import { Form } from 'antd';
+import { Form, Input } from 'antd';
 import { useAppSelector } from 'hooks';
 import {
   StyledButtonCont,
   StyledForm,
   StyledFormItem,
   StyledHeadingWord,
-  StyledInput,
   StyledLink,
-  StyledPassInput,
+  StyledButton,
 } from '../styled';
 
 type SignInProps = {
@@ -32,7 +31,6 @@ const SignIn: FC<SignInProps> = ({ handleSignIn }) => {
     console.log('Success:', values);
     handleSignIn();
   };
-  const handleLogOut = () => {};
 
   if (token) {
     return <Navigate to="/" replace />;
@@ -40,18 +38,11 @@ const SignIn: FC<SignInProps> = ({ handleSignIn }) => {
 
   return (
     <>
-      <Header handleLogOut={handleLogOut} />
       <StyledForm>
         <StyledHeadingWord>{t('sign_in')}</StyledHeadingWord>
         <Form
           onFinish={onFinish}
           name="basic"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
           initialValues={{
             remember: true,
           }}
@@ -62,24 +53,19 @@ const SignIn: FC<SignInProps> = ({ handleSignIn }) => {
             label="Login"
             rules={[{ required: true, message: 'Please input your Login!' }]}
           >
-            <StyledInput />
+            <Input />
           </StyledFormItem>
           <StyledFormItem
             name="password"
             label="Password"
             rules={[{ required: true, message: 'Please input your Password!' }]}
           >
-            <StyledPassInput />
+            <Input.Password />
           </StyledFormItem>
-          <StyledButtonCont
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
+          <StyledButtonCont>
+            <StyledButton type="primary" htmlType="submit">
               {t('sign_in')}
-            </Button>
+            </StyledButton>
           </StyledButtonCont>
           <StyledLink to="/signup">{t('sign_in_account')}</StyledLink>
         </Form>
