@@ -64,7 +64,9 @@ const boardsSlice = createSlice({
     [deleteBoard.pending.toString()]: (state) => {
       state.status = 'loading';
     },
-    [deleteBoard.fulfilled.toString()]: (state) => {
+    [deleteBoard.fulfilled.toString()]: (state, action) => {
+      const id = action.payload.id;
+      state.boards = state.boards.filter((board) => board.id !== id);
       openNotificationSuccess({ message: 'Success', description: 'Board successfully deleted' });
       state.status = 'idle';
     },

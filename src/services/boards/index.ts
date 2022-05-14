@@ -34,7 +34,7 @@ const deleteBoard = async (id: Board['id']) => {
   const response = await axios.delete<DeleteBoardResponse>(`${API_URL}boards/${id}`, {
     headers: authHeader(),
   });
-  return response.data;
+  return { data: response.data, id };
 };
 
 export const boardsService = {
