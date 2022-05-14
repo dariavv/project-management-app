@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Form } from 'antd';
+import { Form as AntForm } from 'antd';
 import { Button } from 'components';
 
-export const StyledForm = styled.section`
+export const ConteinerForm = styled.section`
   box-sizing: border-box;
   box-shadow: 0px 0px 33px 6px rgba(34, 60, 80, 0.2);
   padding: 10px;
@@ -32,7 +32,7 @@ export const StyledButton = styled(Button)`
   margin: 0 auto;
 `;
 
-export const StyledButtonCont = styled(Form.Item)`
+export const StyledButtonCont = styled(AntForm.Item)`
   margin: 0 auto;
   align-items: center;
   justify-content: space-around;
@@ -46,7 +46,7 @@ export const StyledButtonCont = styled(Form.Item)`
     max-width: 150px;
   }
 `;
-export const StyledFormItem = styled(Form.Item)`
+export const StyledFormItem = styled(AntForm.Item)`
   display: block;
   margin: 15px 20px auto;
   @media (max-width: 1000px) {
@@ -57,6 +57,6 @@ export const StyledFormItem = styled(Form.Item)`
   }
 `;
 
-export const StyledHeadingWord = styled.h2`
+export const HeadingWord = styled.h2`
   text-align: center;
 `;

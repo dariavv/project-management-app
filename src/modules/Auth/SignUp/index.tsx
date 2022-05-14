@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
 import {
   StyledButtonCont,
-  StyledForm,
+  ConteinerForm,
   StyledFormItem,
-  StyledHeadingWord,
+  HeadingWord,
   StyledLink,
   StyledButton,
 } from '../styled';
@@ -53,8 +53,8 @@ const SignUp = () => {
   }
   return (
     <>
-      <StyledForm>
-        <StyledHeadingWord>{t('sign_up')}</StyledHeadingWord>
+      <ConteinerForm>
+        <HeadingWord>{t('sign_up')}</HeadingWord>
         <Form
           onFinish={handleSubmit}
           onFinishFailed={handleSubmitFailed}
@@ -92,7 +92,7 @@ const SignUp = () => {
           </StyledButtonCont>
           <StyledLink to="/signin">{t('sign_up_account')}</StyledLink>
         </Form>
-      </StyledForm>
+      </ConteinerForm>
       <Footer />
     </>
   );

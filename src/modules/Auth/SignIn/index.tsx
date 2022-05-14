@@ -1,9 +1,9 @@
 import { Footer } from 'components';
 import {
   StyledButtonCont,
-  StyledForm,
+  ConteinerForm,
   StyledFormItem,
-  StyledHeadingWord,
+  HeadingWord,
   StyledLink,
   StyledButton,
 } from '../styled';
@@ -51,8 +51,8 @@ const SignIn: FC = () => {
 
   return (
     <>
-      <StyledForm>
-        <StyledHeadingWord>{t('sign_in')}</StyledHeadingWord>
+      <ConteinerForm>
+        <HeadingWord>{t('sign_in')}</HeadingWord>
         <Form
           onFinish={handleSubmit}
           onFinishFailed={handleSubmitFailed}
@@ -83,7 +83,7 @@ const SignIn: FC = () => {
           </StyledButtonCont>
           <StyledLink to="/signup">{t('sign_in_account')}</StyledLink>
         </Form>
-      </StyledForm>
+      </ConteinerForm>
       <Footer />
     </>
   );
