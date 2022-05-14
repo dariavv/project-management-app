@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { useCallback } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
-import { useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
 import {
   StyledButtonCont,
@@ -12,6 +12,7 @@ import {
   StyledButton,
 } from '../styled';
 import { Footer } from 'components';
+import { signUp } from 'store/reducers/authSlice';
 
 export type ISignUp = {
   name: string;
@@ -19,21 +20,44 @@ export type ISignUp = {
   password: string;
 };
 
-const SignUp: FC = () => {
-  const { token } = useAppSelector((state) => state.auth);
+type FormValues = {
+  name: string;
+  login: string;
+  password: string;
+};
+
+const SignUp = () => {
   const { t } = useTranslations('main');
+  const { token, status } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = useCallback(
+    (values: FormValues) => {
+      const formValues = {
+        name: values.name,
+        login: values.login,
+        password: values.password,
+      };
+      dispatch(signUp(formValues));
+    },
+    [dispatch],
+  );
+
+  const handleSubmitFailed = (errorInfo: unknown) => {
+    // TODO: handle form using react-hook-form
+    console.log('Failed:', errorInfo);
+  };
+
   if (token) {
     return <Navigate to="/" replace />;
   }
-  const onFinish = (values: ISignUp) => {
-    console.log('Success:', values);
-  };
   return (
     <>
       <StyledForm>
         <StyledHeadingWord>{t('sign_up')}</StyledHeadingWord>
         <Form
-          onFinish={onFinish}
+          onFinish={handleSubmit}
+          onFinishFailed={handleSubmitFailed}
           name="basic"
           initialValues={{
             remember: true,
@@ -62,7 +86,7 @@ const SignUp: FC = () => {
             <Input.Password />
           </StyledFormItem>
           <StyledButtonCont>
-            <StyledButton type="primary" htmlType="submit">
+            <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
               {t('sign_up')}
             </StyledButton>
           </StyledButtonCont>

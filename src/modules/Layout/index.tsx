@@ -3,13 +3,12 @@ import { Footer, Header } from 'components';
 
 type LayoutProps = {
   children: ReactNode;
-  handleLogOut: () => void;
 };
 
-export const Layout: FC<LayoutProps> = ({ children, handleLogOut }) => {
+export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <Header handleLogOut={handleLogOut} />
+      <Header />
       {children}
       <Footer />
     </>

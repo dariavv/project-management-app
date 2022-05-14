@@ -1,11 +1,8 @@
 import React, { Suspense } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { NotFound } from 'modules/NotFound';
 import { Loader } from 'components';
-import { useAppDispatch } from 'hooks';
-import { setToken } from 'store/reducers/authSlice';
 import { ProtectedRoute } from './ProtecterdRoute';
-import { removeFromStorage, setToStorage } from 'utils/localStorage';
 import { Layout } from 'modules/Layout';
 
 const Main = React.lazy(() => import('modules/Main'));
@@ -14,28 +11,7 @@ const Board = React.lazy(() => import('modules/Board'));
 const SignIn = React.lazy(() => import('modules/Auth/SignIn'));
 const SignUp = React.lazy(() => import('modules/Auth/SignUp'));
 
-// TODO: remove fakeAuth after implementation of authentication
-const fakeAuth = (): Promise<string> =>
-  new Promise((resolve) => {
-    setTimeout(() => resolve('2342f2f1666d131rf12'), 1000);
-  });
-
 export const AppRouter = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const handleSignIn = async () => {
-    const token = await fakeAuth();
-    setToStorage('token', token);
-    dispatch(setToken(token));
-    if (token) navigate('/');
-  };
-
-  const handleLogOut = () => {
-    removeFromStorage('token');
-    dispatch(setToken(null));
-  };
-
   return (
     <Routes>
       <Route
@@ -43,7 +19,7 @@ export const AppRouter = () => {
         element={
           <Suspense fallback={<Loader />}>
             <ProtectedRoute>
-              <Layout handleLogOut={handleLogOut}>
+              <Layout>
                 <Main />
               </Layout>
             </ProtectedRoute>
@@ -62,7 +38,7 @@ export const AppRouter = () => {
         path="/signin"
         element={
           <Suspense fallback={<Loader />}>
-            <SignIn handleSignIn={handleSignIn} />
+            <SignIn />
           </Suspense>
         }
       />
@@ -79,7 +55,7 @@ export const AppRouter = () => {
         element={
           <Suspense fallback={<Loader />}>
             <ProtectedRoute>
-              <Layout handleLogOut={handleLogOut}>
+              <Layout>
                 <Board />
               </Layout>
             </ProtectedRoute>
