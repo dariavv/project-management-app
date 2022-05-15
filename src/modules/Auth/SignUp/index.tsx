@@ -1,9 +1,18 @@
-import { useCallback } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { FC, useCallback } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
-import { Button } from 'components';
+import {
+  StyledButtonCont,
+  ConteinerForm,
+  StyledFormItem,
+  HeadingWord,
+  StyledLink,
+  StyledButton,
+  ConteinerWrapper,
+} from '../styled';
+import { Footer } from 'components';
 import { signUp } from 'store/reducers/authSlice';
 import { openNotificationError } from 'utils/notifications';
 
@@ -13,7 +22,7 @@ type FormValues = {
   password: string;
 };
 
-const SignUp = () => {
+const SignUp: FC = () => {
   const { t } = useTranslations('main');
   const { token, status } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -40,77 +49,52 @@ const SignUp = () => {
   if (token) {
     return <Navigate to="/" replace />;
   }
-
   return (
-    <div>
-      <h2>{t('sign_up')}</h2>
-      <Form
-        name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={handleSubmit}
-        onFinishFailed={handleSubmitFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="Name"
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your name!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Login"
-          name="login"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your login!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Link to="/signin">{t('sign_up_account')}</Link>
-          <Button type="primary" htmlType="submit" loading={status === 'loading'}>
-            {t('sign_up')}
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
+    <>
+      <ConteinerWrapper>
+        <ConteinerForm>
+          <HeadingWord>{t('sign_up')}</HeadingWord>
+          <Form
+            onFinish={handleSubmit}
+            onFinishFailed={handleSubmitFailed}
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            autoComplete="off"
+          >
+            <StyledFormItem
+              name="name"
+              label="Name"
+              rules={[{ required: true, message: 'Please input your Name!' }]}
+            >
+              <Input />
+            </StyledFormItem>
+            <StyledFormItem
+              name="login"
+              label="Login"
+              rules={[{ required: true, message: 'Please input your Login!' }]}
+            >
+              <Input />
+            </StyledFormItem>
+            <StyledFormItem
+              name="password"
+              label="Password"
+              rules={[{ required: true, message: 'Please input your Password!' }]}
+            >
+              <Input.Password />
+            </StyledFormItem>
+            <StyledButtonCont>
+              <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
+                {t('sign_up')}
+              </StyledButton>
+            </StyledButtonCont>
+            <StyledLink to="/signin">{t('sign_up_account')}</StyledLink>
+          </Form>
+        </ConteinerForm>
+      </ConteinerWrapper>
+      <Footer />
+    </>
   );
 };
 
