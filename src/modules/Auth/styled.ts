@@ -3,15 +3,22 @@ import styled from 'styled-components';
 import { Form as AntForm } from 'antd';
 import { Button } from 'components';
 
+export const ConteinerWrapper = styled.section`
+  width: 100%;
+  padding-top: 5%;
+  padding-bottom: 2%;
+  overflow: auto @media (max-width: 1000px) {
+    padding-top: 2%;
+  }
+`;
+
 export const ConteinerForm = styled.section`
   box-sizing: border-box;
   box-shadow: 0px 0px 33px 6px rgba(34, 60, 80, 0.2);
   padding: 10px;
   width: 40%;
   max-width: 700px;
-  margin: 2% auto;
-  margin-top: 10%;
-  margin-bottom: 10%;
+  margin: 0 auto;
   border-radius: 5px;
   overflow: auto @media (max-width: 1000px) {
     margin-top: 5%;

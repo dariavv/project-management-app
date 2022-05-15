@@ -10,15 +10,10 @@ import {
   HeadingWord,
   StyledLink,
   StyledButton,
+  ConteinerWrapper,
 } from '../styled';
 import { Footer } from 'components';
 import { signUp } from 'store/reducers/authSlice';
-
-export type ISignUp = {
-  name: string;
-  login: string;
-  password: string;
-};
 
 type FormValues = {
   name: string;
@@ -53,46 +48,48 @@ const SignUp: FC = () => {
   }
   return (
     <>
-      <ConteinerForm>
-        <HeadingWord>{t('sign_up')}</HeadingWord>
-        <Form
-          onFinish={handleSubmit}
-          onFinishFailed={handleSubmitFailed}
-          name="basic"
-          initialValues={{
-            remember: true,
-          }}
-          autoComplete="off"
-        >
-          <StyledFormItem
-            name="name"
-            label="Name"
-            rules={[{ required: true, message: 'Please input your Name!' }]}
+      <ConteinerWrapper>
+        <ConteinerForm>
+          <HeadingWord>{t('sign_up')}</HeadingWord>
+          <Form
+            onFinish={handleSubmit}
+            onFinishFailed={handleSubmitFailed}
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            autoComplete="off"
           >
-            <Input />
-          </StyledFormItem>
-          <StyledFormItem
-            name="login"
-            label="Login"
-            rules={[{ required: true, message: 'Please input your Login!' }]}
-          >
-            <Input />
-          </StyledFormItem>
-          <StyledFormItem
-            name="password"
-            label="Password"
-            rules={[{ required: true, message: 'Please input your Password!' }]}
-          >
-            <Input.Password />
-          </StyledFormItem>
-          <StyledButtonCont>
-            <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
-              {t('sign_up')}
-            </StyledButton>
-          </StyledButtonCont>
-          <StyledLink to="/signin">{t('sign_up_account')}</StyledLink>
-        </Form>
-      </ConteinerForm>
+            <StyledFormItem
+              name="name"
+              label="Name"
+              rules={[{ required: true, message: 'Please input your Name!' }]}
+            >
+              <Input />
+            </StyledFormItem>
+            <StyledFormItem
+              name="login"
+              label="Login"
+              rules={[{ required: true, message: 'Please input your Login!' }]}
+            >
+              <Input />
+            </StyledFormItem>
+            <StyledFormItem
+              name="password"
+              label="Password"
+              rules={[{ required: true, message: 'Please input your Password!' }]}
+            >
+              <Input.Password />
+            </StyledFormItem>
+            <StyledButtonCont>
+              <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
+                {t('sign_up')}
+              </StyledButton>
+            </StyledButtonCont>
+            <StyledLink to="/signin">{t('sign_up_account')}</StyledLink>
+          </Form>
+        </ConteinerForm>
+      </ConteinerWrapper>
       <Footer />
     </>
   );
