@@ -6,8 +6,10 @@ import { authHeader } from 'services/auth/authHeader';
 interface BoardsResponse {
   response: Board[];
 }
-
 interface CreateBoardResponse {
+  response: Board;
+}
+interface UpdateBoardResponse {
   response: Board;
 }
 interface DeleteBoardResponse {
@@ -33,7 +35,7 @@ const createBoard = async (title: Board['title']) => {
 };
 
 const updateBoard = async ({ id, title }: UpdateBoardParams) => {
-  const response = await axios.put<BoardsResponse>(
+  const response = await axios.put<UpdateBoardResponse>(
     `${API_URL}boards/${id}`,
     { title },
     {
