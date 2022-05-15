@@ -1,11 +1,12 @@
 import { PRIMARY } from './../../constants/colors';
 import styled from 'styled-components';
-import { BLUE, WHITE, GREY } from 'constants/colors';
+import { BLUE, WHITE, GREY, SHADOW, DARK } from 'constants/colors';
 
 export const Board = styled.div`
   padding: 40px;
   width: 100%;
   display: flex;
+  align-items: center;
   overflow-x: scroll;
   height: 76vh;
   background-color: ${BLUE};
@@ -27,6 +28,7 @@ export const BoardColumns = styled.div`
   min-width: 300px;
   height: calc(100% - 10px);
   display: flex;
+  align-items: center;
   flex-direction: column;
   background-color: ${WHITE};
   margin: 0 20px 0 0;
@@ -42,13 +44,13 @@ export const HeaderBoard = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: right;
-  padding: 20px;
-  border-radius: 15px 15px 0 0;
-  background-color: ${WHITE};
+  padding: 15px;
+  border-radius: 5px 5px 0 0;
+  background-color: ${DARK};
   z-index: 1;
   position: sticky;
-  box-shadow: 0 1px 10px rgb(54 132 203 / 30%);
-  color: ${PRIMARY};
+  box-shadow: 0 1px 10px ${SHADOW};
+  color: ${WHITE};
   font-weight: 700;
   text-align: justify;
 `;
