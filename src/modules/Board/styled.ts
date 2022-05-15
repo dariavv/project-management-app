@@ -53,10 +53,9 @@ export const BoardColumns = styled.div`
 export const HeaderBoard = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: right;
-  padding: 7px 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 12px;
   background-color: ${LIGHTGREY};
   border-radius: 5px 5px 0 0;
   z-index: 3;
@@ -81,8 +80,11 @@ export const IconContainer = styled.div`
 export const AddBottom = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100px;
   border: 2px dashed ${GREY};
   border-radius: 10px;
   padding: 75px 150px;
+  color: ${GREY};
+  font-weight: 700;
 `;
