@@ -1,4 +1,4 @@
-import { PRIMARY, WHITE } from 'constants/colors';
+import { PRIMARY, WHITE, SHADOW } from 'constants/colors';
 import styled from 'styled-components';
 
 export const Header = styled.div`
@@ -11,7 +11,7 @@ export const Header = styled.div`
   background-color: ${WHITE};
   z-index: 1;
   position: sticky;
-  box-shadow: 0 0px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 10px ${SHADOW};
 `;
 
 export const Logo = styled.div`
