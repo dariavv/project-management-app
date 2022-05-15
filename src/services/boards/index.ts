@@ -7,6 +7,9 @@ interface BoardsResponse {
   response: Board[];
 }
 
+interface CreateBoardResponse {
+  response: Board;
+}
 interface DeleteBoardResponse {
   response: string;
 }
@@ -17,14 +20,18 @@ const getAllBoards = async () => {
 };
 
 const createBoard = async (title: Board['title']) => {
-  const response = await axios.post<BoardsResponse>(`${API_URL}boards`, title, {
-    headers: authHeader(),
-  });
+  const response = await axios.post<CreateBoardResponse>(
+    `${API_URL}boards`,
+    { title },
+    {
+      headers: authHeader(),
+    },
+  );
   return response.data;
 };
 
-const updateBoard = async (id: Board['id']) => {
-  const response = await axios.put<BoardsResponse>(`${API_URL}boards/${id}`, {
+const updateBoard = async (id: Board['id'], newTitle: Board['title']) => {
+  const response = await axios.put<BoardsResponse>(`${API_URL}boards/${id}`, newTitle, {
     headers: authHeader(),
   });
   return response.data;

@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
 import { Button } from 'components';
 import { signUp } from 'store/reducers/authSlice';
+import { openNotificationError } from 'utils/notifications';
 
 type FormValues = {
   name: string;
@@ -30,8 +31,10 @@ const SignUp = () => {
   );
 
   const handleSubmitFailed = (errorInfo: unknown) => {
-    // TODO: handle form using react-hook-form
-    console.log('Failed:', errorInfo);
+    openNotificationError({
+      message: 'Error',
+      description: `${errorInfo}`,
+    });
   };
 
   if (token) {

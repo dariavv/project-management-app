@@ -26,6 +26,22 @@ export const getAllBoards = createAsyncThunk('boards/getAllBoards', async (_, th
   }
 });
 
+export const createBoard = createAsyncThunk(
+  'boards/createBoard',
+  async (title: Board['title'], thunkAPI) => {
+    try {
+      const response = await boardsService.createBoard(title);
+      return response;
+    } catch (error) {
+      if (request.isAxiosError(error) && error.response) {
+        const message =
+          (error.response && error.response.data) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+      }
+    }
+  },
+);
+
 export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',
   async (id: Board['id'], thunkAPI) => {
@@ -55,6 +71,21 @@ const boardsSlice = createSlice({
       state.status = 'idle';
     },
     [getAllBoards.rejected.toString()]: (state, action) => {
+      state.status = 'failed';
+      openNotificationError({
+        message: 'Error',
+        description: action.payload.message,
+      });
+    },
+    [createBoard.pending.toString()]: (state) => {
+      state.status = 'loading';
+    },
+    [createBoard.fulfilled.toString()]: (state, action) => {
+      state.boards = [...state.boards, action.payload];
+      openNotificationSuccess({ message: 'Success', description: 'Board successfully created' });
+      state.status = 'idle';
+    },
+    [createBoard.rejected.toString()]: (state, action) => {
       state.status = 'failed';
       openNotificationError({
         message: 'Error',
