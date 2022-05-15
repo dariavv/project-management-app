@@ -21,7 +21,6 @@ export const NotFoundTopInner = styled.section`
 `;
 export const NFHeading = styled.h1`
   color: ${GREY};
-  font-family: varela round;
   font-size: 10.5vh;
   line-height: 10.5vh;
   font-weight: 400;
@@ -29,7 +28,6 @@ export const NFHeading = styled.h1`
 `;
 export const NFText = styled.p`
   color: ${GREY};
-  font-family: varela round;
   font-size: 4.71vh;
   line-height: 7.35vh;
   font-weight: 400;
@@ -39,4 +37,18 @@ export const StyledLink = styled(Link)`
   color: ${PRIMARY};
   font-size: 3.71vh;
   line-height: 4.35vh;
+`;
+export const NotFoundImg = styled.div`
+  background-image: url(/NotFound.jpg);
+  background-position: center;
+  background-size: auto 90%;
+  background-repeat: no-repeat;
+  width: 90%;
+  height: 90%;
+  margin: 0 auto;
+`;
+export const ConteinerNotFoundImg = styled.div`
+  width: 100%;
+  height: 35vh;
+  margin: 0 auto;
 `;

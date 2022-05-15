@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import {
   ContainerNotFound,
@@ -8,6 +7,8 @@ import {
   NFHeading,
   NFText,
   StyledLink,
+  ConteinerNotFoundImg,
+  NotFoundImg,
 } from './styled';
 import { Footer } from 'components';
 
@@ -24,6 +25,9 @@ export const NotFound: FC = () => {
           </NotFoundTopInner>
           <StyledLink to="/">{t('go_to_main')}</StyledLink>
         </NotFoundTop>
+        <ConteinerNotFoundImg>
+          <NotFoundImg />
+        </ConteinerNotFoundImg>
       </ContainerNotFound>
       <Footer />
     </>
