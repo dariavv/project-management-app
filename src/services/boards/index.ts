@@ -14,6 +14,8 @@ interface DeleteBoardResponse {
   response: string;
 }
 
+export type UpdateBoardParams = Pick<Board, 'id' | 'title'>;
+
 const getAllBoards = async () => {
   const response = await axios.get<BoardsResponse>(`${API_URL}boards`, { headers: authHeader() });
   return response.data;
@@ -30,10 +32,14 @@ const createBoard = async (title: Board['title']) => {
   return response.data;
 };
 
-const updateBoard = async (id: Board['id'], newTitle: Board['title']) => {
-  const response = await axios.put<BoardsResponse>(`${API_URL}boards/${id}`, newTitle, {
-    headers: authHeader(),
-  });
+const updateBoard = async ({ id, title }: UpdateBoardParams) => {
+  const response = await axios.put<BoardsResponse>(
+    `${API_URL}boards/${id}`,
+    { title },
+    {
+      headers: authHeader(),
+    },
+  );
   return response.data;
 };
 

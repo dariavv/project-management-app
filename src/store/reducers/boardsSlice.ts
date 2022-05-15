@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import request from 'axios';
-import { boardsService } from 'services/boards';
+import { boardsService, UpdateBoardParams } from 'services/boards';
 import { Board } from 'types';
 import { openNotificationError, openNotificationSuccess } from 'utils/notifications';
 
@@ -31,6 +31,22 @@ export const createBoard = createAsyncThunk(
   async (title: Board['title'], thunkAPI) => {
     try {
       const response = await boardsService.createBoard(title);
+      return response;
+    } catch (error) {
+      if (request.isAxiosError(error) && error.response) {
+        const message =
+          (error.response && error.response.data) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+      }
+    }
+  },
+);
+
+export const updateBoard = createAsyncThunk(
+  'boards/updateBoard',
+  async ({ id, title }: UpdateBoardParams, thunkAPI) => {
+    try {
+      const response = await boardsService.updateBoard({ id, title });
       return response;
     } catch (error) {
       if (request.isAxiosError(error) && error.response) {
@@ -86,6 +102,23 @@ const boardsSlice = createSlice({
       state.status = 'idle';
     },
     [createBoard.rejected.toString()]: (state, action) => {
+      state.status = 'failed';
+      openNotificationError({
+        message: 'Error',
+        description: action.payload.message,
+      });
+    },
+    [updateBoard.pending.toString()]: (state) => {
+      state.status = 'loading';
+    },
+    [updateBoard.fulfilled.toString()]: (state, action) => {
+      // TODO: rewrite logic
+      const id = action.payload.id;
+      state.boards = [...state.boards.filter((board) => board.id !== id), action.payload];
+      openNotificationSuccess({ message: 'Success', description: 'Board successfully updated' });
+      state.status = 'idle';
+    },
+    [updateBoard.rejected.toString()]: (state, action) => {
       state.status = 'failed';
       openNotificationError({
         message: 'Error',
