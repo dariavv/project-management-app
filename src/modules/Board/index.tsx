@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import Button from 'antd/lib/button';
 import { TaskItem } from 'components/Task';
 import * as Styled from './styled';
 
@@ -23,15 +22,15 @@ const Board: FC = () => (
             </Styled.IconContainer>
           </div>
         </Styled.HeaderBoard>
-        {new Array(40).fill(null).map((_, index) => (
+        {new Array(10).fill(null).map((_, index) => (
           <TaskItem id={index} title={`Task`} description={'Task description'} key={`${index}c`} />
         ))}
       </Styled.BoardColumns>
     ))}
 
-    <Button block>
+    <Styled.AddBottom>
       <PlusOutlined style={{ padding: '0 15px 0 0' }} /> ADD
-    </Button>
+    </Styled.AddBottom>
   </Styled.Board>
 );
 

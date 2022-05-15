@@ -1,14 +1,15 @@
+import { LIGHTGREY } from './../../constants/colors';
 import styled from 'styled-components';
-import { BLUE, WHITE, GREY } from 'constants/colors';
+import { WHITE, GREY } from 'constants/colors';
 
 export const Board = styled.div`
   padding: 25px;
   width: 100%;
   display: flex;
-  align-items: center;
-  overflow-x: scroll;
-  height: 80vh;
-  background-color: ${BLUE};
+  align-items: flex-start;
+  overflow-x: auto;
+  height: calc(100vh - 185px);
+  background-color: ${WHITE};
   &::-webkit-scrollbar {
     height: 7px;
   }
@@ -29,7 +30,7 @@ export const BoardColumns = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: ${WHITE};
+  background-color: ${LIGHTGREY};
   margin: 0 20px 0 0;
   height: calc(100% - 10px);
   border-radius: 10px;
@@ -55,8 +56,8 @@ export const HeaderBoard = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: right;
-  padding: 15px;
-  background-color: ${WHITE};
+  padding: 7px 10px;
+  background-color: ${LIGHTGREY};
   border-radius: 5px 5px 0 0;
   z-index: 3;
   position: sticky;
@@ -74,5 +75,14 @@ export const IconContainer = styled.div`
   padding: 0 0 0 15px;
   display: flex;
   justify-content: flex-end;
-  wight: 100%;
+  widht: 100%;
+`;
+
+export const AddBottom = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  border: 2px dashed ${GREY};
+  border-radius: 10px;
+  padding: 75px 150px;
 `;

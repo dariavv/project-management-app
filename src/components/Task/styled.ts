@@ -1,4 +1,4 @@
-import { GREY, DARK } from 'constants/colors';
+import { GREY, DARK, WHITE } from 'constants/colors';
 import styled from 'styled-components';
 
 export const ContainerTask = styled.div`
@@ -6,7 +6,7 @@ export const ContainerTask = styled.div`
   margin: 5px 0;
   border: 1px solid ${GREY};
   border-radius: 10px;
-  box-shadow: 0 5px 5px rgb(54 132 203 / 10%);
+  background-color: ${WHITE};
 `;
 
 export const ContainerIcon = styled.div`
@@ -19,7 +19,7 @@ export const HeaderTask = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 7px;
   border-radius: 5px 5px 0 0;
   border-color: ${DARK};
   z-index: 1;
@@ -28,8 +28,9 @@ export const HeaderTask = styled.div`
   text-align: justify;
 `;
 export const TaskContainer = styled.div`
+  display: flex;
   width: 100%;
-  padding: 10px;
+  padding: 7px;
 `;
 
 export const IconContainer = styled.div`

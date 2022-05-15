@@ -51,8 +51,7 @@ export const AppRouter = () => {
         }
       />
       <Route
-        // path="/board/:id" !!!!!!!!!!!!!!!!!!!!!!!
-        path="/board"
+        path="/board/:id"
         element={
           <Suspense fallback={<Loader />}>
             <ProtectedRoute>
