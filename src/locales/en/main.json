@@ -7,5 +7,6 @@
   "go_to_boards": "Go to your boards",
   "not_found": "Page not found",
   "create_new_board": "Create new board",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "submit": "Submit"
 }
