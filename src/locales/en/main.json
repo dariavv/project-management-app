@@ -7,5 +7,10 @@
   "go_to_boards": "Go to your boards",
   "not_found": "Page not found",
   "create_new_board": "Create new board",
-  "cancel": "Cancel"
+  "edit_board": "Edit board",
+  "cancel": "Cancel",
+  "submit": "Submit",
+  "confirmation_modal": "Confirmation Modal",
+  "confirmation_message": "Are you sure you want to DELETE?",
+  "title": "Title"
 }
