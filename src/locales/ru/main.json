@@ -7,5 +7,10 @@
   "go_to_boards": "Перейти к доскам",
   "not_found": "Страница не найдена",
   "create_new_board": "Создать доску",
-  "cancel": "Отменить"
+  "edit_board": "Редактировать доску",
+  "cancel": "Отменить",
+  "submit": "Отправить",
+  "confirmation_modal": "Подтверждение",
+  "confirmation_message": "Вы уверены, что хотите УДАЛИТЬ?",
+  "title": "Заголовок"
 }
