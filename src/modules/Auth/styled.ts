@@ -26,7 +26,7 @@ export const ConteinerForm = styled.section`
   }
   @media (max-width: 640px) {
     max-width: 400px;
-    min-width: 250px;
+    min-width: 300px;
   }
 `;
 export const StyledLink = styled(Link)`
