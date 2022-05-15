@@ -9,5 +9,8 @@
   "create_new_board": "Создать доску",
   "edit_board": "Редактировать доску",
   "cancel": "Отменить",
-  "submit": "Отправить"
+  "submit": "Отправить",
+  "confirmation_modal": "Подтверждение",
+  "confirmation_message": "Вы уверены, что хотите УДАЛИТЬ?",
+  "title": "Заголовок"
 }

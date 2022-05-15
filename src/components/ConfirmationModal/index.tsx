@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Modal } from 'antd';
+import { useTranslations } from 'hooks/useTranslations';
 
 type ModalProps = {
   isOpen: boolean;
@@ -8,15 +9,16 @@ type ModalProps = {
 };
 
 export const ConfirmationModal: FC<ModalProps> = ({ isOpen, onClose, handleSubmit }) => {
+  const { t } = useTranslations('main');
   return (
     <Modal
-      title="Confirmation Modal"
+      title={t('confirmation_modal')}
       visible={isOpen}
       onOk={handleSubmit}
       onCancel={onClose}
       destroyOnClose
     >
-      <p>Are you sure you want to DELETE?</p>
+      <p>{t('confirmation_message')}</p>
     </Modal>
   );
 };

@@ -51,7 +51,7 @@ export const CreateBoardForm: FC<CreateBoardFormProps> = ({ isOpen, onClose }) =
         onFinishFailed={handleSubmitFailed}
         autoComplete="off"
       >
-        <Form.Item label="Title" name="title" rules={[{}]}>
+        <Form.Item label={t('title')} name="title" rules={[{}]}>
           <Input onChange={handleChange} />
         </Form.Item>
         <Form.Item
