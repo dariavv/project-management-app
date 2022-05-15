@@ -14,7 +14,7 @@ import * as Styled from './styled';
 
 export const Header: FC = () => {
   const { t } = useTranslations('main');
-  const [isOpen, setIsOpen] = useState(false); // TODO: move modal state to Redux
+  const [isOpen, setIsOpen] = useState(false);
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

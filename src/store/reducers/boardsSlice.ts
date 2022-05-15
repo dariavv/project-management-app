@@ -112,9 +112,11 @@ const boardsSlice = createSlice({
       state.status = 'loading';
     },
     [updateBoard.fulfilled.toString()]: (state, action) => {
-      // TODO: rewrite logic
       const id = action.payload.id;
-      state.boards = [...state.boards.filter((board) => board.id !== id), action.payload];
+      state.boards = state.boards.map((board) => {
+        if (board.id === id) return action.payload;
+        return board;
+      });
       openNotificationSuccess({ message: 'Success', description: 'Board successfully updated' });
       state.status = 'idle';
     },
