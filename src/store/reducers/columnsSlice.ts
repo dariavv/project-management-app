@@ -100,8 +100,7 @@ const columnsSlice = createSlice({
     [getColumn.pending.toString()]: (state) => {
       state.status = 'loading';
     },
-    [getColumn.fulfilled.toString()]: (state, action) => {
-      console.log('getColumn', action.payload);
+    [getColumn.fulfilled.toString()]: (state) => {
       state.status = 'idle';
     },
     [getColumn.rejected.toString()]: (state, action) => {
