@@ -1,7 +1,9 @@
 export const WHITE = '#FFFFFF';
+export const LIGHTGREY = '#F5F8FA';
 export const DARK = '#323246';
 export const PRIMARY = '#1890FF';
-export const GREY = '#9ca5b5';
+export const GREY = '#CFD7DE';
+export const DARK_GREY = '#9ca5b5';
 export const BLUE = '#e6f3ff';
 export const SHADOW = 'rgb(0 0 0 / 25%)';
-export const LIGHTGREY = '#dde6ec';
+export const SHADOW_BLUE = 'rgb(54 132 203 / 30%)';

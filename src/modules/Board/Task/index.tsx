@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import * as Styled from './styled';
+
 type Task = {
   id: number;
   title: string;

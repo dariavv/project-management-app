@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { authReducer } from './reducers/authSlice';
 import { boardsReducer } from './reducers/boardsSlice';
+import { columnsReducer } from './reducers/columnsSlice';
 
 type AppStoreProps = {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     boards: boardsReducer,
+    columns: columnsReducer,
   },
 });
 

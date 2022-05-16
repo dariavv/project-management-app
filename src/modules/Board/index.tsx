@@ -1,37 +1,58 @@
-import { FC } from 'react';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import { TaskItem } from 'components/Task';
+import { FC, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { PlusOutlined } from '@ant-design/icons';
+import { TaskItem } from 'modules/Board/Task';
+import { Loader } from 'components';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { getAllColumns } from 'store/reducers/columnsSlice';
+import { CreateColumnForm } from './CreateColumnForm';
 import * as Styled from './styled';
+import { ColumnItem } from './ColumnItem';
 
-const DataColumns = ['TO DO', 'IN PROGRESS', 'DONE'];
-
-type DataColumns = {
-  title: string;
+type ParamsType = {
+  id: string;
 };
 
-const Board: FC = () => (
-  <Styled.Board>
-    {DataColumns.map((item, index) => (
-      <Styled.BoardColumns key={`${index}c`}>
-        <Styled.HeaderBoard>
-          <div> {item}</div>
-          <div>
-            <Styled.IconContainer>
-              <PlusOutlined style={{ padding: '0 15px 0 0' }} />
-              <DeleteOutlined />
-            </Styled.IconContainer>
-          </div>
-        </Styled.HeaderBoard>
-        {new Array(10).fill(null).map((_, index) => (
-          <TaskItem id={index} title={`Task`} description={'Task description'} key={`${index}c`} />
-        ))}
-      </Styled.BoardColumns>
-    ))}
+const Board: FC = () => {
+  const { id: boardId } = useParams() as ParamsType;
+  const [isOpenForm, setIsOpenForm] = useState(false);
+  const { columns, status } = useAppSelector((state) => state.columns);
+  const dispatch = useAppDispatch();
 
-    <Styled.AddBottom>
-      <PlusOutlined style={{ padding: '0 15px 0 0' }} /> ADD
-    </Styled.AddBottom>
-  </Styled.Board>
-);
+  useEffect(() => {
+    if (boardId) {
+      dispatch(getAllColumns(boardId));
+    }
+  }, [dispatch, boardId]);
+
+  if (status === 'loading') {
+    return <Loader />;
+  }
+
+  return (
+    <>
+      <Styled.BoardContainer>
+        {columns?.map(({ id, title, order }) => (
+          <ColumnItem key={id} id={id} title={title} order={order} boardId={boardId}>
+            {new Array(10).fill(null).map((_, index) => (
+              <TaskItem
+                id={index}
+                title={`Task`}
+                description={'Task description'}
+                key={`${index}c`}
+              />
+            ))}
+          </ColumnItem>
+        ))}
+
+        <Styled.AddButton onClick={() => setIsOpenForm(true)}>
+          <PlusOutlined style={{ padding: '0 15px 0 0' }} />
+          <span>Аdd column</span>
+        </Styled.AddButton>
+      </Styled.BoardContainer>
+      <CreateColumnForm isOpen={isOpenForm} onClose={() => setIsOpenForm(false)} />
+    </>
+  );
+};
 
 export default Board;
