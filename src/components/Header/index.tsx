@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import i18n from 'locales/i18n';
 import { Col, Row, Select } from 'antd';
@@ -20,6 +20,23 @@ export const Header: FC = () => {
   const navigate = useNavigate();
   const language = getFromStorage('language') || EN;
 
+  const [headerClass, setHeader] = useState('header__main');
+
+  const listenScrollEvent = () => {
+    if (window.scrollY <= 1) {
+      setHeader('header__main');
+    } else if (window.scrollY >= 1) {
+      setHeader('header__slide__down');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent);
+    return () => {
+      window.removeEventListener('scroll', listenScrollEvent);
+    };
+  }, []);
+
   const handleChange = (value: string) => {
     setToStorage('language', value);
     i18n.changeLanguage(value);
@@ -30,8 +47,8 @@ export const Header: FC = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <Styled.Header>
+    <div>
+      <Styled.Header className={headerClass}>
         <Row>
           <Styled.Logo>
             <Col span={12}>
@@ -66,6 +83,6 @@ export const Header: FC = () => {
         )}
       </Styled.Header>
       <CreateBoardForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
-    </>
+    </div>
   );
 };

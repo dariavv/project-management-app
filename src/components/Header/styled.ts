@@ -1,17 +1,26 @@
 import { PRIMARY, WHITE, SHADOW } from 'constants/colors';
 import styled from 'styled-components';
 
-export const Header = styled.div`
+export const Header = styled.nav`
+  background-color: ${(props) => (props.theme ? 'white' : 'palevioletred')};
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background-color: ${WHITE};
-  z-index: 1;
+  // background-color: ${WHITE};
+  z-index: 99;
+  top: 0;
   position: sticky;
   box-shadow: 0 0px 10px ${SHADOW};
+  transition: 0.5s;
+  &.header__main {
+    background: orange;
+  }
+  &.header__slide__down {
+    background: blue;
+  }
 `;
 
 export const Logo = styled.div`
