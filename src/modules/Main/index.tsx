@@ -21,7 +21,7 @@ const Main: FC = () => {
   return (
     <Styled.Main>
       <Row justify="center">
-        <Col xs={{ span: 12, offset: 1 }} lg={{ span: 6, offset: 1 }} className="gutter-row">
+        <Col xs={{ span: 24 }} md={{ span: 16 }} xl={{ span: 12 }}>
           {boards?.map(({ id, title }) => (
             <BoardItem key={id} id={id} title={title} />
           ))}

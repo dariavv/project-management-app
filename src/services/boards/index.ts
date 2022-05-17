@@ -6,12 +6,15 @@ import { authHeader } from 'services/auth/authHeader';
 interface BoardsResponse {
   response: Board[];
 }
+
 interface CreateBoardResponse {
   response: Board;
 }
+
 interface UpdateBoardResponse {
   response: Board;
 }
+
 interface DeleteBoardResponse {
   response: string;
 }

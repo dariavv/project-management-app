@@ -37,5 +37,5 @@ export const IconContainer = styled.div`
   padding: 0 0 0 15px;
   display: flex;
   justify-content: flex-end;
-  wight: 100%;
+  width: 100%;
 `;

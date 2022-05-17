@@ -1,11 +1,12 @@
-import { FC, useState } from 'react';
-import { Card } from 'antd';
+import { FC, useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { ConfirmationModal } from 'components';
 import { useAppDispatch } from 'hooks';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Board } from 'types';
 import { deleteBoard } from 'store/reducers/boardsSlice';
-import * as Styled from './styled';
 import { EditBoardForm } from '../EditBoardForm';
+import * as Styled from './styled';
 
 type BoardItem = {
   id: string;
@@ -16,6 +17,7 @@ export const BoardItem: FC<BoardItem> = ({ id, title }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const showModal = () => {
     setIsOpen(true);
@@ -25,21 +27,28 @@ export const BoardItem: FC<BoardItem> = ({ id, title }) => {
     setIsOpenForm(true);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     setIsOpen(false);
     dispatch(deleteBoard(id));
-  };
+  }, [dispatch, id]);
+
+  const goToItem = useCallback(
+    (id: Board['id']) => {
+      navigate(`/board/${id}`);
+    },
+    [navigate],
+  );
 
   return (
     <>
       <Styled.Container>
-        <Card size="small">
-          <h3>{title}</h3>
+        <Styled.CardItem size="small">
+          <Styled.Title onClick={() => goToItem(id)}>{title}</Styled.Title>
           <Styled.IconContainer>
             <EditOutlined style={{ padding: '0 5px 0 0' }} onClick={updateBoardInfo} />
             <DeleteOutlined onClick={showModal} />
           </Styled.IconContainer>
-        </Card>
+        </Styled.CardItem>
       </Styled.Container>
       <ConfirmationModal
         isOpen={isOpen}
