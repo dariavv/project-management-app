@@ -16,10 +16,10 @@ export const Header = styled.nav`
   box-shadow: 0 0px 10px ${SHADOW};
   transition: 0.5s;
   &.header__main {
-    background: orange;
+    padding: 20px 40px;
   }
   &.header__slide__down {
-    background: blue;
+    padding: 15px 40px;
   }
 `;
 
