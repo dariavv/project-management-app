@@ -6,5 +6,5 @@ export const Main = styled.main`
   padding: 40px;
   width: 100%;
   overflow-y: scroll;
-  height: 70vh;
+  height: calc(100vh - 185px);
 `;
