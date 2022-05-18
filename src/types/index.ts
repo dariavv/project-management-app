@@ -14,3 +14,9 @@ export interface Column {
   title: string;
   order: number;
 }
+
+export interface DecodedToken {
+  userId: User['id'];
+  login: User['login'];
+  iat: number;
+}
