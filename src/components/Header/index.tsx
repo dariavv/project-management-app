@@ -10,9 +10,20 @@ import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
 import { CreateBoardForm } from 'modules/Main/CreateBoardForm';
 import appLogo from 'assets/images/logo_app.png';
+import { motion, useTransform } from 'framer-motion';
 import * as Styled from './styled';
+import { TheHeader } from './styled';
+import { SHADOW } from 'constants/colors';
 
-export const Header: FC = () => {
+type TheHeader = {
+  offsetY: number[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  scrollY: any;
+};
+
+export const Header: FC<TheHeader> = ({ offsetY, scrollY }) => {
+  const heightSize = [75, 65];
+  const height = useTransform(scrollY, offsetY, heightSize);
   const { t } = useTranslations('main');
   const [isOpen, setIsOpen] = useState(false);
   const { token } = useAppSelector((state) => state.auth);
@@ -20,22 +31,22 @@ export const Header: FC = () => {
   const navigate = useNavigate();
   const language = getFromStorage('language') || EN;
 
-  const [headerClass, setHeader] = useState('header__main');
+  // const [headerClass, setHeader] = useState('header__main');
 
-  const listenScrollEvent = () => {
-    if (window.scrollY <= 1) {
-      setHeader('header__main');
-    } else if (window.scrollY >= 1) {
-      setHeader('header__slide__down');
-    }
-  };
+  // const listenScrollEvent = () => {
+  //   if (window.scrollY <= 1) {
+  //     setHeader('header__main');
+  //   } else if (window.scrollY >= 1) {
+  //     setHeader('header__slide__down');
+  //   }
+  // };
 
-  useEffect(() => {
-    window.addEventListener('scroll', listenScrollEvent);
-    return () => {
-      window.removeEventListener('scroll', listenScrollEvent);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('scroll', listenScrollEvent);
+  //   return () => {
+  //     window.removeEventListener('scroll', listenScrollEvent);
+  //   };
+  // }, []); className={headerClass}
 
   const handleChange = (value: string) => {
     setToStorage('language', value);
@@ -47,8 +58,17 @@ export const Header: FC = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <Styled.Header className={headerClass}>
+    <motion.div
+      style={{
+        height,
+        backgroundColor: 'white',
+        boxShadow: `0 0px 10px ${SHADOW}`,
+        zIndex: '99',
+        top: '0',
+        position: 'sticky',
+      }}
+    >
+      <TheHeader>
         <Row>
           <Styled.Logo>
             <Col span={12}>
@@ -81,8 +101,8 @@ export const Header: FC = () => {
             </Button>
           </Styled.ButtonsContainer>
         )}
-      </Styled.Header>
+      </TheHeader>
       <CreateBoardForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
-    </div>
+    </motion.div>
   );
 };
