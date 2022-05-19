@@ -3,7 +3,7 @@ import { GREY } from 'constants/colors';
 import { TextBold } from 'theme';
 import styled from 'styled-components';
 
-export const ContainerFooter = styled.div`
+export const ContainerFooter = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,7 +18,7 @@ export const ContainerFooter = styled.div`
   font-weight: 700;
 `;
 
-export const TextLink = styled.div`
+export const TextLink = styled.span`
   color: ${GREY};
   ${TextBold};
 `;

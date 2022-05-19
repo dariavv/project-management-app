@@ -20,13 +20,15 @@ export const Header: FC = () => {
   const navigate = useNavigate();
   const language = getFromStorage('language') || EN;
 
-  const [headerClass, setHeader] = useState('animate');
+  const [animated, setAnimated] = useState(true);
 
   const listenScrollEvent = () => {
-    if (window.scrollY <= 1) {
-      setHeader('animate');
-    } else if (window.scrollY >= 1) {
-      setHeader('animate_down');
+    if (window.scrollY <= 50) {
+      console.log(scrollY, 'false');
+      setAnimated(false);
+    } else if (window.scrollY >= 50) {
+      console.log(scrollY, 'true');
+      setAnimated(true);
     }
   };
 
@@ -48,7 +50,7 @@ export const Header: FC = () => {
 
   return (
     <>
-      <Styled.Header className={headerClass}>
+      <Styled.Header animated={animated}>
         <Row>
           <Styled.Logo>
             <Col span={12}>

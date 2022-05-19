@@ -14,7 +14,7 @@ const Board: FC = () => (
     {DataColumns.map((item, index) => (
       <Styled.BoardColumns key={`${index}c`}>
         <Styled.HeaderBoard>
-          <div> {item}</div>
+          <h3> {item}</h3>
           <div>
             <Styled.IconContainer>
               <PlusOutlined style={{ padding: '0 15px 0 0' }} />

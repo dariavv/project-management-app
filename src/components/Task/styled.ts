@@ -14,7 +14,7 @@ export const ContainerIcon = styled.div`
   justify-content: flex-end;
 `;
 
-export const HeaderTask = styled.div`
+export const HeaderTask = styled.h3`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -27,7 +27,7 @@ export const HeaderTask = styled.div`
   font-weight: 500;
   text-align: justify;
 `;
-export const TaskContainer = styled.div`
+export const TaskContainer = styled.p`
   display: flex;
   width: 100%;
   padding: 7px;

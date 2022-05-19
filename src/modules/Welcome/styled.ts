@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
-export const Container = styled.main`
+export const Container = styled.section`
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -11,7 +11,7 @@ export const Container = styled.main`
   justify-content: space-between;
 `;
 
-export const Info = styled.div`
+export const Info = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,13 +24,13 @@ export const ButtonsContainer = styled.div`
   margin: 40px 60px;
 `;
 
-export const Title = styled.div`
+export const Title = styled.h2`
   font-size: 4rem;
   font-weight: 700;
   color: ${PRIMARY};
 `;
 
-export const Description = styled.div`
+export const Description = styled.p`
   width: 60%;
   height: auto;
   font-size: 1.2rem;

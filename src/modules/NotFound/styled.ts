@@ -42,7 +42,7 @@ export const StyledLink = styled(Link)`
   font-size: 3.71vh;
   line-height: 4.35vh;
 `;
-export const NotFoundImg = styled.div`
+export const NotFoundImg = styled.img`
   background-image: url(/NotFound.jpg);
   background-position: center;
   background-size: auto 90%;

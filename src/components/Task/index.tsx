@@ -11,9 +11,9 @@ export const TaskItem: FC<Task> = ({ id, title, description }) => {
   return (
     <Styled.ContainerTask>
       <Styled.HeaderTask>
-        <div>
+        <h3>
           {id} - {title}
-        </div>
+        </h3>
         <div>
           <Styled.IconContainer>
             <EditOutlined style={{ padding: '0 15px 0 0' }} />
