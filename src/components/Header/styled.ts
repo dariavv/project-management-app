@@ -12,13 +12,14 @@ export const TheHeader = styled.div`
   z-index: 99;
   top: 0;
   position: sticky;
-  box-shadow: 0 0px 10px ${SHADOW};
-  transition: 0.5s;
+  box-shadow: 0 0px 12px ${SHADOW};
+  transition: 0.8s;
   &.animate {
     transform: translateY(0rem);
   }
   &.animate_down {
-    transform: translateY(-0.5rem);
+    box-shadow: 0 0px 5px ${SHADOW};
+    transform: translateY(-0.7rem);
   }
 `;
 
