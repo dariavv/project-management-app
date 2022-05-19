@@ -1,29 +1,93 @@
-import { FC } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Footer } from 'components';
+import {
+  StyledButtonCont,
+  ConteinerForm,
+  StyledFormItem,
+  HeadingWord,
+  StyledLink,
+  StyledButton,
+  ConteinerWrapper,
+} from '../styled';
+import { FC, useCallback } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
-import { Button } from 'components';
-import { useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 
-type SignInProps = {
-  handleSignIn: () => void;
+import { Form, Input } from 'antd';
+import { signIn } from 'store/reducers/authSlice';
+import { openNotificationError } from 'utils/notifications';
+
+type FormValues = {
+  login: string;
+  password: string;
 };
 
-const SignIn: FC<SignInProps> = ({ handleSignIn }) => {
-  const { token } = useAppSelector((state) => state.auth);
+const SignIn: FC = () => {
+  const { token, status } = useAppSelector((state) => state.auth);
   const { t } = useTranslations('main');
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = useCallback(
+    (values: FormValues) => {
+      const formValues = {
+        login: values.login,
+        password: values.password,
+      };
+      dispatch(signIn(formValues));
+    },
+    [dispatch],
+  );
+
+  const handleSubmitFailed = (errorInfo: unknown) => {
+    openNotificationError({
+      message: 'Error',
+      description: `${errorInfo}`,
+    });
+  };
 
   if (token) {
     return <Navigate to="/" replace />;
   }
 
   return (
-    <div>
-      <h2>{t('sign_in')}</h2>
-      <Link to="/signup">{t('sign_in_account')}</Link>
-      <Button type="primary" onClick={handleSignIn}>
-        {t('sign_in')}
-      </Button>
-    </div>
+    <>
+      <ConteinerWrapper>
+        <ConteinerForm>
+          <HeadingWord>{t('sign_in')}</HeadingWord>
+          <Form
+            onFinish={handleSubmit}
+            onFinishFailed={handleSubmitFailed}
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            autoComplete="off"
+          >
+            <StyledFormItem
+              name="login"
+              label="Login"
+              rules={[{ required: true, message: 'Please input your Login!' }]}
+            >
+              <Input />
+            </StyledFormItem>
+            <StyledFormItem
+              name="password"
+              label="Password"
+              rules={[{ required: true, message: 'Please input your Password!' }]}
+            >
+              <Input.Password />
+            </StyledFormItem>
+            <StyledButtonCont>
+              <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
+                {t('sign_in')}
+              </StyledButton>
+            </StyledButtonCont>
+            <StyledLink to="/signup">{t('sign_in_account')}</StyledLink>
+          </Form>
+        </ConteinerForm>
+      </ConteinerWrapper>
+      <Footer />
+    </>
   );
 };
 

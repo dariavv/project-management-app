@@ -17,6 +17,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  min-height: 100%;
+}
+
 @media only screen and (max-width: 1280px) {
   html {
     font-size: 14px !important;

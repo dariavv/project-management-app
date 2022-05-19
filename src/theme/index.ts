@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Title = css`
   font-weight: normal !important;
@@ -16,4 +16,9 @@ export const TextRegular = css`
   font-weight: normal !important;
   font-size: 1rem !important;
   line-height: 150% !important;
+`;
+
+export const Container = styled.main`
+  width: 100%;
+  height: (100vh - 185px);
 `;
