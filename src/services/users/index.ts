@@ -3,20 +3,20 @@ import { API_URL } from 'constants/index';
 import { User } from 'types';
 import { authHeader } from 'services/auth/authHeader';
 
-interface UserResponse {
+export interface UserResponse {
   response: User;
 }
 
-interface UsersResponse {
+export interface UsersResponse {
   response: User[];
 }
-interface UpdateUserParams {
+export interface UpdateUserParams {
   id: string;
   name: string;
   login: string;
   password: string;
 }
-interface DeleteUserResponse {
+export interface DeleteUserResponse {
   response: string;
 }
 
@@ -50,4 +50,11 @@ const deleteUser = async (userId: User['id']) => {
     headers: authHeader(),
   });
   return { data: response.data, userId };
+};
+
+export const usersService = {
+  getAllUsers,
+  getUser,
+  updateUser,
+  deleteUser,
 };
