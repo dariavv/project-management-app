@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
-export const Container = styled.main`
-  height: 100%;
+export const Container = styled.div`
+  height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
   overflow: hidden;
   flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const Info = styled.div`

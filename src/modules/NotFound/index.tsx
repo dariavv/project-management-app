@@ -28,8 +28,8 @@ export const NotFound: FC = () => {
         <ConteinerNotFoundImg>
           <NotFoundImg />
         </ConteinerNotFoundImg>
+        <Footer />
       </ContainerNotFound>
-      <Footer />
     </>
   );
 };

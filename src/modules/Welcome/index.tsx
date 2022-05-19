@@ -49,8 +49,8 @@ const Welcome: FC = () => {
             essentially unchanged.
           </Styled.Description>
         </Styled.Info>
+        <Footer />
       </Styled.Container>
-      <Footer />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import i18n from 'locales/i18n';
 import { Col, Row, Select } from 'antd';
@@ -10,6 +10,7 @@ import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
 import { CreateBoardForm } from 'modules/Main/CreateBoardForm';
 import appLogo from 'assets/images/logo_app.png';
+import { TheHeader } from './styled';
 import * as Styled from './styled';
 
 export const Header: FC = () => {
@@ -19,6 +20,23 @@ export const Header: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const language = getFromStorage('language') || EN;
+
+  const [headerClass, setHeader] = useState('animate');
+
+  const listenScrollEvent = () => {
+    if (window.scrollY <= 1) {
+      setHeader('animate');
+    } else if (window.scrollY >= 1) {
+      setHeader('animate_down');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent);
+    return () => {
+      window.removeEventListener('scroll', listenScrollEvent);
+    };
+  }, []);
 
   const handleChange = (value: string) => {
     setToStorage('language', value);
@@ -31,7 +49,7 @@ export const Header: FC = () => {
 
   return (
     <>
-      <Styled.Header>
+      <TheHeader className={headerClass}>
         <Row>
           <Styled.Logo>
             <Col span={12}>
@@ -64,7 +82,7 @@ export const Header: FC = () => {
             </Button>
           </Styled.ButtonsContainer>
         )}
-      </Styled.Header>
+      </TheHeader>
       <CreateBoardForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
