@@ -20,3 +20,13 @@ export interface DecodedToken {
   login: User['login'];
   iat: number;
 }
+
+export interface Task {
+  id: string;
+  userId: User['id'];
+  boardId: Board['id'];
+  columnId: Column['id'];
+  title: string;
+  description: string;
+  order: number;
+}
