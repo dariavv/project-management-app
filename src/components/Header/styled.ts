@@ -1,7 +1,7 @@
 import { PRIMARY, WHITE, SHADOW } from 'constants/colors';
 import styled from 'styled-components';
 
-export const TheHeader = styled.div`
+export const Header = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;

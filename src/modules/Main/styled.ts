@@ -5,7 +5,5 @@ export const Main = styled.div`
   justify-content: center;
   padding: 40px;
   width: 100%;
-  // position: 'relative';
-  // overflow-y: scroll;
   height: 100vh - 185px);
 `;
