@@ -1,7 +1,7 @@
-import { PRIMARY, WHITE } from 'constants/colors';
+import { PRIMARY, WHITE, SHADOW } from 'constants/colors';
 import styled from 'styled-components';
 
-export const Header = styled.div`
+export const TheHeader = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -9,9 +9,18 @@ export const Header = styled.div`
   align-items: center;
   padding: 20px 40px;
   background-color: ${WHITE};
-  z-index: 1;
+  z-index: 99;
+  top: 0;
   position: sticky;
-  box-shadow: 0 0px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 12px ${SHADOW};
+  transition: 0.8s;
+  &.animate {
+    transform: translateY(0rem);
+  }
+  &.animate_down {
+    box-shadow: 0 0px 5px ${SHADOW};
+    transform: translateY(-0.7rem);
+  }
 `;
 
 export const Logo = styled.div`

@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { Button, Footer } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import * as Styled from './styled';
 import { logOut } from 'store/reducers/authSlice';
+import * as Styled from './styled';
 
 const Welcome: FC = () => {
   const { token } = useAppSelector((state) => state.auth);
@@ -49,8 +49,8 @@ const Welcome: FC = () => {
             essentially unchanged.
           </Styled.Description>
         </Styled.Info>
+        <Footer />
       </Styled.Container>
-      <Footer />
     </>
   );
 };

@@ -6,6 +6,12 @@
   "sign_in_account": "Зарегистрировать аккаунт",
   "go_to_boards": "Перейти к доскам",
   "not_found": "Страница не найдена",
+  "go_to_main": "Вернуться на главную",
   "create_new_board": "Создать доску",
-  "cancel": "Отменить"
+  "edit_board": "Редактировать доску",
+  "cancel": "Отменить",
+  "submit": "Отправить",
+  "confirmation_modal": "Подтверждение",
+  "confirmation_message": "Вы уверены, что хотите УДАЛИТЬ?",
+  "title": "Заголовок"
 }

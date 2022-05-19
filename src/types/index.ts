@@ -3,3 +3,8 @@ export interface User {
   name: string;
   login: string;
 }
+
+export interface Board {
+  id: string;
+  title: string;
+}

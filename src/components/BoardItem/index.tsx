@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import { FC } from 'react';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { ContainerCard, ContainerIcon } from './styled';
+import * as Styled from './styled';
 
 type BoardItem = {
   title: string;
@@ -11,13 +11,13 @@ type BoardItem = {
 
 export const BorderItem: FC<BoardItem> = ({ title, description, showModal }) => {
   return (
-    <ContainerCard>
+    <Styled.ContainerCard>
       <Card title={title} size="small" color="#yellow">
         <p>{description}</p>
-        <ContainerIcon>
+        <Styled.ContainerIcon>
           <EditOutlined style={{ padding: '0 5px 0 0' }} /> <DeleteOutlined onClick={showModal} />
-        </ContainerIcon>
+        </Styled.ContainerIcon>
       </Card>
-    </ContainerCard>
+    </Styled.ContainerCard>
   );
 };

@@ -1,10 +1,21 @@
+import { Footer } from 'components';
+import {
+  StyledButtonCont,
+  ConteinerForm,
+  StyledFormItem,
+  HeadingWord,
+  StyledLink,
+  StyledButton,
+  ConteinerWrapper,
+} from '../styled';
 import { FC, useCallback } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { Button } from 'components';
+
 import { Form, Input } from 'antd';
 import { signIn } from 'store/reducers/authSlice';
+import { openNotificationError } from 'utils/notifications';
 
 type FormValues = {
   login: string;
@@ -28,8 +39,10 @@ const SignIn: FC = () => {
   );
 
   const handleSubmitFailed = (errorInfo: unknown) => {
-    // TODO: handle form using react-hook-form
-    console.log('Failed:', errorInfo);
+    openNotificationError({
+      message: 'Error',
+      description: `${errorInfo}`,
+    });
   };
 
   if (token) {
@@ -37,62 +50,44 @@ const SignIn: FC = () => {
   }
 
   return (
-    <div>
-      <h2>{t('sign_in')}</h2>
-      <Form
-        name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={handleSubmit}
-        onFinishFailed={handleSubmitFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="Login"
-          name="login"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your login!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Link to="/signup">{t('sign_in_account')}</Link>
-          <Button type="primary" htmlType="submit" loading={status === 'loading'}>
-            {t('sign_in')}
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
+    <>
+      <ConteinerWrapper>
+        <ConteinerForm>
+          <HeadingWord>{t('sign_in')}</HeadingWord>
+          <Form
+            onFinish={handleSubmit}
+            onFinishFailed={handleSubmitFailed}
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            autoComplete="off"
+          >
+            <StyledFormItem
+              name="login"
+              label="Login"
+              rules={[{ required: true, message: 'Please input your Login!' }]}
+            >
+              <Input />
+            </StyledFormItem>
+            <StyledFormItem
+              name="password"
+              label="Password"
+              rules={[{ required: true, message: 'Please input your Password!' }]}
+            >
+              <Input.Password />
+            </StyledFormItem>
+            <StyledButtonCont>
+              <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
+                {t('sign_in')}
+              </StyledButton>
+            </StyledButtonCont>
+            <StyledLink to="/signup">{t('sign_in_account')}</StyledLink>
+          </Form>
+        </ConteinerForm>
+      </ConteinerWrapper>
+      <Footer />
+    </>
   );
 };
 

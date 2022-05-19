@@ -1,49 +1,33 @@
-import { FC, useState } from 'react';
-import { Col, Row, Modal } from 'antd';
-import { BorderItem } from 'components/BoardItem';
+import { FC, useEffect } from 'react';
+import { Col, Row } from 'antd';
+import { Loader } from 'components';
+import { BoardItem } from './BoardItem';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { getAllBoards } from 'store/reducers/boardsSlice';
 import * as Styled from './styled';
 
-// TODO: move Log out button to Header
 const Main: FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { boards, status } = useAppSelector((state) => state.boards);
+  const dispatch = useAppDispatch();
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+  useEffect(() => {
+    dispatch(getAllBoards());
+  }, [dispatch]);
 
-  const handleSubmit = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  if (status === 'loading') {
+    return <Loader />;
+  }
 
   return (
-    <>
-      <Styled.Main>
-        <Row justify="center">
-          {new Array(40).fill(null).map((_, index) => (
-            <Col
-              xs={{ span: 12, offset: 1 }}
-              lg={{ span: 6, offset: 1 }}
-              className="gutter-row"
-              key={index}
-            >
-              <BorderItem title={'Title'} description={'Description'} showModal={showModal} />
-            </Col>
+    <Styled.Main>
+      <Row justify="center">
+        <Col xs={{ span: 12, offset: 1 }} lg={{ span: 6, offset: 1 }} className="gutter-row">
+          {boards?.map(({ id, title }) => (
+            <BoardItem key={id} id={id} title={title} />
           ))}
-        </Row>
-      </Styled.Main>
-      <Modal
-        title="Basic Modal"
-        visible={isModalVisible}
-        onOk={handleSubmit}
-        onCancel={handleCancel}
-      >
-        <p>Are you sure you want to DELETE?</p>
-      </Modal>
-    </>
+        </Col>
+      </Row>
+    </Styled.Main>
   );
 };
 
