@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import { Form as AntForm } from 'antd';
 import { Button } from 'components';
 
-export const ConteinerWrapper = styled.section`
-  height: '100vh';
+export const ConteinerWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100vh;
   width: 100%;
   padding-top: 5%;
   padding-bottom: 2%;
@@ -13,7 +16,7 @@ export const ConteinerWrapper = styled.section`
   }
 `;
 
-export const ConteinerForm = styled.section`
+export const ConteinerForm = styled.div`
   box-sizing: border-box;
   box-shadow: 0px 0px 33px 6px rgba(34, 60, 80, 0.2);
   padding: 10px;
@@ -65,6 +68,6 @@ export const StyledFormItem = styled(AntForm.Item)`
   }
 `;
 
-export const HeadingWord = styled.h2`
+export const HeadingWord = styled.div`
   text-align: center;
 `;
