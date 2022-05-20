@@ -1,39 +1,36 @@
 import { FC, useCallback, useState } from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Select } from 'antd';
 import { useTranslations } from 'hooks/useTranslations';
 import { Button, Modal } from 'components';
-import { useAppDispatch, useAppSelector } from 'hooks';
+// import { useAppDispatch } from 'hooks';
 import { openNotificationError } from 'utils/notifications';
-import { createColumn } from 'store/reducers/columnsSlice';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
-type CreateColumnFormProps = {
+type CreateTaskFormProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-type ParamsType = {
-  id: string;
-};
+// type ParamsType = {
+//   id: string;
+// };
 
-export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose }) => {
+export const CreateTaskForm: FC<CreateTaskFormProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslations('main');
-  const { id: boardId } = useParams() as ParamsType;
-  const [columnTitle, setColumnTitle] = useState('');
-  const { columns } = useAppSelector((state) => state.columns);
-  const dispatch = useAppDispatch();
+  // const { id: boardId } = useParams() as ParamsType;
+  const [formValues, setFormValues] = useState('');
+  // const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setColumnTitle(value);
+    setFormValues(value);
   };
 
   const handleSubmitForm = useCallback(() => {
-    if (columnTitle) {
-      dispatch(createColumn({ boardId, title: columnTitle, order: columns.length + 1 }));
+    if (formValues) {
       onClose();
     }
-  }, [boardId, columnTitle, columns.length, dispatch, onClose]);
+  }, [formValues, onClose]);
 
   const handleSubmitFailed = (errorInfo: unknown) => {
     openNotificationError({
@@ -43,7 +40,7 @@ export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose })
   };
 
   return (
-    <Modal title={t('create_new_column')} isOpen={isOpen} onClose={onClose}>
+    <Modal title={t('create_new_board')} isOpen={isOpen} onClose={onClose}>
       <Form
         labelCol={{
           span: 5,
@@ -56,10 +53,19 @@ export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose })
         }}
         onFinish={handleSubmitForm}
         onFinishFailed={handleSubmitFailed}
+        onValuesChange={handleChange}
         autoComplete="off"
       >
         <Form.Item label={t('title')} name="title" rules={[{}]}>
-          <Input onChange={handleChange} />
+          <Input />
+        </Form.Item>
+        <Form.Item label={t('description')} name="description" rules={[{}]}>
+          <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
+        </Form.Item>
+        <Form.Item label="Assignee">
+          <Select>
+            <Select.Option value="user">Map users here</Select.Option>
+          </Select>
         </Form.Item>
         <Form.Item
           wrapperCol={{
