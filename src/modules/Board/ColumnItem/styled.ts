@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { GREY, LIGHTGREY, PRIMARY, SHADOW_BLUE } from 'constants/colors';
+import { GREY, LIGHTGREY, SHADOW_BLUE } from 'constants/colors';
 
 export const ColumnItem = styled.div`
   min-width: 300px;
@@ -39,16 +39,4 @@ export const ColumnTitle = styled.div`
   top: 0;
   font-weight: 700;
   text-align: justify;
-`;
-
-export const IconContainer = styled.div`
-  padding: 0 0 0 15px;
-  display: flex;
-  justify-content: flex-end;
-  svg {
-    cursor: pointer;
-    &:hover {
-      color: ${PRIMARY};
-    }
-  }
 `;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const ContainerTask = styled.div`
   width: 90%;
+  max-width: 267px;
   margin: 5px 0;
   border: 1px solid ${GREY};
   border-radius: 10px;
@@ -27,15 +28,9 @@ export const HeaderTask = styled.div`
   font-weight: 500;
   text-align: justify;
 `;
+
 export const TaskContainer = styled.div`
   display: flex;
   width: 100%;
   padding: 7px;
-`;
-
-export const IconContainer = styled.div`
-  padding: 0 0 0 15px;
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
 `;

@@ -122,7 +122,12 @@ const tasksSlice = createSlice({
       state.status = 'loading';
     },
     [getAllTasksByColumnId.fulfilled.toString()]: (state, action) => {
-      state.tasks = action.payload;
+      // need to filter to avoid duplication of tasks
+      const filteredTasks = state.tasks.filter(
+        (taskFromStore) =>
+          !action.payload.find((taskFromBack: Task) => taskFromStore.id === taskFromBack.id),
+      );
+      state.tasks = [...filteredTasks, ...action.payload];
       state.status = 'idle';
     },
     [getAllTasksByColumnId.rejected.toString()]: (state, action) => {
@@ -181,4 +186,4 @@ const tasksSlice = createSlice({
 
 const { reducer } = tasksSlice;
 
-export const columnsReducer = reducer;
+export const tasksReducer = reducer;

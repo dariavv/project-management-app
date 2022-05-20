@@ -4,6 +4,8 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { authReducer } from './reducers/authSlice';
 import { boardsReducer } from './reducers/boardsSlice';
 import { columnsReducer } from './reducers/columnsSlice';
+import { tasksReducer } from './reducers/tasksSlice';
+import { usersReducer } from './reducers/usersSlice';
 
 type AppStoreProps = {
   children: React.ReactNode;
@@ -14,6 +16,8 @@ export const store = configureStore({
     auth: authReducer,
     boards: boardsReducer,
     columns: columnsReducer,
+    tasks: tasksReducer,
+    users: usersReducer,
   },
 });
 

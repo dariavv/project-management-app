@@ -32,7 +32,7 @@ export interface UpdateTaskParams extends CreateTaskParams {
 
 const getAllTasksByColumnId = async ({ boardId, columnId }: TasksParams) => {
   const response = await axios.get<TasksResponse>(
-    `${API_URL}boards/${boardId}/columns/${columnId}`,
+    `${API_URL}boards/${boardId}/columns/${columnId}/tasks`,
     {
       headers: authHeader(),
     },

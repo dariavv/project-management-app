@@ -6,6 +6,7 @@ import { useAppDispatch } from 'hooks';
 import { Board } from 'types';
 import { deleteBoard } from 'store/reducers/boardsSlice';
 import { EditBoardForm } from '../EditBoardForm';
+import { IconContainer } from 'theme';
 import * as Styled from './styled';
 
 type BoardItem = {
@@ -44,10 +45,10 @@ export const BoardItem: FC<BoardItem> = ({ id, title }) => {
       <Styled.Container>
         <Styled.CardItem size="small">
           <Styled.Title onClick={() => goToItem(id)}>{title}</Styled.Title>
-          <Styled.IconContainer>
-            <EditOutlined style={{ padding: '0 5px 0 0' }} onClick={updateBoardInfo} />
+          <IconContainer>
+            <EditOutlined onClick={updateBoardInfo} />
             <DeleteOutlined onClick={showModal} />
-          </Styled.IconContainer>
+          </IconContainer>
         </Styled.CardItem>
       </Styled.Container>
       <ConfirmationModal
