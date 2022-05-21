@@ -78,7 +78,7 @@ export const Header: FC = () => {
           )}
           <Select
             defaultValue={language}
-            style={{ width: 70, margin: '0 0 0 8px' }}
+            style={{ width: 62, margin: '0 0 0 8px' }}
             onChange={handleChange}
           >
             <Select.Option value={EN}>{EN.toUpperCase()}</Select.Option>
