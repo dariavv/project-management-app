@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { getAllColumns } from 'store/reducers/columnsSlice';
 import { CreateColumnForm } from './CreateColumnForm';
 import { ColumnItem } from './ColumnItem';
+import { getAllUsers } from 'store/reducers/usersSlice';
 import * as Styled from './styled';
 
 type ParamsType = {
@@ -22,6 +23,7 @@ const Board: FC = () => {
     if (boardId) {
       dispatch(getAllColumns(boardId));
     }
+    dispatch(getAllUsers());
   }, [dispatch, boardId]);
 
   if (status === 'loading') {

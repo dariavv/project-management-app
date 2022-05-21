@@ -4,6 +4,7 @@ import { ConfirmationModal, Loader } from 'components';
 import { deleteColumn } from 'store/reducers/columnsSlice';
 import { getAllTasksByColumnId } from 'store/reducers/tasksSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
+import { CreateTaskForm } from '../CreateTaskForm';
 import { TaskItem } from '../TaskItem';
 import { Column } from 'types';
 import { IconContainer } from 'theme';
@@ -15,6 +16,7 @@ interface ColumnItemProps extends Omit<Column, 'order'> {
 
 export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenForm, setIsOpenForm] = useState(false);
   const { tasks, status } = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
 
@@ -40,14 +42,27 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
         <Styled.ColumnTitle>
           <div>{title}</div>
           <IconContainer>
-            <PlusOutlined />
+            <PlusOutlined onClick={() => setIsOpenForm(true)} />
             <DeleteOutlined onClick={() => setIsOpen(true)} />
           </IconContainer>
         </Styled.ColumnTitle>
-        {filteredTasks?.map(({ id, title, description, order }) => (
-          <TaskItem key={id} id={id} title={title} description={description} order={order} />
+        {filteredTasks?.map(({ id, title, description, order, columnId, boardId }) => (
+          <TaskItem
+            key={id}
+            id={id}
+            boardId={boardId}
+            columnId={columnId}
+            title={title}
+            description={description}
+            order={order}
+          />
         ))}
       </Styled.ColumnItem>
+      <CreateTaskForm
+        columnId={columnId}
+        isOpen={isOpenForm}
+        onClose={() => setIsOpenForm(false)}
+      />
       <ConfirmationModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

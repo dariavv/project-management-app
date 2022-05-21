@@ -8,7 +8,7 @@ interface UsersResponse {
 }
 
 const getAllUsers = async () => {
-  const response = await axios.get<UsersResponse>(`${API_URL}/users`, { headers: authHeader() });
+  const response = await axios.get<UsersResponse>(`${API_URL}users`, { headers: authHeader() });
   return response.data;
 };
 
