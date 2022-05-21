@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const ContainerNotFound = styled.section`
+  height: calc(100vh - 110px);
   width: 100%;
   text-align: center;
 `;

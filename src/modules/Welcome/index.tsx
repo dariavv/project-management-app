@@ -42,11 +42,12 @@ const Welcome: FC = () => {
         <Styled.Info>
           <Styled.Title>Welcome!</Styled.Title>
           <Styled.Description>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the industrys standard dummy text ever since the 1500s, when an unknown printer
-            took a galley of type and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting, remaining
-            essentially unchanged.
+            Привет! Мы Дарья, Глеб и Ольга - команда фронтенд разработчиков. В рамках курса
+            «Разработка на React» от Rolling Scopes School представляем вам инструмент Liosta для
+            управления проектами. Наша цель помочь достичь поставленных задач, как отдельному
+            человеку в команде, так и группе разработчиков. С помощью приложения можно
+            организовывать рабочие процессы и визуально отслеживать прогресс. Управляйте задачами
+            легко и просто.
           </Styled.Description>
         </Styled.Info>
       </Styled.Container>

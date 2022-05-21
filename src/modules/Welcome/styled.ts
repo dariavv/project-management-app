@@ -2,11 +2,10 @@ import styled from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
 export const Container = styled.main`
-  height: 100%;
+  height: calc(100vh - 110px);
   margin: 0;
   padding: 0;
   display: flex;
-  overflow: hidden;
   flex-direction: column;
 `;
 
