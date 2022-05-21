@@ -18,7 +18,7 @@ const Welcome: FC = () => {
 
   return (
     <>
-      <Styled.Container>
+      <Styled.Header>
         {token && (
           <Styled.ButtonsContainer>
             <Button type="primary" onClick={() => navigate('/')}>
@@ -31,7 +31,7 @@ const Welcome: FC = () => {
         )}
         {!token && (
           <Styled.ButtonsContainer>
-            <Button type="primary" m="0 20px 0 0" onClick={() => navigate('/signin')}>
+            <Button type="primary" onClick={() => navigate('/signin')}>
               {t('sign_in')}
             </Button>
             <Button type="primary" onClick={() => navigate('/signup')}>
@@ -39,6 +39,8 @@ const Welcome: FC = () => {
             </Button>
           </Styled.ButtonsContainer>
         )}
+      </Styled.Header>
+      <Styled.Container>
         <Styled.Info>
           <Styled.Title>Welcome!</Styled.Title>
           <Styled.Description>

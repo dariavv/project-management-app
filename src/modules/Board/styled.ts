@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import { WHITE, GREY, PRIMARY, DARK_GREY } from 'constants/colors';
 
 export const BoardContainer = styled.main`
-  padding: 25px;
+  padding: 30px 40px 20px;
   width: 100%;
   display: flex;
   align-items: flex-start;
   overflow-x: auto;
-  height: calc(100vh - 185px);
+  height: calc(100vh - 148px);
   background-color: ${WHITE};
   &::-webkit-scrollbar {
     height: 7px;
@@ -19,7 +19,7 @@ export const BoardContainer = styled.main`
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: ${GREY};
+    background-color: ${GREY};
   }
 `;
 

@@ -16,5 +16,6 @@
   "title": "Title",
   "add_column": "Add column",
   "create_new_column": "Create new column",
-  "create_new_task": "Create new task"
+  "create_new_task": "Create new task",
+  "description": "Description"
 }

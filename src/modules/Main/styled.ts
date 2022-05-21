@@ -6,5 +6,5 @@ export const Main = styled.main`
   padding: 40px;
   width: 100%;
   overflow: auto;
-  height: (100vh - 185px);
+  height: calc(100% - 150px);
 `;

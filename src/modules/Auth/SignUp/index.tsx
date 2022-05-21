@@ -7,7 +7,7 @@ import {
   StyledButtonCont,
   ConteinerForm,
   StyledFormItem,
-  HeadingWord,
+  Title,
   StyledLink,
   StyledButton,
   ConteinerWrapper,
@@ -53,11 +53,10 @@ const SignUp: FC = () => {
     <>
       <ConteinerWrapper>
         <ConteinerForm>
-          <HeadingWord>{t('sign_up')}</HeadingWord>
+          <Title>{t('sign_up')}</Title>
           <Form
             onFinish={handleSubmit}
             onFinishFailed={handleSubmitFailed}
-            name="basic"
             initialValues={{
               remember: true,
             }}
@@ -85,11 +84,11 @@ const SignUp: FC = () => {
               <Input.Password />
             </StyledFormItem>
             <StyledButtonCont>
+              <StyledLink to="/signin">{t('sign_up_account')}</StyledLink>
               <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
                 {t('sign_up')}
               </StyledButton>
             </StyledButtonCont>
-            <StyledLink to="/signin">{t('sign_up_account')}</StyledLink>
           </Form>
         </ConteinerForm>
       </ConteinerWrapper>

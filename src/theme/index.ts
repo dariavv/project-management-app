@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
 export const Title = css`
-  font-weight: normal !important;
-  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  font-size: 1.6rem !important;
   line-height: 150% !important;
 `;
 

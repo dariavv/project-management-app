@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Form as AntForm } from 'antd';
 import { Button } from 'components';
 
-export const ConteinerWrapper = styled.section`
-  height: calc(100vh - 110px);
+export const ConteinerWrapper = styled.main`
+  height: calc(100vh - 75px);
   width: 100%;
   padding-top: 5%;
   padding-bottom: 2%;
@@ -14,7 +14,7 @@ export const ConteinerWrapper = styled.section`
   }
 `;
 
-export const ConteinerForm = styled.section`
+export const ConteinerForm = styled.div`
   box-sizing: border-box;
   box-shadow: 0px 0px 33px 6px rgba(34, 60, 80, 0.2);
   padding: 10px;
@@ -34,21 +34,22 @@ export const ConteinerForm = styled.section`
 `;
 
 export const StyledLink = styled(Link)`
-  display: block;
-  margin: 10px 0 auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 15px 15px;
 `;
 
 export const StyledButton = styled(Button)`
-  display: block;
-  margin: 0 auto;
+  width: 100% !important;
+  margin-bottom: 15px !important;
 `;
 
 export const StyledButtonCont = styled(AntForm.Item)`
   margin: 0 auto;
+  display: flex;
   align-items: center;
-  justify-content: space-around;
-  align-content: center;
+  justify-content: center;
   margin-top: 15px;
   max-width: 250px;
   @media (max-width: 1000px) {
@@ -70,6 +71,6 @@ export const StyledFormItem = styled(AntForm.Item)`
   }
 `;
 
-export const HeadingWord = styled.h2`
+export const Title = styled.h2`
   text-align: center;
 `;

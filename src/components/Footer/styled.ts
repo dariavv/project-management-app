@@ -1,4 +1,4 @@
-import { WHITE, DARK } from './../../constants/colors';
+import { WHITE, DARK } from 'constants/colors';
 import { GREY } from 'constants/colors';
 import { TextBold } from 'theme';
 import styled from 'styled-components';
@@ -9,13 +9,15 @@ export const ContainerFooter = styled.footer`
   align-items: center;
   padding: 5px 40px;
   position: sticky;
-  bottom: 0%;
-  z-index: 3;
+  bottom: 0;
+  z-index: 2;
   width: 100%;
-  height: 110px;
+  height: 75px;
   background-color: ${DARK};
   color: ${WHITE};
-  font-weight: 700;
+  @media (max-width: 540px) {
+    padding: 5px 20px;
+  }
 `;
 
 export const TextLink = styled.div`
@@ -24,7 +26,6 @@ export const TextLink = styled.div`
 `;
 
 export const RSLogo = styled.div`
-  height: 15px;
-  weight: 15px;
+  width: 15px;
   background-image: url(assets/images/logo_rs.png);
 `;
