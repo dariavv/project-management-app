@@ -48,7 +48,7 @@ export const Header: FC = () => {
 
   return (
     <>
-      <Styled.Header animated={isAnimated}>
+      <Styled.Header isAnimated={isAnimated}>
         <Row>
           <Styled.Logo>
             <Col span={12}>
