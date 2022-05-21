@@ -4,10 +4,12 @@ import { Form as AntForm } from 'antd';
 import { Button } from 'components';
 
 export const ConteinerWrapper = styled.section`
+  height: calc(100vh - 110px);
   width: 100%;
   padding-top: 5%;
   padding-bottom: 2%;
-  overflow: auto @media (max-width: 1000px) {
+  overflow: auto;
+  @media (max-width: 1000px) {
     padding-top: 2%;
   }
 `;
@@ -20,7 +22,8 @@ export const ConteinerForm = styled.section`
   max-width: 700px;
   margin: 0 auto;
   border-radius: 5px;
-  overflow: auto @media (max-width: 1000px) {
+  overflow: auto;
+  @media (max-width: 1000px) {
     margin-top: 5%;
     min-width: 440px;
   }
@@ -29,11 +32,13 @@ export const ConteinerForm = styled.section`
     min-width: 300px;
   }
 `;
+
 export const StyledLink = styled(Link)`
   display: block;
   margin: 10px 0 auto;
   text-align: center;
 `;
+
 export const StyledButton = styled(Button)`
   display: block;
   margin: 0 auto;
@@ -53,6 +58,7 @@ export const StyledButtonCont = styled(AntForm.Item)`
     max-width: 150px;
   }
 `;
+
 export const StyledFormItem = styled(AntForm.Item)`
   display: block;
   margin: 15px 20px auto;

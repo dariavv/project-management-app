@@ -1,5 +1,4 @@
-import { css } from 'styled-components';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
 export const Title = css`
@@ -32,4 +31,9 @@ export const IconContainer = styled.div`
       color: ${PRIMARY};
     }
   }
+`;
+
+export const ContainerHeight = styled.div`
+  width: 100%;
+  height: (100vh - 110px);
 `;

@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import i18n from 'locales/i18n';
 import { Col, Row, Select } from 'antd';
@@ -20,6 +20,23 @@ export const Header: FC = () => {
   const navigate = useNavigate();
   const language = getFromStorage('language') || EN;
 
+  const [isAnimated, setIsAnimated] = useState(false);
+
+  const listenScrollEvent = () => {
+    if (window.scrollY <= 50) {
+      setIsAnimated(false);
+    } else if (window.scrollY >= 50) {
+      setIsAnimated(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent);
+    return () => {
+      window.removeEventListener('scroll', listenScrollEvent);
+    };
+  }, []);
+
   const handleChange = (value: string) => {
     setToStorage('language', value);
     i18n.changeLanguage(value);
@@ -31,13 +48,13 @@ export const Header: FC = () => {
 
   return (
     <>
-      <Styled.Header>
+      <Styled.Header isAnimated={isAnimated}>
         <Row>
           <Styled.Logo>
             <Col span={12}>
               <img src={appLogo} alt="RSS" width={35} />
             </Col>
-            <Col span={12}>LOGO</Col>
+            <Col span={12}>LIOSTA</Col>
           </Styled.Logo>
         </Row>
         <Select defaultValue={language} style={{ width: 70 }} onChange={handleChange}>
