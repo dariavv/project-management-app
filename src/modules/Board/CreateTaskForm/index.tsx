@@ -61,7 +61,7 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
   };
 
   return (
-    <Modal title={t('create_new_board')} isOpen={isOpen} onClose={onClose}>
+    <Modal title={t('create_new_task')} isOpen={isOpen} onClose={onClose}>
       <Form
         labelCol={{
           span: 5,
