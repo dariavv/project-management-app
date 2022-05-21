@@ -22,8 +22,8 @@ const Main: FC = () => {
     <Styled.Main>
       <Row justify="center">
         <Col xs={{ span: 24 }} md={{ span: 16 }} xl={{ span: 12 }}>
-          {boards?.map(({ id, title }) => (
-            <BoardItem key={id} id={id} title={title} />
+          {boards?.map(({ id, title, description }) => (
+            <BoardItem key={id} id={id} title={title} description={description} />
           ))}
         </Col>
       </Row>

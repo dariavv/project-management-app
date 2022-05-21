@@ -9,7 +9,7 @@ import { Column } from 'types';
 import { IconContainer } from 'theme';
 import * as Styled from './styled';
 
-interface ColumnItemProps extends Column {
+interface ColumnItemProps extends Omit<Column, 'order'> {
   boardId: string;
 }
 

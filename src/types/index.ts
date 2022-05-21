@@ -7,6 +7,7 @@ export interface User {
 export interface Board {
   id: string;
   title: string;
+  description: string;
 }
 
 export interface Column {

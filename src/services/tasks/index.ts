@@ -24,9 +24,9 @@ export interface TaskParams extends TasksParams {
   taskId: Task['id'];
 }
 
-export type CreateTaskParams = Omit<Task, 'id'>;
+export type CreateTaskParams = Omit<Task, 'id' | 'order'>;
 
-export interface UpdateTaskParams extends CreateTaskParams {
+export interface UpdateTaskParams extends Omit<Task, 'id'> {
   taskId: Task['id'];
 }
 
@@ -50,17 +50,10 @@ const getTask = async ({ boardId, columnId, taskId }: TaskParams) => {
   return response.data;
 };
 
-const createTask = async ({
-  title,
-  order,
-  description,
-  userId,
-  boardId,
-  columnId,
-}: CreateTaskParams) => {
+const createTask = async ({ title, description, userId, boardId, columnId }: CreateTaskParams) => {
   const response = await axios.post<Task>(
     `${API_URL}boards/${boardId}/columns/${columnId}/tasks`,
-    { title, order, description, userId },
+    { title, description, userId },
     {
       headers: authHeader(),
     },

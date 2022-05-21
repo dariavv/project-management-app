@@ -31,8 +31,8 @@ const Board: FC = () => {
   return (
     <>
       <Styled.BoardContainer>
-        {columns?.map(({ id, title, order }) => (
-          <ColumnItem key={id} id={id} title={title} order={order} boardId={boardId} />
+        {columns?.map(({ id, title }) => (
+          <ColumnItem key={id} id={id} title={title} boardId={boardId} />
         ))}
         <Styled.AddButton onClick={() => setIsOpenForm(true)}>
           <PlusOutlined style={{ padding: '0 15px 0 0' }} />

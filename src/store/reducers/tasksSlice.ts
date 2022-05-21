@@ -49,11 +49,10 @@ export const getTask = createAsyncThunk(
 
 export const createTask = createAsyncThunk(
   'tasks/createTask',
-  async ({ title, order, description, userId, boardId, columnId }: CreateTaskParams, thunkAPI) => {
+  async ({ title, description, userId, boardId, columnId }: CreateTaskParams, thunkAPI) => {
     try {
       const response = await tasksService.createTask({
         title,
-        order,
         description,
         userId,
         boardId,

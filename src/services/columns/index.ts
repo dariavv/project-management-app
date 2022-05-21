@@ -23,7 +23,6 @@ export type ColumnParams = {
 export type CreateColumnParams = {
   boardId: Board['id'];
   title: Column['title'];
-  order: Column['order'];
 };
 
 const getAllColumns = async (boardId: Board['id']) => {
@@ -43,10 +42,10 @@ const getColumn = async ({ boardId, columnId }: ColumnParams) => {
   return response.data;
 };
 
-const createColumn = async ({ boardId, title, order }: CreateColumnParams) => {
+const createColumn = async ({ boardId, title }: CreateColumnParams) => {
   const response = await axios.post<ColumnResponse>(
     `${API_URL}boards/${boardId}/columns`,
-    { title, order },
+    { title },
     {
       headers: authHeader(),
     },

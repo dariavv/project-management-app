@@ -48,9 +48,9 @@ export const getColumn = createAsyncThunk(
 
 export const createColumn = createAsyncThunk(
   'columns/createColumn',
-  async ({ boardId, title, order }: CreateColumnParams, thunkAPI) => {
+  async ({ boardId, title }: CreateColumnParams, thunkAPI) => {
     try {
-      const response = await columnsService.createColumn({ boardId, title, order });
+      const response = await columnsService.createColumn({ boardId, title });
       return response;
     } catch (error) {
       if (request.isAxiosError(error) && error.response) {

@@ -11,22 +11,27 @@ type CreateBoardFormProps = {
   onClose: () => void;
 };
 
+type ChangeValueType = {
+  [key: string]: string;
+};
+
 export const CreateBoardForm: FC<CreateBoardFormProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslations('main');
   const [boardTitle, setBoardTitle] = useState('');
+  const [description, setDescription] = useState('');
   const dispatch = useAppDispatch();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setBoardTitle(value);
+  const handleChange = (value: ChangeValueType) => {
+    if (value.title) setBoardTitle(value.title);
+    if (value.description) setDescription(value.description);
   };
 
   const handleSubmitForm = useCallback(() => {
-    if (boardTitle) {
-      dispatch(createBoard(boardTitle));
+    if (boardTitle && description) {
+      dispatch(createBoard({ title: boardTitle, description }));
       onClose();
     }
-  }, [boardTitle, dispatch, onClose]);
+  }, [boardTitle, description, dispatch, onClose]);
 
   const handleSubmitFailed = (errorInfo: unknown) => {
     openNotificationError({
@@ -49,10 +54,14 @@ export const CreateBoardForm: FC<CreateBoardFormProps> = ({ isOpen, onClose }) =
         }}
         onFinish={handleSubmitForm}
         onFinishFailed={handleSubmitFailed}
+        onValuesChange={handleChange}
         autoComplete="off"
       >
         <Form.Item label={t('title')} name="title" rules={[{}]}>
-          <Input onChange={handleChange} />
+          <Input />
+        </Form.Item>
+        <Form.Item label={t('description')} name="description" rules={[{}]}>
+          <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
         </Form.Item>
         <Form.Item
           wrapperCol={{
