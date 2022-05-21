@@ -8,7 +8,7 @@ export const ContainerFooter = styled.footer`
   justify-content: space-between;
   align-items: center;
   padding: 5px 40px;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   z-index: 2;
   width: 100%;
