@@ -15,7 +15,7 @@ export const Header = styled.header<HeaderProps>`
   background-color: ${WHITE};
   z-index: 99;
   top: 0;
-  position: sticky;
+  position: fixed;
   transition: 0.8s;
   box-shadow: ${({ isAnimated }) => (isAnimated ? `0 0px 5px ${SHADOW}` : `0 0px 12px ${SHADOW}`)};
 `;
