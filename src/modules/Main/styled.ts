@@ -5,6 +5,6 @@ export const Main = styled.main`
   justify-content: center;
   padding: 40px;
   width: 100%;
-  overflow-y: scroll;
-  height: 74vh;
+  overflow: auto;
+  height: (100vh - 185px);
 `;

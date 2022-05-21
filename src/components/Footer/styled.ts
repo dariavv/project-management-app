@@ -3,13 +3,13 @@ import { GREY } from 'constants/colors';
 import { TextBold } from 'theme';
 import styled from 'styled-components';
 
-export const ContainerFooter = styled.div`
+export const ContainerFooter = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 40px;
   position: sticky;
-  top: 100%;
+  bottom: 0%;
   z-index: 3;
   width: 100%;
   height: 110px;
