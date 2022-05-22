@@ -3,7 +3,7 @@ import { PRIMARY } from 'constants/colors';
 
 export const Title = css`
   font-weight: 600 !important;
-  font-size: 1.6rem !important;
+  font-size: 1.4rem !important;
   line-height: 150% !important;
 `;
 
