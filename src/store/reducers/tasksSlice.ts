@@ -164,6 +164,25 @@ const tasksSlice = createSlice({
         description: action.payload.message,
       });
     },
+    [updateTask.pending.toString()]: (state) => {
+      state.status = 'loading';
+    },
+    [updateTask.fulfilled.toString()]: (state, action) => {
+      const id = action.payload.id;
+      state.tasks = state.tasks.map((tasks) => {
+        if (tasks.id === id) return action.payload;
+        return tasks;
+      });
+      openNotificationSuccess({ message: 'Success', description: 'Board successfully updated' });
+      state.status = 'idle';
+    },
+    [updateTask.rejected.toString()]: (state, action) => {
+      state.status = 'failed';
+      openNotificationError({
+        message: 'Error',
+        description: action.payload.message,
+      });
+    },
     [deleteTask.pending.toString()]: (state) => {
       state.status = 'loading';
     },

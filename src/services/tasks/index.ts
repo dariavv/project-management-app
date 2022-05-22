@@ -58,7 +58,6 @@ const createTask = async ({ title, description, userId, boardId, columnId }: Cre
       headers: authHeader(),
     },
   );
-
   return response.data;
 };
 
@@ -71,14 +70,13 @@ const updateTask = async ({
   columnId,
   taskId,
 }: UpdateTaskParams) => {
-  const response = await axios.post<Task>(
-    `${API_URL}boards/${boardId}/columns/${columnId}/tasks${taskId}`,
-    { title, order, description, userId },
+  const response = await axios.put<Task>(
+    `${API_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
+    { title, order, description, userId, boardId, columnId },
     {
       headers: authHeader(),
     },
   );
-
   return response.data;
 };
 
