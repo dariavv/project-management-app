@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Form, Input, Select } from 'antd';
 import { Button, Modal } from 'components';
@@ -6,26 +6,36 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
 import { updateTask } from 'store/reducers/tasksSlice';
 import { openNotificationError } from 'utils/notifications';
-import { Column, Task } from 'types';
+import { Task } from 'types';
 import { UpdateTaskParams } from 'services/tasks';
 
-type UpdateTaskFormProps = {
+interface UpdateTaskFormProps extends Omit<Task, 'id' | 'boardId'> {
   taskId: Task['id'];
-  columnId: Column['id'];
   isOpen: boolean;
   onClose: () => void;
-};
+}
 
 type ParamsType = {
   id: string;
 };
 
-export const UpdateTaskForm: FC<UpdateTaskFormProps> = ({ taskId, columnId, isOpen, onClose }) => {
+export const UpdateTaskForm: FC<UpdateTaskFormProps> = ({
+  taskId,
+  title,
+  description,
+  order,
+  userId,
+  columnId,
+  isOpen,
+  onClose,
+}) => {
   const { t } = useTranslations('main');
   const { id: boardId } = useParams() as ParamsType;
   const [assigneeId, setAssigneeId] = useState('');
   const { users } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
+
+  const currentUser = useMemo(() => users.find((user) => user.id === userId), [userId, users]);
 
   const handleSelect = useCallback(
     (value: string) => {
@@ -41,18 +51,17 @@ export const UpdateTaskForm: FC<UpdateTaskFormProps> = ({ taskId, columnId, isOp
     (values: UpdateTaskParams) => {
       const formValues = {
         taskId,
-        title: values.title,
-        description: values.description,
-        userId: assigneeId,
+        title: values.title || title,
+        description: values.description || description,
+        userId: assigneeId || userId,
         boardId,
         columnId,
-        // need to add logic
-        order: 1,
+        order: order,
       };
       dispatch(updateTask(formValues));
       onClose();
     },
-    [assigneeId, boardId, taskId, columnId, dispatch, onClose],
+    [taskId, title, description, assigneeId, userId, boardId, columnId, order, dispatch, onClose],
   );
 
   const handleSubmitFailed = (errorInfo: unknown) => {
@@ -73,6 +82,9 @@ export const UpdateTaskForm: FC<UpdateTaskFormProps> = ({ taskId, columnId, isOp
         }}
         initialValues={{
           remember: true,
+          title: title,
+          description: description,
+          assignee: currentUser?.login,
         }}
         onFinish={handleSubmitForm}
         onFinishFailed={handleSubmitFailed}
@@ -85,7 +97,7 @@ export const UpdateTaskForm: FC<UpdateTaskFormProps> = ({ taskId, columnId, isOp
           <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
         </Form.Item>
         <Form.Item label="Assignee" name="assignee" rules={[{}]}>
-          <Select defaultActiveFirstOption={true} onSelect={handleSelect}>
+          <Select onSelect={handleSelect}>
             {users.map((user) => (
               <Select.Option key={user.id} value={user.login}>
                 {user.login}

@@ -6,6 +6,7 @@ import { IconContainer } from 'theme';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { ConfirmationModal } from 'components';
 import { deleteTask } from 'store/reducers/tasksSlice';
+import { UpdateTaskForm } from '../UpdateTaskForm';
 import * as Styled from './styled';
 
 // TODO: remove order displaying after dnd implementation
@@ -13,6 +14,7 @@ export const TaskItem: FC<Task> = (props) => {
   const { id, title, description, order, columnId, boardId, userId } = props;
   const { users } = useAppSelector((state) => state.users);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenForm, setIsOpenForm] = useState(false);
   const dispatch = useAppDispatch();
 
   const assignee = useMemo(() => users.find((user) => user.id === userId), [userId, users]);
@@ -34,7 +36,7 @@ export const TaskItem: FC<Task> = (props) => {
             {order} - {title}
           </Typography.Text>
           <IconContainer>
-            <EditOutlined />
+            <EditOutlined onClick={() => setIsOpenForm(true)} />
             <DeleteOutlined onClick={() => setIsOpen(true)} />
           </IconContainer>
         </Styled.Title>
@@ -43,6 +45,16 @@ export const TaskItem: FC<Task> = (props) => {
           Assignee: <span>{assignee?.login}</span>
         </Styled.Assignee>
       </Styled.Container>
+      <UpdateTaskForm
+        taskId={id}
+        title={title}
+        description={description}
+        order={order}
+        userId={userId}
+        columnId={columnId}
+        isOpen={isOpenForm}
+        onClose={() => setIsOpenForm(false)}
+      />
       <ConfirmationModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
