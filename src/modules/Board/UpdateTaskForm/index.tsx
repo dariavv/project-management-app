@@ -1,14 +1,16 @@
 import { FC, useCallback, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Form, Input, Select } from 'antd';
-import { useTranslations } from 'hooks/useTranslations';
 import { Button, Modal } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
+import { useTranslations } from 'hooks/useTranslations';
+import { updateTask } from 'store/reducers/tasksSlice';
 import { openNotificationError } from 'utils/notifications';
-import { useParams } from 'react-router-dom';
-import { createTask } from 'store/reducers/tasksSlice';
 import { Column, Task } from 'types';
+import { UpdateTaskParams } from 'services/tasks';
 
-type CreateTaskFormProps = {
+type UpdateTaskFormProps = {
+  taskId: Task['id'];
   columnId: Column['id'];
   isOpen: boolean;
   onClose: () => void;
@@ -18,9 +20,7 @@ type ParamsType = {
   id: string;
 };
 
-type FormValues = Omit<Task, 'id' | 'order'>;
-
-export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onClose }) => {
+export const UpdateTaskForm: FC<UpdateTaskFormProps> = ({ taskId, columnId, isOpen, onClose }) => {
   const { t } = useTranslations('main');
   const { id: boardId } = useParams() as ParamsType;
   const [assigneeId, setAssigneeId] = useState('');
@@ -38,18 +38,21 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
   );
 
   const handleSubmitForm = useCallback(
-    (values: FormValues) => {
+    (values: UpdateTaskParams) => {
       const formValues = {
+        taskId,
         title: values.title,
         description: values.description,
         userId: assigneeId,
         boardId,
         columnId,
+        // need to add logic
+        order: 1,
       };
-      dispatch(createTask(formValues));
+      dispatch(updateTask(formValues));
       onClose();
     },
-    [assigneeId, boardId, columnId, dispatch, onClose],
+    [assigneeId, boardId, taskId, columnId, dispatch, onClose],
   );
 
   const handleSubmitFailed = (errorInfo: unknown) => {

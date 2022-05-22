@@ -8,8 +8,8 @@ import { useTranslations } from 'hooks/useTranslations';
 import { logOut } from 'store/reducers/authSlice';
 import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
-import { CreateBoardForm } from 'modules/Main/CreateBoardForm';
 import * as Styled from './styled';
+import { CreateEditBoardForm } from 'modules/Main/CreateEditBoardForm';
 
 export const Header: FC = () => {
   const { t } = useTranslations('main');
@@ -82,7 +82,7 @@ export const Header: FC = () => {
           </Select>
         </Styled.ButtonsContainer>
       </Styled.Header>
-      <CreateBoardForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <CreateEditBoardForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 };
