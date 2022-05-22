@@ -9,7 +9,7 @@ export const Footer: FC = () => (
     <ContainerFooter>
       <Col span={6}>
         <a href="https://rs.school/react/" target="_blank" rel="noreferrer">
-          <img src={rssLogo} alt="RSS" width={150} />
+          <img src={rssLogo} alt="RSS" width={90} />
         </a>
       </Col>
       <Col span={8}>
@@ -23,7 +23,7 @@ export const Footer: FC = () => (
             rel="noreferrer"
           >
             <TextLink>
-              <GithubOutlined style={{ fontSize: '3rem' }} />
+              <GithubOutlined style={{ fontSize: '2.7rem' }} />
             </TextLink>
           </a>
         </Col>

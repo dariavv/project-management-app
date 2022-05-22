@@ -1,6 +1,6 @@
 export const WHITE = '#FFFFFF';
 export const LIGHTGREY = '#F5F8FA';
-export const DARK = '#323246';
+export const DARK = '#334154';
 export const PRIMARY = '#1890FF';
 export const GREY = '#CFD7DE';
 export const DARK_GREY = '#9ca5b5';

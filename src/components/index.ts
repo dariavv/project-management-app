@@ -6,3 +6,4 @@ export { Button } from './Button';
 export { Switch } from './Switch';
 export { Modal } from './Modal';
 export { ConfirmationModal } from './ConfirmationModal';
+export { Logo } from './Logo';

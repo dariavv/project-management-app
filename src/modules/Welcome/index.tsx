@@ -1,7 +1,7 @@
 import { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
-import { Button, Footer } from 'components';
+import { Button, Footer, Logo } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { logOut } from 'store/reducers/authSlice';
 import * as Styled from './styled';
@@ -18,7 +18,8 @@ const Welcome: FC = () => {
 
   return (
     <>
-      <Styled.Container>
+      <Styled.Header>
+        <Logo />
         {token && (
           <Styled.ButtonsContainer>
             <Button type="primary" onClick={() => navigate('/')}>
@@ -31,7 +32,7 @@ const Welcome: FC = () => {
         )}
         {!token && (
           <Styled.ButtonsContainer>
-            <Button type="primary" m="0 20px 0 0" onClick={() => navigate('/signin')}>
+            <Button type="primary" onClick={() => navigate('/signin')}>
               {t('sign_in')}
             </Button>
             <Button type="primary" onClick={() => navigate('/signup')}>
@@ -39,6 +40,8 @@ const Welcome: FC = () => {
             </Button>
           </Styled.ButtonsContainer>
         )}
+      </Styled.Header>
+      <Styled.Container>
         <Styled.Info>
           <Styled.Title>Welcome!</Styled.Title>
           <Styled.Description>

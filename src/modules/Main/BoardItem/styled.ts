@@ -15,17 +15,6 @@ export const Title = styled.h3`
   }
 `;
 
-export const IconContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  svg {
-    cursor: pointer;
-    &:hover {
-      color: ${PRIMARY};
-    }
-  }
-`;
-
 export const CardItem = styled(Card)`
   margin: 0 0 10px 0;
 `;

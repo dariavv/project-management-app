@@ -2,7 +2,7 @@ import { FC, useCallback, useState } from 'react';
 import { Form, Input } from 'antd';
 import { useTranslations } from 'hooks/useTranslations';
 import { Button, Modal } from 'components';
-import { useAppDispatch, useAppSelector } from 'hooks';
+import { useAppDispatch } from 'hooks';
 import { openNotificationError } from 'utils/notifications';
 import { createColumn } from 'store/reducers/columnsSlice';
 import { useParams } from 'react-router-dom';
@@ -20,7 +20,6 @@ export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose })
   const { t } = useTranslations('main');
   const { id: boardId } = useParams() as ParamsType;
   const [columnTitle, setColumnTitle] = useState('');
-  const { columns } = useAppSelector((state) => state.columns);
   const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,10 +29,10 @@ export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose })
 
   const handleSubmitForm = useCallback(() => {
     if (columnTitle) {
-      dispatch(createColumn({ boardId, title: columnTitle, order: columns.length + 1 }));
+      dispatch(createColumn({ boardId, title: columnTitle }));
       onClose();
     }
-  }, [boardId, columnTitle, columns.length, dispatch, onClose]);
+  }, [boardId, columnTitle, dispatch, onClose]);
 
   const handleSubmitFailed = (errorInfo: unknown) => {
     openNotificationError({
@@ -43,7 +42,7 @@ export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose })
   };
 
   return (
-    <Modal title={t('create_new_board')} isOpen={isOpen} onClose={onClose}>
+    <Modal title={t('create_new_column')} isOpen={isOpen} onClose={onClose}>
       <Form
         labelCol={{
           span: 5,
