@@ -4,6 +4,7 @@ import { NotFound } from 'modules/NotFound';
 import { Loader } from 'components';
 import { ProtectedRoute } from './ProtecterdRoute';
 import { Layout } from 'modules/Layout';
+import Profile from 'modules/Profile';
 
 const Main = React.lazy(() => import('modules/Main'));
 const Welcome = React.lazy(() => import('modules/Welcome'));
@@ -47,6 +48,14 @@ export const AppRouter = () => {
         element={
           <Suspense fallback={<Loader />}>
             <SignUp />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <Suspense fallback={<Loader />}>
+            <Profile />
           </Suspense>
         }
       />
