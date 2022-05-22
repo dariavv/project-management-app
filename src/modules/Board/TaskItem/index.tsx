@@ -6,7 +6,7 @@ import { IconContainer } from 'theme';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { ConfirmationModal } from 'components';
 import { deleteTask } from 'store/reducers/tasksSlice';
-import { UpdateTaskForm } from '../UpdateTaskForm';
+import { EditTaskForm } from '../EditTaskForm';
 import * as Styled from './styled';
 
 // TODO: remove order displaying after dnd implementation
@@ -45,7 +45,7 @@ export const TaskItem: FC<Task> = (props) => {
           Assignee: <span>{assignee?.login}</span>
         </Styled.Assignee>
       </Styled.Container>
-      <UpdateTaskForm
+      <EditTaskForm
         taskId={id}
         title={title}
         description={description}

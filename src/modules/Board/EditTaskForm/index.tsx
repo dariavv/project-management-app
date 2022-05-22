@@ -9,7 +9,7 @@ import { openNotificationError } from 'utils/notifications';
 import { Task } from 'types';
 import { UpdateTaskParams } from 'services/tasks';
 
-interface UpdateTaskFormProps extends Omit<Task, 'id' | 'boardId'> {
+interface EditTaskFormProps extends Omit<Task, 'id' | 'boardId'> {
   taskId: Task['id'];
   isOpen: boolean;
   onClose: () => void;
@@ -19,7 +19,7 @@ type ParamsType = {
   id: string;
 };
 
-export const UpdateTaskForm: FC<UpdateTaskFormProps> = ({
+export const EditTaskForm: FC<EditTaskFormProps> = ({
   taskId,
   title,
   description,
@@ -72,7 +72,7 @@ export const UpdateTaskForm: FC<UpdateTaskFormProps> = ({
   };
 
   return (
-    <Modal title={t('create_new_task')} isOpen={isOpen} onClose={onClose}>
+    <Modal title={t('edit_task')} isOpen={isOpen} onClose={onClose}>
       <Form
         labelCol={{
           span: 5,
