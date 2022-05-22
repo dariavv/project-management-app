@@ -16,7 +16,6 @@ export const TaskItem: FC<Task> = (props) => {
   const dispatch = useAppDispatch();
 
   const assignee = useMemo(() => users.find((user) => user.id === userId), [userId, users]);
-  console.log(assignee);
 
   const handleSubmit = useCallback(() => {
     setIsOpen(false);
