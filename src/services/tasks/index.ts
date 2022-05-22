@@ -84,12 +84,12 @@ const updateTask = async ({
 
 const deleteTask = async ({ boardId, columnId, taskId }: TaskParams) => {
   const response = await axios.delete<DeleteTaskResponse>(
-    `${API_URL}boards/${boardId}/columns/${columnId}/tasks${taskId}`,
+    `${API_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
     {
       headers: authHeader(),
     },
   );
-  return { data: response.data, columnId };
+  return { data: response.data, taskId };
 };
 
 export const tasksService = {

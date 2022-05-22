@@ -1,20 +1,22 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { Typography } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Task } from 'types';
 import { IconContainer } from 'theme';
-import { useAppDispatch } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { ConfirmationModal } from 'components';
 import { deleteTask } from 'store/reducers/tasksSlice';
 import * as Styled from './styled';
 
-type TaskItemProps = Omit<Task, 'userId'>;
-
 // TODO: remove order displaying after dnd implementation
-export const TaskItem: FC<TaskItemProps> = (props) => {
-  const { id, title, description, order, columnId, boardId } = props;
+export const TaskItem: FC<Task> = (props) => {
+  const { id, title, description, order, columnId, boardId, userId } = props;
+  const { users } = useAppSelector((state) => state.users);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
+
+  const assignee = useMemo(() => users.find((user) => user.id === userId), [userId, users]);
+  console.log(assignee);
 
   const handleSubmit = useCallback(() => {
     setIsOpen(false);
@@ -23,8 +25,8 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
 
   return (
     <>
-      <Styled.ContainerTask>
-        <Styled.HeaderTask>
+      <Styled.Container>
+        <Styled.Title>
           <Typography.Text
             ellipsis={{
               tooltip: title,
@@ -36,9 +38,12 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
             <EditOutlined />
             <DeleteOutlined onClick={() => setIsOpen(true)} />
           </IconContainer>
-        </Styled.HeaderTask>
-        <Styled.TaskContainer>{description}</Styled.TaskContainer>
-      </Styled.ContainerTask>
+        </Styled.Title>
+        <Styled.Description>{description}</Styled.Description>
+        <Styled.Assignee>
+          Assignee: <span>{assignee?.login}</span>
+        </Styled.Assignee>
+      </Styled.Container>
       <ConfirmationModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

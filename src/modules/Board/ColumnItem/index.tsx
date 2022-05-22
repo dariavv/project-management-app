@@ -46,10 +46,11 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
             <DeleteOutlined onClick={() => setIsOpen(true)} />
           </IconContainer>
         </Styled.ColumnTitle>
-        {filteredTasks?.map(({ id, title, description, order, columnId, boardId }) => (
+        {filteredTasks?.map(({ id, title, description, order, columnId, boardId, userId }) => (
           <TaskItem
             key={id}
             id={id}
+            userId={userId}
             boardId={boardId}
             columnId={columnId}
             title={title}
