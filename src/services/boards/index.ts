@@ -19,17 +19,17 @@ interface DeleteBoardResponse {
   response: string;
 }
 
-export type UpdateBoardParams = Pick<Board, 'id' | 'title'>;
+export type CreateBoardParams = Omit<Board, 'id'>;
 
 const getAllBoards = async () => {
   const response = await axios.get<BoardsResponse>(`${API_URL}boards`, { headers: authHeader() });
   return response.data;
 };
 
-const createBoard = async (title: Board['title']) => {
+const createBoard = async ({ title, description }: CreateBoardParams) => {
   const response = await axios.post<CreateBoardResponse>(
     `${API_URL}boards`,
-    { title },
+    { title, description },
     {
       headers: authHeader(),
     },
@@ -37,10 +37,10 @@ const createBoard = async (title: Board['title']) => {
   return response.data;
 };
 
-const updateBoard = async ({ id, title }: UpdateBoardParams) => {
+const updateBoard = async ({ id, title, description }: Board) => {
   const response = await axios.put<UpdateBoardResponse>(
     `${API_URL}boards/${id}`,
-    { title },
+    { title, description },
     {
       headers: authHeader(),
     },

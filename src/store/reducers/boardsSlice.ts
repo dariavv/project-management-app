@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import request from 'axios';
-import { boardsService, UpdateBoardParams } from 'services/boards';
+import { boardsService, CreateBoardParams } from 'services/boards';
 import { Board } from 'types';
 import { openNotificationError, openNotificationSuccess } from 'utils/notifications';
 
@@ -28,9 +28,9 @@ export const getAllBoards = createAsyncThunk('boards/getAllBoards', async (_, th
 
 export const createBoard = createAsyncThunk(
   'boards/createBoard',
-  async (title: Board['title'], thunkAPI) => {
+  async ({ title, description }: CreateBoardParams, thunkAPI) => {
     try {
-      const response = await boardsService.createBoard(title);
+      const response = await boardsService.createBoard({ title, description });
       return response;
     } catch (error) {
       if (request.isAxiosError(error) && error.response) {
@@ -44,9 +44,9 @@ export const createBoard = createAsyncThunk(
 
 export const updateBoard = createAsyncThunk(
   'boards/updateBoard',
-  async ({ id, title }: UpdateBoardParams, thunkAPI) => {
+  async ({ id, title, description }: Board, thunkAPI) => {
     try {
-      const response = await boardsService.updateBoard({ id, title });
+      const response = await boardsService.updateBoard({ id, title, description });
       return response;
     } catch (error) {
       if (request.isAxiosError(error) && error.response) {

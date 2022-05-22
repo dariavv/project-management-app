@@ -1,1 +1,1 @@
-export const API_URL = 'https://project-management-app-be.herokuapp.com/';
+export const API_URL = 'https://pma-57-be.herokuapp.com/';

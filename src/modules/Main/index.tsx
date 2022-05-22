@@ -21,9 +21,10 @@ const Main: FC = () => {
   return (
     <Styled.Main>
       <Row justify="center">
+        {!boards.length && <div>Add your first board</div>}
         <Col xs={{ span: 24 }} md={{ span: 16 }} xl={{ span: 12 }}>
-          {boards?.map(({ id, title }) => (
-            <BoardItem key={id} id={id} title={title} />
+          {boards?.map(({ id, title, description }) => (
+            <BoardItem key={id} id={id} title={title} description={description} />
           ))}
         </Col>
       </Row>

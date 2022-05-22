@@ -5,30 +5,42 @@ import { Button, Modal } from 'components';
 import { useAppDispatch } from 'hooks';
 import { openNotificationError } from 'utils/notifications';
 import { updateBoard } from 'store/reducers/boardsSlice';
+import { Board } from 'types';
 
-type EditBoardFormProps = {
-  id: string;
-  title: string;
+interface EditBoardFormProps extends Omit<Board, 'order'> {
   isOpen: boolean;
   onClose: () => void;
+}
+
+type ChangeValueType = {
+  [key: string]: string;
 };
 
-export const EditBoardForm: FC<EditBoardFormProps> = ({ id, title, isOpen, onClose }) => {
+export const EditBoardForm: FC<EditBoardFormProps> = ({
+  id,
+  title,
+  description,
+  isOpen,
+  onClose,
+}) => {
   const { t } = useTranslations('main');
   const [newTitle, setNewTitle] = useState('');
+  const [newDescription, setNewDescription] = useState('');
   const dispatch = useAppDispatch();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setNewTitle(value);
+  const handleChange = (value: ChangeValueType) => {
+    if (value.title) setNewTitle(value.title);
+    if (value.description) setNewDescription(value.description);
   };
 
   const handleSubmitForm = useCallback(() => {
-    if (newTitle) {
-      dispatch(updateBoard({ id, title: newTitle }));
+    if (newTitle || newDescription) {
+      dispatch(
+        updateBoard({ id, title: newTitle || title, description: newDescription || description }),
+      );
       onClose();
     }
-  }, [id, newTitle, dispatch, onClose]);
+  }, [newTitle, newDescription, dispatch, id, title, description, onClose]);
 
   const handleSubmitFailed = (errorInfo: unknown) => {
     openNotificationError({
@@ -49,13 +61,18 @@ export const EditBoardForm: FC<EditBoardFormProps> = ({ id, title, isOpen, onClo
         initialValues={{
           remember: true,
           title: title,
+          description: description,
         }}
         onFinish={handleSubmitForm}
         onFinishFailed={handleSubmitFailed}
+        onValuesChange={handleChange}
         autoComplete="off"
       >
         <Form.Item label={t('title')} name="title" rules={[{}]}>
-          <Input onChange={handleChange} />
+          <Input />
+        </Form.Item>
+        <Form.Item label={t('description')} name="description" rules={[{}]}>
+          <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
         </Form.Item>
         <Form.Item
           wrapperCol={{

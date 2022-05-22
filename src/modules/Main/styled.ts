@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Main = styled.main`
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 40px 40px 100px;
   width: 100%;
-  overflow-y: scroll;
-  height: 74vh;
+  overflow: auto;
+  height: calc(100% - 150px);
 `;

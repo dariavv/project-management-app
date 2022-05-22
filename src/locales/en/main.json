@@ -6,12 +6,16 @@
   "sign_in_account": "Sign up for an account",
   "go_to_boards": "Go to your boards",
   "not_found": "Page not found",
-  "go_to_main": "Go to Main",
+  "back_to_main": "Back to main page",
   "create_new_board": "Create new board",
   "edit_board": "Edit board",
   "cancel": "Cancel",
   "submit": "Submit",
   "confirmation_modal": "Confirmation Modal",
   "confirmation_message": "Are you sure you want to DELETE?",
-  "title": "Title"
+  "title": "Title",
+  "add_column": "Add column",
+  "create_new_column": "Create new column",
+  "create_new_task": "Create new task",
+  "description": "Description"
 }

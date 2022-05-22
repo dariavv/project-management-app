@@ -1,37 +1,69 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useState, useEffect, useMemo } from 'react';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import { ConfirmationModal } from 'components';
+import { ConfirmationModal, Loader } from 'components';
 import { deleteColumn } from 'store/reducers/columnsSlice';
-import { useAppDispatch } from 'hooks';
+import { getAllTasksByColumnId } from 'store/reducers/tasksSlice';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { CreateTaskForm } from '../CreateTaskForm';
+import { TaskItem } from '../TaskItem';
 import { Column } from 'types';
+import { IconContainer } from 'theme';
 import * as Styled from './styled';
 
-interface ColumnItemProps extends Column {
+interface ColumnItemProps extends Omit<Column, 'order'> {
   boardId: string;
-  children?: React.ReactNode;
 }
 
-export const ColumnItem: FC<ColumnItemProps> = ({ id, title, boardId, children }) => {
+export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenForm, setIsOpenForm] = useState(false);
+  const { tasks, status } = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
+
+  const filteredTasks = useMemo(
+    () => tasks.filter((task) => task.boardId === boardId && task.columnId === columnId),
+    [boardId, columnId, tasks],
+  );
 
   const handleSubmit = useCallback(() => {
     setIsOpen(false);
-    dispatch(deleteColumn({ boardId, columnId: id }));
-  }, [boardId, dispatch, id]);
+    dispatch(deleteColumn({ boardId, columnId }));
+  }, [boardId, dispatch, columnId]);
+
+  useEffect(() => {
+    dispatch(getAllTasksByColumnId({ boardId, columnId }));
+  }, [columnId, boardId, dispatch]);
+
+  if (status === 'loading') return <Loader />;
 
   return (
     <>
       <Styled.ColumnItem>
         <Styled.ColumnTitle>
           <div>{title}</div>
-          <Styled.IconContainer>
-            <PlusOutlined style={{ padding: '0 15px 0 0' }} />
+          <IconContainer>
+            <PlusOutlined onClick={() => setIsOpenForm(true)} />
             <DeleteOutlined onClick={() => setIsOpen(true)} />
-          </Styled.IconContainer>
+          </IconContainer>
         </Styled.ColumnTitle>
-        {children}
+        {filteredTasks?.map(({ id, title, description, order, columnId, boardId, userId }) => (
+          <TaskItem
+            key={id}
+            id={id}
+            userId={userId}
+            boardId={boardId}
+            columnId={columnId}
+            title={title}
+            description={description}
+            order={order}
+          />
+        ))}
       </Styled.ColumnItem>
+      <CreateTaskForm
+        columnId={columnId}
+        isOpen={isOpenForm}
+        onClose={() => setIsOpenForm(false)}
+      />
       <ConfirmationModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

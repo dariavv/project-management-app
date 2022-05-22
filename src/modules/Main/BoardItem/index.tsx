@@ -6,14 +6,12 @@ import { useAppDispatch } from 'hooks';
 import { Board } from 'types';
 import { deleteBoard } from 'store/reducers/boardsSlice';
 import { EditBoardForm } from '../EditBoardForm';
+import { IconContainer } from 'theme';
 import * as Styled from './styled';
 
-type BoardItem = {
-  id: string;
-  title: string;
-};
+type BoardItem = Omit<Board, 'order'>;
 
-export const BoardItem: FC<BoardItem> = ({ id, title }) => {
+export const BoardItem: FC<BoardItem> = ({ id, title, description }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
   const dispatch = useAppDispatch();
@@ -44,10 +42,11 @@ export const BoardItem: FC<BoardItem> = ({ id, title }) => {
       <Styled.Container>
         <Styled.CardItem size="small">
           <Styled.Title onClick={() => goToItem(id)}>{title}</Styled.Title>
-          <Styled.IconContainer>
-            <EditOutlined style={{ padding: '0 5px 0 0' }} onClick={updateBoardInfo} />
+          <p>{description}</p>
+          <IconContainer>
+            <EditOutlined onClick={updateBoardInfo} />
             <DeleteOutlined onClick={showModal} />
-          </Styled.IconContainer>
+          </IconContainer>
         </Styled.CardItem>
       </Styled.Container>
       <ConfirmationModal
@@ -58,6 +57,7 @@ export const BoardItem: FC<BoardItem> = ({ id, title }) => {
       <EditBoardForm
         id={id}
         title={title}
+        description={description}
         isOpen={isOpenForm}
         onClose={() => setIsOpenForm(false)}
       />

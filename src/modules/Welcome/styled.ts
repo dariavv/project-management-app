@@ -1,13 +1,20 @@
 import styled from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  height: 75px;
+`;
+
 export const Container = styled.main`
-  height: 100%;
   margin: 0;
   padding: 0;
   display: flex;
-  overflow: hidden;
   flex-direction: column;
+  height: calc(100vh - 150px);
 `;
 
 export const Info = styled.div`
@@ -19,12 +26,10 @@ export const Info = styled.div`
 
 export const ButtonsContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin: 40px 60px;
 `;
 
-export const Title = styled.div`
-  font-size: 4rem;
+export const Title = styled.h2`
+  font-size: 3rem;
   font-weight: 700;
   color: ${PRIMARY};
 `;

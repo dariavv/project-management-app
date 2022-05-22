@@ -1,8 +1,9 @@
-import { GREY, DARK, WHITE } from 'constants/colors';
+import { GREY, DARK, WHITE, PRIMARY } from 'constants/colors';
 import styled from 'styled-components';
 
-export const ContainerTask = styled.div`
+export const Container = styled.div`
   width: 90%;
+  max-width: 267px;
   margin: 5px 0;
   border: 1px solid ${GREY};
   border-radius: 10px;
@@ -14,7 +15,7 @@ export const ContainerIcon = styled.div`
   justify-content: flex-end;
 `;
 
-export const HeaderTask = styled.div`
+export const Title = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -27,15 +28,18 @@ export const HeaderTask = styled.div`
   font-weight: 500;
   text-align: justify;
 `;
-export const TaskContainer = styled.div`
+
+export const Description = styled.div`
   display: flex;
   width: 100%;
-  padding: 7px;
+  padding: 0 7px;
 `;
 
-export const IconContainer = styled.div`
-  padding: 0 0 0 15px;
+export const Assignee = styled.div`
   display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  margin: 5px 7px;
+  span {
+    color: ${PRIMARY};
+    margin-left: 5px;
+  }
 `;

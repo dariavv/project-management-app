@@ -23,7 +23,7 @@ export const NotFound: FC = () => {
             <NFHeading>404</NFHeading>
             <NFText>{t('not_found')}</NFText>
           </NotFoundTopInner>
-          <StyledLink to="/">{t('go_to_main')}</StyledLink>
+          <StyledLink to="/">{t('back_to_main')}</StyledLink>
         </NotFoundTop>
         <ConteinerNotFoundImg>
           <NotFoundImg />
