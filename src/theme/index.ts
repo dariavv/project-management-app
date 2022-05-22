@@ -26,6 +26,7 @@ export const IconContainer = styled.div`
     margin: 0 0 0 5px;
   }
   svg {
+    width: 14px;
     cursor: pointer;
     &:hover {
       color: ${PRIMARY};

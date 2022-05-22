@@ -1,7 +1,5 @@
-import { PRIMARY, WHITE, SHADOW } from 'constants/colors';
-import { Link } from 'react-router-dom';
+import { WHITE, SHADOW } from 'constants/colors';
 import styled from 'styled-components';
-import { Title } from 'theme';
 
 type HeaderProps = {
   isAnimated: boolean;
@@ -24,24 +22,7 @@ export const Header = styled.header<HeaderProps>`
   }
 `;
 
-export const LogoContainer = styled(Link)`
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  cursor: pointer;
-  color: ${PRIMARY};
-`;
-
 export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-`;
-
-export const Logo = styled.h1`
-  color: ${PRIMARY};
-  margin: 0 0 0 7px;
-  ${Title}
-  @media (max-width: 450px) {
-    display: none;
-  }
 `;

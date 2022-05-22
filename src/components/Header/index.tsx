@@ -2,14 +2,13 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import i18n from 'locales/i18n';
 import { Row, Select } from 'antd';
-import { Button } from 'components';
+import { Button, Logo } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
 import { logOut } from 'store/reducers/authSlice';
 import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
 import { CreateBoardForm } from 'modules/Main/CreateBoardForm';
-import appLogo from 'assets/images/logo_app.png';
 import * as Styled from './styled';
 
 export const Header: FC = () => {
@@ -50,10 +49,7 @@ export const Header: FC = () => {
     <>
       <Styled.Header isAnimated={isAnimated}>
         <Row>
-          <Styled.LogoContainer to={'/'}>
-            <img src={appLogo} alt="logo" width={30} />
-            <Styled.Logo>liosta</Styled.Logo>
-          </Styled.LogoContainer>
+          <Logo />
         </Row>
         <Styled.ButtonsContainer>
           {!token && (

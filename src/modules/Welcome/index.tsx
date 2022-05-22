@@ -1,7 +1,7 @@
 import { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
-import { Button, Footer } from 'components';
+import { Button, Footer, Logo } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { logOut } from 'store/reducers/authSlice';
 import * as Styled from './styled';
@@ -19,6 +19,7 @@ const Welcome: FC = () => {
   return (
     <>
       <Styled.Header>
+        <Logo />
         {token && (
           <Styled.ButtonsContainer>
             <Button type="primary" onClick={() => navigate('/')}>

@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
 export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px 40px;
   height: 75px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
 `;
 
 export const Container = styled.main`
