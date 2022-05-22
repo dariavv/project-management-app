@@ -14,21 +14,17 @@ const initialState: UsersState = {
   status: 'idle',
 };
 
-export const getAllUsers = createAsyncThunk(
-  'users/getAllUsers',
-  async (userId: User['id'], thunkAPI) => {
-    try {
-      const response = await usersService.getAllUsers();
-      return response;
-    } catch (error) {
-      if (request.isAxiosError(error) && error.response) {
-        const message =
-          (error.response && error.response.data) || error.message || error.toString();
-        return thunkAPI.rejectWithValue(message);
-      }
+export const getAllUsers = createAsyncThunk('users/getAllUsers', async (_, thunkAPI) => {
+  try {
+    const response = await usersService.getAllUsers();
+    return response;
+  } catch (error) {
+    if (request.isAxiosError(error) && error.response) {
+      const message = (error.response && error.response.data) || error.message || error.toString();
+      return thunkAPI.rejectWithValue(message);
     }
-  },
-);
+  }
+});
 
 export const getUser = createAsyncThunk('users/getUser', async (userId: User['id'], thunkAPI) => {
   try {
