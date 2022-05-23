@@ -46,7 +46,7 @@ const updateUser = async ({ id, name, login, password }: UpdateUserParams) => {
 };
 
 const deleteUser = async (userId: User['id']) => {
-  const response = await axios.delete<DeleteUserResponse>(`${API_URL}boards/${userId}`, {
+  const response = await axios.delete<DeleteUserResponse>(`${API_URL}users/${userId}`, {
     headers: authHeader(),
   });
   return { data: response.data, userId };

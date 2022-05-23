@@ -1,11 +1,12 @@
-import { Footer } from 'components';
+import { Footer, ConfirmationModal, Header } from 'components';
 
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
-import { updateUser } from 'store/reducers/usersSlice';
+import { deleteUser, updateUser } from 'store/reducers/usersSlice';
+import { logOut } from 'store/reducers/authSlice';
 import { openNotificationError } from 'utils/notifications';
 import {
   StyledButtonCont,
@@ -15,6 +16,9 @@ import {
   StyledLink,
   StyledButton,
   ConteinerWrapper,
+  DeleteButton,
+  Line,
+  StyledP,
 } from './styled';
 
 type FormValues = {
@@ -26,6 +30,7 @@ type FormValues = {
 const Profile: FC = () => {
   const { token } = useAppSelector((state) => state.auth);
   const { status, user } = useAppSelector((state) => state.users);
+  const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
 
@@ -41,8 +46,14 @@ const Profile: FC = () => {
         dispatch(updateUser(formValues));
       }
     },
-    [dispatch],
+    [dispatch, user],
   );
+  const onDelete = () => {
+    if (user) {
+      dispatch(deleteUser(user.id));
+      dispatch(logOut());
+    }
+  };
 
   const handleSubmitFailed = (errorInfo: unknown) => {
     openNotificationError({
@@ -57,6 +68,7 @@ const Profile: FC = () => {
 
   return (
     <>
+      <Header />
       <ConteinerWrapper>
         <ConteinerForm>
           <Title>
@@ -73,34 +85,45 @@ const Profile: FC = () => {
           >
             <StyledFormItem
               name="name"
-              label="Name"
+              label={t('name')}
               rules={[{ required: true, message: 'Please input your Name!' }]}
             >
               <Input placeholder={`${user?.name}`} />
             </StyledFormItem>
             <StyledFormItem
               name="login"
-              label="Login"
+              label={t('login')}
               rules={[{ required: true, message: 'Please input your Login!' }]}
             >
               <Input placeholder={`${user?.login}`} />
             </StyledFormItem>
             <StyledFormItem
               name="password"
-              label="Password"
+              label={t('password')}
               rules={[{ required: true, message: 'Please input your Password!' }]}
             >
               <Input.Password />
             </StyledFormItem>
             <StyledButtonCont>
               <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
-                {t('sign_up')}
+                {t('update')}
               </StyledButton>
+              <Line />
+              <StyledP>{t('delete_user_text')}</StyledP>
+              <DeleteButton
+                onClick={() => setIsOpen(true)}
+                type="primary"
+                htmlType="button"
+                loading={status === 'loading'}
+              >
+                {t('delete')}
+              </DeleteButton>
             </StyledButtonCont>
           </Form>
           <StyledLink to="/">{t('back_to_main')}</StyledLink>
         </ConteinerForm>
       </ConteinerWrapper>
+      <ConfirmationModal isOpen={isOpen} onClose={() => setIsOpen(false)} handleSubmit={onDelete} />
       <Footer />
     </>
   );

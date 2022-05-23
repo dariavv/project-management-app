@@ -18,5 +18,11 @@
   "create_new_column": "Создать колонку",
   "create_new_task": "Создать задачу",
   "description": "Описание",
-  "update_user_title": " Вы можете изменить свой профиль, "
+  "update_user_title": " Вы можете изменить свой профиль, ",
+  "update": "Обновить аккаунт",
+  "delete": "Удалить аккаунт",
+  "name": "Имя",
+  "login": "Логин",
+  "password": "Пароль",
+  "delete_user_text": "Вы можете удалить свой профиль"
 }

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Form as AntForm } from 'antd';
-// import { Button } from 'components';
 import { Button as AntButton } from 'antd';
 import { DARK } from 'constants/colors';
 
@@ -28,6 +27,20 @@ export const ConteinerForm = styled.div`
     min-width: 300px;
   }
 `;
+export const Line = styled.hr`
+  margin: 0 auto 10px;
+  padding: 0;
+  height: 20px;
+  border: none;
+  border-bottom: 1px solid #1f1209;
+  box-shadow: 0 20px 20px -20px #333;
+  width: 85%;
+`;
+export const StyledP = styled.p`
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0;
+`;
 
 export const StyledLink = styled(Link)`
   display: flex;
@@ -39,6 +52,25 @@ export const StyledLink = styled(Link)`
 export const StyledButton = styled(AntButton)`
   width: 100% !important;
   margin: 0 !important;
+`;
+export const DeleteButton = styled(AntButton)`
+  width: 100% !important;
+  // margin: 0 !important;
+  color: #bf4d4d;
+  font-weight: bold;
+  border-color: #a87b7b;
+  background-color: #f0eded;
+  margin-top: 10px;
+  &:hover {
+    border-color: #f0eded;
+    color: #f0eded;
+    background-color: #bf4d4d;
+  }
+  &:focus {
+    border-color: #f0eded;
+    color: #f0eded;
+    background-color: #bf4d4d;
+  }
 `;
 
 export const StyledButtonCont = styled(AntForm.Item)`

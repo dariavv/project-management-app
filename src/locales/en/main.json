@@ -18,5 +18,11 @@
   "create_new_column": "Create new column",
   "create_new_task": "Create new task",
   "description": "Description",
-  "update_user_title": " You can change your profile, "
+  "update_user_title": " You can change your profile, ",
+  "update": "Update account",
+  "delete": "Delete account ",
+  "name": "Name",
+  "login": "Login",
+  "password": "Password",
+  "delete_user_text": "You can delete your profile"
 }
