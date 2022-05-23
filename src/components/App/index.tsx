@@ -4,6 +4,7 @@ import { Loader } from 'components/Loader/styled';
 import { AppRouter } from 'router/AppRouter';
 import { setToken } from 'store/reducers/authSlice';
 import { getFromStorage } from 'utils/localStorage';
+import { getUser } from 'store/reducers/usersSlice';
 import { DecodedToken } from 'types';
 import jwt from 'jwt-decode';
 
@@ -21,7 +22,8 @@ export const App: FC = () => {
         const decodedToken = jwt(tokenFromStorage) as DecodedToken;
         const userId = decodedToken.userId;
         console.log(userId);
-        // TODO: get user here like dispatch(getUser(userId));
+        // TODO: get user here like
+        dispatch(getUser(userId));
       }
     }
     setIsLoading(false);

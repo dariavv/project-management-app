@@ -5,11 +5,13 @@ import { User } from 'types';
 import { openNotificationError, openNotificationSuccess } from 'utils/notifications';
 
 interface UsersState {
+  user: User | null;
   users: User[];
   status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: UsersState = {
+  user: null,
   users: [],
   status: 'idle',
 };
@@ -78,7 +80,8 @@ const usersSlice = createSlice({
     [getUser.pending.toString()]: (state) => {
       state.status = 'loading';
     },
-    [getUser.fulfilled.toString()]: (state) => {
+    [getUser.fulfilled.toString()]: (state, action) => {
+      state.user = action.payload;
       state.status = 'idle';
     },
     [getUser.rejected.toString()]: (state, action) => {
@@ -106,6 +109,7 @@ const usersSlice = createSlice({
       state.status = 'loading';
     },
     [updateUser.fulfilled.toString()]: (state, action) => {
+      state.user = action.payload;
       const id = action.payload.id;
       state.users = state.users.map((user) => {
         if (user.id === id) return action.payload;
@@ -125,6 +129,7 @@ const usersSlice = createSlice({
       state.status = 'loading';
     },
     [deleteUser.fulfilled.toString()]: (state, action) => {
+      state.user = action.payload;
       const id = action.payload.id;
       state.users = state.users.filter((user) => user.id !== id);
       openNotificationSuccess({ message: 'Success', description: 'User successfully deleted' });

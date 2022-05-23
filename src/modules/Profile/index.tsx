@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
+import { updateUser } from 'store/reducers/usersSlice';
 import { openNotificationError } from 'utils/notifications';
 import {
   StyledButtonCont,
@@ -23,18 +24,22 @@ type FormValues = {
 };
 
 const Profile: FC = () => {
-  const { token, status } = useAppSelector((state) => state.auth);
+  const { token } = useAppSelector((state) => state.auth);
+  const { status, user } = useAppSelector((state) => state.users);
   const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
 
   const handleSubmit = useCallback(
     (values: FormValues) => {
-      const formValues = {
-        name: values.name,
-        login: values.login,
-        password: values.password,
-      };
-      // dispatch(signUp(formValues));
+      if (user) {
+        const formValues = {
+          id: user.id,
+          name: values.name,
+          login: values.login,
+          password: values.password,
+        };
+        dispatch(updateUser(formValues));
+      }
     },
     [dispatch],
   );
@@ -54,7 +59,10 @@ const Profile: FC = () => {
     <>
       <ConteinerWrapper>
         <ConteinerForm>
-          <Title>{t('sign_up')}</Title>
+          <Title>
+            {t('update_user_title')}
+            {user?.name}
+          </Title>
           <Form
             onFinish={handleSubmit}
             onFinishFailed={handleSubmitFailed}
@@ -68,14 +76,14 @@ const Profile: FC = () => {
               label="Name"
               rules={[{ required: true, message: 'Please input your Name!' }]}
             >
-              <Input />
+              <Input placeholder={`${user?.name}`} />
             </StyledFormItem>
             <StyledFormItem
               name="login"
               label="Login"
               rules={[{ required: true, message: 'Please input your Login!' }]}
             >
-              <Input />
+              <Input placeholder={`${user?.login}`} />
             </StyledFormItem>
             <StyledFormItem
               name="password"
@@ -90,7 +98,7 @@ const Profile: FC = () => {
               </StyledButton>
             </StyledButtonCont>
           </Form>
-          <StyledLink to="/main">{t('back_to_main')}</StyledLink>
+          <StyledLink to="/">{t('back_to_main')}</StyledLink>
         </ConteinerForm>
       </ConteinerWrapper>
       <Footer />
