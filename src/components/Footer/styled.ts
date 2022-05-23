@@ -14,32 +14,35 @@ export const ContainerFooter = styled.footer`
   height: 75px;
   background-color: ${DARK};
   color: ${WHITE};
+  transition: 0.7s;
   @media (max-width: 540px) {
     padding: 5px 20px;
   }
 `;
 
 export const TextLink = styled.div`
-  width: 3rem;
-  height: 3rem;
+  width: 2.1rem;
+  height: 2.1rem;
   border-radius: 50%;
+  z-index: 99;
   color: ${GREY};
   ${TextBold};
   &:hover {
-    box-shadow: 0 0 7px #eee;
+    background-color: #eeeeee4f;
+    box-shadow: 0 0 7px #eeeeee4f;
   }
 `;
 
 export const RSLogo = styled.img`
   width: 80px;
-  &:hover {
-    width: 90px;
-    height: auto;
+  @media ${(props) => props.theme.media.phone} {
+    width: 50px;
   }
 `;
 
 export const TextSize = styled.p`
+  margin: 0;
   @media ${(props) => props.theme.media.phone} {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 `;

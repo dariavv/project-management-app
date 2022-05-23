@@ -7,4 +7,8 @@ export const Main = styled.main`
   width: 100%;
   overflow: auto;
   height: calc(100% - 150px);
+  transition: 0.7s;
+  @media ${(props) => props.theme.media.phone} {
+    padding: 25px 25px 100px;
+  }
 `;

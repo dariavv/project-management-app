@@ -28,6 +28,7 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const ContentTextButton = styled.div`
+  transition: 0.7s;
   @media ${(props) => props.theme.media.phone} {
     display: none;
   }
