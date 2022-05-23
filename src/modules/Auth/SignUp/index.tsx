@@ -49,6 +49,7 @@ const SignUp: FC = () => {
   if (token) {
     return <Navigate to="/" replace />;
   }
+
   return (
     <>
       <ConteinerWrapper>

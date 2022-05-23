@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback } from 'react';
 import { Form, Input } from 'antd';
 import { useTranslations } from 'hooks/useTranslations';
 import { Button, Modal } from 'components';
@@ -6,6 +6,7 @@ import { useAppDispatch } from 'hooks';
 import { openNotificationError } from 'utils/notifications';
 import { createColumn } from 'store/reducers/columnsSlice';
 import { useParams } from 'react-router-dom';
+import { Column } from 'types';
 
 type CreateColumnFormProps = {
   isOpen: boolean;
@@ -16,23 +17,24 @@ type ParamsType = {
   id: string;
 };
 
+type FormValues = Pick<Column, 'title'>;
+
 export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslations('main');
   const { id: boardId } = useParams() as ParamsType;
-  const [columnTitle, setColumnTitle] = useState('');
   const dispatch = useAppDispatch();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setColumnTitle(value);
-  };
-
-  const handleSubmitForm = useCallback(() => {
-    if (columnTitle) {
-      dispatch(createColumn({ boardId, title: columnTitle }));
+  const handleSubmitForm = useCallback(
+    (values: FormValues) => {
+      const formValues = {
+        title: values.title,
+        boardId,
+      };
+      dispatch(createColumn(formValues));
       onClose();
-    }
-  }, [boardId, columnTitle, dispatch, onClose]);
+    },
+    [boardId, dispatch, onClose],
+  );
 
   const handleSubmitFailed = (errorInfo: unknown) => {
     openNotificationError({
@@ -58,7 +60,7 @@ export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose })
         autoComplete="off"
       >
         <Form.Item label={t('title')} name="title" rules={[{}]}>
-          <Input onChange={handleChange} />
+          <Input />
         </Form.Item>
         <Form.Item
           wrapperCol={{
@@ -69,7 +71,7 @@ export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose })
           <Button key="back" onClick={onClose}>
             {t('cancel')}
           </Button>
-          <Button key="submit" type="primary" onClick={handleSubmitForm}>
+          <Button key="submit" type="primary" htmlType="submit">
             {t('submit')}
           </Button>
         </Form.Item>

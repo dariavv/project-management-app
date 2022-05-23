@@ -1,31 +1,41 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Form, Input, Select } from 'antd';
-import { useTranslations } from 'hooks/useTranslations';
 import { Button, Modal } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
+import { useTranslations } from 'hooks/useTranslations';
+import { updateTask } from 'store/reducers/tasksSlice';
 import { openNotificationError } from 'utils/notifications';
-import { useParams } from 'react-router-dom';
-import { createTask } from 'store/reducers/tasksSlice';
-import { Column, Task } from 'types';
+import { Task } from 'types';
+import { UpdateTaskParams } from 'services/tasks';
 
-type CreateTaskFormProps = {
-  columnId: Column['id'];
+interface EditTaskFormProps extends Omit<Task, 'id' | 'boardId'> {
+  taskId: Task['id'];
   isOpen: boolean;
   onClose: () => void;
-};
+}
 
 type ParamsType = {
   id: string;
 };
 
-type FormValues = Omit<Task, 'id' | 'order'>;
-
-export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onClose }) => {
+export const EditTaskForm: FC<EditTaskFormProps> = ({
+  taskId,
+  title,
+  description,
+  order,
+  userId,
+  columnId,
+  isOpen,
+  onClose,
+}) => {
   const { t } = useTranslations('main');
   const { id: boardId } = useParams() as ParamsType;
   const [assigneeId, setAssigneeId] = useState('');
   const { users } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
+
+  const currentUser = useMemo(() => users.find((user) => user.id === userId), [userId, users]);
 
   const handleSelect = useCallback(
     (value: string) => {
@@ -38,18 +48,20 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
   );
 
   const handleSubmitForm = useCallback(
-    (values: FormValues) => {
+    (values: UpdateTaskParams) => {
       const formValues = {
-        title: values.title,
-        description: values.description,
-        userId: assigneeId,
+        taskId,
+        title: values.title || title,
+        description: values.description || description,
+        userId: assigneeId || userId,
         boardId,
         columnId,
+        order: order,
       };
-      dispatch(createTask(formValues));
+      dispatch(updateTask(formValues));
       onClose();
     },
-    [assigneeId, boardId, columnId, dispatch, onClose],
+    [taskId, title, description, assigneeId, userId, boardId, columnId, order, dispatch, onClose],
   );
 
   const handleSubmitFailed = (errorInfo: unknown) => {
@@ -60,7 +72,7 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
   };
 
   return (
-    <Modal title={t('create_new_task')} isOpen={isOpen} onClose={onClose}>
+    <Modal title={t('edit_task')} isOpen={isOpen} onClose={onClose}>
       <Form
         labelCol={{
           span: 5,
@@ -70,6 +82,9 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
         }}
         initialValues={{
           remember: true,
+          title: title,
+          description: description,
+          assignee: currentUser?.login,
         }}
         onFinish={handleSubmitForm}
         onFinishFailed={handleSubmitFailed}
@@ -82,7 +97,7 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
           <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
         </Form.Item>
         <Form.Item label="Assignee" name="assignee" rules={[{}]}>
-          <Select defaultActiveFirstOption={true} onSelect={handleSelect}>
+          <Select onSelect={handleSelect}>
             {users.map((user) => (
               <Select.Option key={user.id} value={user.login}>
                 {user.login}
