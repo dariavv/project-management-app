@@ -1,5 +1,4 @@
 import { WHITE, DARK, GREY } from 'constants/colors';
-import { TextBold } from 'theme';
 import styled from 'styled-components';
 
 export const ContainerFooter = styled.footer`
@@ -17,32 +16,35 @@ export const ContainerFooter = styled.footer`
   transition: 0.7s;
   @media (max-width: 540px) {
     padding: 5px 20px;
+    height: 60px;
   }
 `;
 
-export const TextLink = styled.div`
-  width: 2.1rem;
-  height: 2.1rem;
-  border-radius: 50%;
-  z-index: 99;
+export const IconContainer = styled.div`
+  font-size: 2.3rem;
+  z-index: 4;
   color: ${GREY};
-  ${TextBold};
   &:hover {
-    background-color: #eeeeee4f;
-    box-shadow: 0 0 7px #eeeeee4f;
+    transition: 0.3s;
+    svg {
+      fill: ${WHITE};
+    }
   }
 `;
 
 export const RSLogo = styled.img`
   width: 80px;
-  @media ${(props) => props.theme.media.phone} {
-    width: 55px;
+  @media ${({ theme }) => theme.media.phone} {
+    width: 60px;
   }
 `;
 
-export const TextSize = styled.p`
-  margin: 0;
-  @media ${(props) => props.theme.media.phone} {
-    font-size: 1rem;
+export const Copyright = styled.span`
+  margin: 0 22px 0 0;
+  @media ${({ theme }) => theme.media.tablet} {
+    font-size: 1.12rem;
+  }
+  @media ${({ theme }) => theme.media.phone} {
+    font-size: 1.15rem;
   }
 `;

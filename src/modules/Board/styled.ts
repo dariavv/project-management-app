@@ -22,9 +22,9 @@ export const BoardContainer = styled.main`
     border-radius: 10px;
     background-color: ${GREY};
   }
-
   @media ${(props) => props.theme.media.phone} {
-    padding: 20px 10px 20px;
+    padding: 20px 20px 10px;
+    height: calc(100vh - 122px);
   }
 `;
 
@@ -52,6 +52,6 @@ export const AddButton = styled.div`
     transition: 0.2s;
   }
   @media ${(props) => props.theme.media.phone} {
-    min-width: 235px;
+    min-width: 280px;
   }
 `;

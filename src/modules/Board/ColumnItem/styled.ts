@@ -26,7 +26,7 @@ export const ColumnItem = styled.div`
     background: ${GREY};
   }
   @media ${(props) => props.theme.media.phone} {
-    min-width: 235px;
+    min-width: 280px;
   }
 `;
 

@@ -38,8 +38,10 @@ export const ContainerHeight = styled.div`
   width: 100%;
   height: (100vh - 110px);
 `;
+
 export const ThemeMedia = {
   media: {
+    tablet: '(max-width: 768px)',
     phone: '(max-width: 580px)',
   },
 };
