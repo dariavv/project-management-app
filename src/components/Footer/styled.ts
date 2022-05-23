@@ -36,13 +36,13 @@ export const TextLink = styled.div`
 export const RSLogo = styled.img`
   width: 80px;
   @media ${(props) => props.theme.media.phone} {
-    width: 50px;
+    width: 55px;
   }
 `;
 
 export const TextSize = styled.p`
   margin: 0;
   @media ${(props) => props.theme.media.phone} {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 `;
