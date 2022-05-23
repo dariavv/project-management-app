@@ -8,8 +8,10 @@ import { useTranslations } from 'hooks/useTranslations';
 import { logOut } from 'store/reducers/authSlice';
 import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
-import * as Styled from './styled';
 import { CreateEditBoardForm } from 'modules/Main/CreateEditBoardForm';
+import { LogoutOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import * as Styled from './styled';
+import { ContentImgButton, ContentTextButton } from './styled';
 
 export const Header: FC = () => {
   const { t } = useTranslations('main');
@@ -45,6 +47,12 @@ export const Header: FC = () => {
     dispatch(logOut());
   }, [dispatch]);
 
+  const ThemeLog = {
+    media: {
+      phone: '(max-width: 580px)',
+    },
+  };
+
   return (
     <>
       <Styled.Header isAnimated={isAnimated}>
@@ -63,13 +71,19 @@ export const Header: FC = () => {
             </>
           )}
           {token && (
-            <Button type="primary" onClick={() => setIsOpen(true)}>
-              {t('create_new_board')}
+            <Button type="primary" p="3px 15px" onClick={() => setIsOpen(true)}>
+              <ContentTextButton theme={ThemeLog}>{t('create_new_board')}</ContentTextButton>
+              <ContentImgButton theme={ThemeLog}>
+                <PlusCircleOutlined />
+              </ContentImgButton>
             </Button>
           )}
           {token && (
-            <Button type="primary" onClick={handleLogOut}>
-              {t('log_out')}
+            <Button type="primary" p="3px 15px" onClick={handleLogOut}>
+              <ContentTextButton theme={ThemeLog}>{t('log_out')}</ContentTextButton>
+              <ContentImgButton theme={ThemeLog}>
+                <LogoutOutlined />
+              </ContentImgButton>
             </Button>
           )}
           <Select

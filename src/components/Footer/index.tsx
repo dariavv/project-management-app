@@ -1,6 +1,6 @@
 import { Col, Space } from 'antd';
 import { FC } from 'react';
-import { ContainerFooter, TextLink } from './styled';
+import { ContainerFooter, RSLogo, TextFlex, TextLink, TextPadding } from './styled';
 import rssLogo from 'assets/images/logo_rs.png';
 import { GithubOutlined } from '@ant-design/icons';
 
@@ -9,11 +9,14 @@ export const Footer: FC = () => (
     <ContainerFooter>
       <Col span={6}>
         <a href="https://rs.school/react/" target="_blank" rel="noreferrer">
-          <img src={rssLogo} alt="RSS" width={90} />
+          <RSLogo src={rssLogo}></RSLogo>
         </a>
       </Col>
       <Col span={8}>
-        <Space align="start">© 2022 Team 57</Space>
+        <TextFlex>
+          <TextPadding> © 2022 </TextPadding>
+          <TextPadding> Team 57</TextPadding>
+        </TextFlex>
       </Col>
       <Space align="end">
         <Col span={10}>
@@ -23,7 +26,7 @@ export const Footer: FC = () => (
             rel="noreferrer"
           >
             <TextLink>
-              <GithubOutlined style={{ fontSize: '2.7rem' }} />
+              <GithubOutlined style={{ fontSize: '3rem' }} />
             </TextLink>
           </a>
         </Col>

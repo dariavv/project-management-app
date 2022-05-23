@@ -1,5 +1,4 @@
-import { WHITE, DARK } from 'constants/colors';
-import { GREY } from 'constants/colors';
+import { WHITE, DARK, GREY } from 'constants/colors';
 import { TextBold } from 'theme';
 import styled from 'styled-components';
 
@@ -21,11 +20,30 @@ export const ContainerFooter = styled.footer`
 `;
 
 export const TextLink = styled.div`
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
   color: ${GREY};
   ${TextBold};
+  &:hover {
+    box-shadow: 0 0 7px #eee;
+  }
 `;
 
-export const RSLogo = styled.div`
-  width: 15px;
-  background-image: url(assets/images/logo_rs.png);
+export const RSLogo = styled.img`
+  width: 90px;
+  &:hover {
+    width: 95px;
+    height: auto;
+  }
+`;
+
+export const TextFlex = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const TextPadding = styled.p`
+  margin: 0px;
+  padding: 0 5px;
 `;
