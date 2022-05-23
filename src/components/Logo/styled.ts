@@ -9,19 +9,6 @@ export const LogoContainer = styled(Link)`
   font-weight: 700;
   cursor: pointer;
   color: ${PRIMARY};
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-    background: rgba(255, 255, 255, 0.3);
-    transition: all 1s ease;
-  }
-  &:hover:before {
-    height: 60px;
-  }
 `;
 
 export const Logo = styled.h1`

@@ -31,19 +31,15 @@ export const TextLink = styled.div`
 `;
 
 export const RSLogo = styled.img`
-  width: 90px;
+  width: 80px;
   &:hover {
-    width: 95px;
+    width: 90px;
     height: auto;
   }
 `;
 
-export const TextFlex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-export const TextPadding = styled.p`
-  margin: 0px;
-  padding: 0 5px;
+export const TextSize = styled.p`
+  @media ${(props) => props.theme.media.phone} {
+    font-size: 1.1rem;
+  }
 `;

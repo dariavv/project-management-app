@@ -1,8 +1,13 @@
 import { Col, Space } from 'antd';
 import { FC } from 'react';
-import { ContainerFooter, RSLogo, TextFlex, TextLink, TextPadding } from './styled';
+import { ContainerFooter, RSLogo, TextLink, TextSize } from './styled';
 import rssLogo from 'assets/images/logo_rs.png';
 import { GithubOutlined } from '@ant-design/icons';
+const ThemeMedia = {
+  media: {
+    phone: '(max-width: 580px)',
+  },
+};
 
 export const Footer: FC = () => (
   <>
@@ -13,10 +18,7 @@ export const Footer: FC = () => (
         </a>
       </Col>
       <Col span={8}>
-        <TextFlex>
-          <TextPadding> © 2022 </TextPadding>
-          <TextPadding> Team 57</TextPadding>
-        </TextFlex>
+        <TextSize theme={ThemeMedia}> © 2022 Team 57</TextSize>
       </Col>
       <Space align="end">
         <Col span={10}>

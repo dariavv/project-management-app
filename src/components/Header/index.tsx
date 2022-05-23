@@ -47,7 +47,7 @@ export const Header: FC = () => {
     dispatch(logOut());
   }, [dispatch]);
 
-  const ThemeLog = {
+  const ThemeMedia = {
     media: {
       phone: '(max-width: 580px)',
     },
@@ -72,16 +72,16 @@ export const Header: FC = () => {
           )}
           {token && (
             <Button type="primary" p="3px 15px" onClick={() => setIsOpen(true)}>
-              <ContentTextButton theme={ThemeLog}>{t('create_new_board')}</ContentTextButton>
-              <ContentImgButton theme={ThemeLog}>
+              <ContentTextButton theme={ThemeMedia}>{t('create_new_board')}</ContentTextButton>
+              <ContentImgButton theme={ThemeMedia}>
                 <PlusCircleOutlined />
               </ContentImgButton>
             </Button>
           )}
           {token && (
             <Button type="primary" p="3px 15px" onClick={handleLogOut}>
-              <ContentTextButton theme={ThemeLog}>{t('log_out')}</ContentTextButton>
-              <ContentImgButton theme={ThemeLog}>
+              <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
+              <ContentImgButton theme={ThemeMedia}>
                 <LogoutOutlined />
               </ContentImgButton>
             </Button>
