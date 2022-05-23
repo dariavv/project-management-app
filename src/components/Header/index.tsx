@@ -12,6 +12,7 @@ import { CreateEditBoardForm } from 'modules/Main/CreateEditBoardForm';
 import { LogoutOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import * as Styled from './styled';
 import { ContentImgButton, ContentTextButton } from './styled';
+import { ThemeMedia } from 'theme';
 
 export const Header: FC = () => {
   const { t } = useTranslations('main');
@@ -46,12 +47,6 @@ export const Header: FC = () => {
   const handleLogOut = useCallback(() => {
     dispatch(logOut());
   }, [dispatch]);
-
-  const ThemeMedia = {
-    media: {
-      phone: '(max-width: 580px)',
-    },
-  };
 
   return (
     <>

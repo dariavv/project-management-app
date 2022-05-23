@@ -3,11 +3,7 @@ import { FC } from 'react';
 import { ContainerFooter, RSLogo, TextLink, TextSize } from './styled';
 import rssLogo from 'assets/images/logo_rs.png';
 import { GithubOutlined } from '@ant-design/icons';
-const ThemeMedia = {
-  media: {
-    phone: '(max-width: 580px)',
-  },
-};
+import { ThemeMedia } from 'theme';
 
 export const Footer: FC = () => (
   <>

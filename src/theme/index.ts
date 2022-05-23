@@ -38,3 +38,8 @@ export const ContainerHeight = styled.div`
   width: 100%;
   height: (100vh - 110px);
 `;
+export const ThemeMedia = {
+  media: {
+    phone: '(max-width: 580px)',
+  },
+};
