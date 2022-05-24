@@ -20,5 +20,11 @@
   "edit_task": "Edit task",
   "description": "Description",
   "no_boards": "You don't have Boards yet.",
-  "please_create": "Please create first one ;)"
+  "please_create": "Please create first one ;)",
+  "update_user_title": " You can change your profile, ",
+  "update": "Update account",
+  "delete": "Delete account ",
+  "name": "Name",
+  "login": "Login",
+  "password": "Password"
 }
