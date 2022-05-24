@@ -18,5 +18,7 @@
   "create_new_column": "Create new column",
   "create_new_task": "Create new task",
   "edit_task": "Edit task",
-  "description": "Description"
+  "description": "Description",
+  "no_boards": "You don't have Boards yet.",
+  "please_create": "Please create first one ;)"
 }

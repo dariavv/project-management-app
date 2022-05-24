@@ -8,8 +8,13 @@ import { deleteBoard } from 'store/reducers/boardsSlice';
 import { CreateEditBoardForm } from '../CreateEditBoardForm';
 import { IconContainer } from 'theme';
 import * as Styled from './styled';
+import { Typography } from 'antd';
 
 type BoardItem = Omit<Board, 'order'>;
+
+type EventType = {
+  stopPropagation: () => void;
+};
 
 export const BoardItem: FC<BoardItem> = ({ id, title, description }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,11 +22,13 @@ export const BoardItem: FC<BoardItem> = ({ id, title, description }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const showModal = () => {
+  const showConfirmationModal = (e: EventType) => {
+    e.stopPropagation();
     setIsOpen(true);
   };
 
-  const updateBoardInfo = () => {
+  const updateBoardInfo = (e: EventType) => {
+    e.stopPropagation();
     setIsOpenForm(true);
   };
 
@@ -40,13 +47,32 @@ export const BoardItem: FC<BoardItem> = ({ id, title, description }) => {
   return (
     <>
       <Styled.Container>
-        <Styled.CardItem size="small">
-          <Styled.Title onClick={() => goToItem(id)}>{title}</Styled.Title>
-          <p>{description}</p>
-          <IconContainer>
-            <EditOutlined onClick={updateBoardInfo} />
-            <DeleteOutlined onClick={showModal} />
-          </IconContainer>
+        <Styled.CardItem
+          title={
+            <Typography.Text
+              ellipsis={{
+                tooltip: title,
+              }}
+            >
+              {title}
+            </Typography.Text>
+          }
+          extra={
+            <IconContainer>
+              <EditOutlined onClick={updateBoardInfo} />
+              <DeleteOutlined onClick={showConfirmationModal} />
+            </IconContainer>
+          }
+          onClick={() => goToItem(id)}
+          hoverable
+        >
+          <Typography.Text
+            ellipsis={{
+              tooltip: description,
+            }}
+          >
+            {description}
+          </Typography.Text>
         </Styled.CardItem>
       </Styled.Container>
       <ConfirmationModal

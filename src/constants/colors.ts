@@ -6,4 +6,7 @@ export const GREY = '#CFD7DE';
 export const DARK_GREY = '#9ca5b5';
 export const BLUE = '#e6f3ff';
 export const SHADOW = 'rgb(0 0 0 / 25%)';
+export const SHADOW_GREY = 'rgba(0, 0, 0, 0.1)';
 export const SHADOW_BLUE = 'rgb(54 132 203 / 30%)';
+export const SCROLL_TRACK = 'rgba(34, 60, 80, 0.2)';
+export const SCROLL_COLOR = '#f9f9fd';

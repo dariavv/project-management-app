@@ -7,9 +7,9 @@ export const Title = css`
   line-height: 150% !important;
 `;
 
-export const TextBold = css`
-  font-weight: 700 !important;
-  font-size: 1rem !important;
+export const TitleRegular = css`
+  font-weight: 400 !important;
+  font-size: 1.5rem !important;
   line-height: 150% !important;
 `;
 
@@ -28,6 +28,7 @@ export const IconContainer = styled.div`
   svg {
     width: 14px;
     cursor: pointer;
+    transition: 0.2s ease;
     &:hover {
       color: ${PRIMARY};
     }
