@@ -4,17 +4,28 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
-`;
-
-export const Title = styled.h3`
-  width: fit-content;
-  cursor: pointer;
+  .ant-card-head {
+    padding: 0 15px;
+  }
+  .ant-card-body {
+    padding: 25px 15px 25px;
+  }
   &:hover {
-    color: ${PRIMARY};
-    transition: 0.2s;
+    h4 {
+      color: ${PRIMARY};
+      transition: 0.3s ease;
+    }
   }
 `;
 
+export const Title = styled.span`
+  margin: 0;
+`;
+
 export const CardItem = styled(Card)`
-  margin: 0 0 10px 0;
+  cursor: pointer;
+`;
+
+export const Description = styled.p`
+  margin: 0;
 `;

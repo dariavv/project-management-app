@@ -49,7 +49,7 @@ export const AddButton = styled.div`
   &:hover {
     color: ${PRIMARY};
     border: 1px dashed ${PRIMARY};
-    transition: 0.2s;
+    transition: 0.3s ease;
   }
   @media ${(props) => props.theme.media.phone} {
     min-width: 280px;
