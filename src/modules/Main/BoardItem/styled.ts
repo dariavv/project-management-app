@@ -1,9 +1,9 @@
-import { PRIMARY } from 'constants/colors';
+import { PRIMARY, SHADOW_GREY } from 'constants/colors';
 import { Card } from 'antd';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 10px ${SHADOW_GREY};
   .ant-card-head {
     padding: 0 15px;
   }

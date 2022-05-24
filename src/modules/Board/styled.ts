@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { WHITE, GREY, PRIMARY, DARK_GREY } from 'constants/colors';
+import { WHITE, GREY, PRIMARY, DARK_GREY, SCROLL_TRACK, SCROLL_COLOR } from 'constants/colors';
 
 export const BoardContainer = styled.main`
   padding: 30px 40px 20px;
@@ -14,8 +14,8 @@ export const BoardContainer = styled.main`
     height: 7px;
   }
   &::-webkit-scrollbar-track {
-    box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
-    background-color: #f9f9fd;
+    box-shadow: 5px 5px 5px -5px ${SCROLL_TRACK} inset;
+    background-color: ${SCROLL_COLOR};
     border-radius: 15px;
   }
   &::-webkit-scrollbar-thumb {

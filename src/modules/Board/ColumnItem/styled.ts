@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { GREY, LIGHTGREY, SHADOW_BLUE } from 'constants/colors';
+import { GREY, LIGHTGREY, SCROLL_COLOR, SCROLL_TRACK, SHADOW_BLUE } from 'constants/colors';
 
 export const ColumnItem = styled.div`
   min-width: 300px;
@@ -17,8 +17,8 @@ export const ColumnItem = styled.div`
     width: 7px;
   }
   &::-webkit-scrollbar-track {
-    box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
-    background-color: #f9f9fd;
+    box-shadow: 5px 5px 5px -5px ${SCROLL_TRACK} inset;
+    background-color: ${SCROLL_COLOR};
     border-radius: 15px;
   }
   &::-webkit-scrollbar-thumb {
