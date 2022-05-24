@@ -55,7 +55,11 @@ export const AppRouter = () => {
         path="/profile"
         element={
           <Suspense fallback={<Loader />}>
-            <Profile />
+            <ProtectedRoute>
+              <Layout>
+                <Profile />
+              </Layout>
+            </ProtectedRoute>
           </Suspense>
         }
       />

@@ -20,11 +20,13 @@ export const App: FC = () => {
       if (tokenFromStorage) {
         dispatch(setToken(tokenFromStorage));
         const decodedToken = jwt(tokenFromStorage) as DecodedToken;
-        const userId = decodedToken.userId;
-        console.log(userId);
-        // TODO: get user here like
+        const { userId } = decodedToken;
         dispatch(getUser(userId));
       }
+    } else {
+      const decodedToken = jwt(token) as DecodedToken;
+      const { userId } = decodedToken;
+      dispatch(getUser(userId));
     }
     setIsLoading(false);
   }, [dispatch, token]);

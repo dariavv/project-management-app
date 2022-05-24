@@ -1,4 +1,4 @@
-import { Footer, ConfirmationModal, Header } from 'components';
+import { ConfirmationModal } from 'components';
 
 import { FC, useCallback, useState } from 'react';
 import { Navigate } from 'react-router-dom';
@@ -65,10 +65,8 @@ const Profile: FC = () => {
   if (!token) {
     return <Navigate to="/" replace />;
   }
-
   return (
     <>
-      <Header />
       <ConteinerWrapper>
         <ConteinerForm>
           <Title>
@@ -124,7 +122,6 @@ const Profile: FC = () => {
         </ConteinerForm>
       </ConteinerWrapper>
       <ConfirmationModal isOpen={isOpen} onClose={() => setIsOpen(false)} handleSubmit={onDelete} />
-      <Footer />
     </>
   );
 };

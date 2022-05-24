@@ -55,7 +55,6 @@ export const StyledButton = styled(AntButton)`
 `;
 export const DeleteButton = styled(AntButton)`
   width: 100% !important;
-  // margin: 0 !important;
   color: #bf4d4d;
   font-weight: bold;
   border-color: #a87b7b;

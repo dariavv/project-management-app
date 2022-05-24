@@ -45,6 +45,14 @@ export const Header: FC = () => {
     dispatch(logOut());
   }, [dispatch]);
 
+  // const onUpdateClick = () => {
+  //   navigate('/profile');
+  // };
+  const onCreateBoardClick = () => {
+    setIsOpen(true);
+    navigate('/');
+  };
+
   return (
     <>
       <Styled.Header isAnimated={isAnimated}>
@@ -63,13 +71,18 @@ export const Header: FC = () => {
             </>
           )}
           {token && (
-            <Button type="primary" onClick={() => setIsOpen(true)}>
+            <Button type="primary" onClick={onCreateBoardClick}>
               {t('create_new_board')}
             </Button>
           )}
           {token && (
             <Button type="primary" onClick={handleLogOut}>
               {t('log_out')}
+            </Button>
+          )}
+          {token && (
+            <Button type="primary" onClick={() => navigate('/profile')}>
+              {t('update')}
             </Button>
           )}
           <Select
