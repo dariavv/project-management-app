@@ -1,4 +1,4 @@
-import { PRIMARY, SHADOW_GREY } from 'constants/colors';
+import { SHADOW_GREY } from 'constants/colors';
 import { Card } from 'antd';
 import styled from 'styled-components';
 
@@ -9,12 +9,6 @@ export const Container = styled.div`
   }
   .ant-card-body {
     padding: 25px 15px 25px;
-  }
-  &:hover {
-    h4 {
-      color: ${PRIMARY};
-      transition: 0.3s ease;
-    }
   }
 `;
 

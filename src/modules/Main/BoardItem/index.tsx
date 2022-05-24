@@ -51,7 +51,7 @@ export const BoardItem: FC<BoardItem> = ({ id, title, description }) => {
           title={
             <Typography.Text
               ellipsis={{
-                tooltip: description,
+                tooltip: title,
               }}
             >
               {title}
