@@ -1,33 +1,19 @@
-import { Col, Space } from 'antd';
 import { FC } from 'react';
-import { ContainerFooter, TextLink } from './styled';
 import rssLogo from 'assets/images/logo_rs.png';
+import { ThemeMedia } from 'theme';
 import { GithubOutlined } from '@ant-design/icons';
+import * as Styled from './styled';
 
 export const Footer: FC = () => (
-  <>
-    <ContainerFooter>
-      <Col span={6}>
-        <a href="https://rs.school/react/" target="_blank" rel="noreferrer">
-          <img src={rssLogo} alt="RSS" width={90} />
-        </a>
-      </Col>
-      <Col span={8}>
-        <Space align="start">© 2022 Team 57</Space>
-      </Col>
-      <Space align="end">
-        <Col span={10}>
-          <a
-            href="https://github.com/dariavv/project-management-app"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <TextLink>
-              <GithubOutlined style={{ fontSize: '2.7rem' }} />
-            </TextLink>
-          </a>
-        </Col>
-      </Space>
-    </ContainerFooter>
-  </>
+  <Styled.ContainerFooter>
+    <a href="https://rs.school/react/" target="_blank" rel="noreferrer">
+      <Styled.RSLogo src={rssLogo} theme={ThemeMedia} />
+    </a>
+    <Styled.Copyright theme={ThemeMedia}>© 2022 Team 57</Styled.Copyright>
+    <a href="https://github.com/dariavv/project-management-app" target="_blank" rel="noreferrer">
+      <Styled.IconContainer>
+        <GithubOutlined />
+      </Styled.IconContainer>
+    </a>
+  </Styled.ContainerFooter>
 );

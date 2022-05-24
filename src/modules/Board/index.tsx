@@ -9,6 +9,7 @@ import { ColumnItem } from './ColumnItem';
 import { getAllUsers } from 'store/reducers/usersSlice';
 import { useTranslations } from 'hooks/useTranslations';
 import * as Styled from './styled';
+import { ThemeMedia } from 'theme';
 
 type ParamsType = {
   id: string;
@@ -34,11 +35,11 @@ const Board: FC = () => {
 
   return (
     <>
-      <Styled.BoardContainer>
+      <Styled.BoardContainer theme={ThemeMedia}>
         {columns?.map(({ id, title }) => (
           <ColumnItem key={id} id={id} title={title} boardId={boardId} />
         ))}
-        <Styled.AddButton onClick={() => setIsOpenForm(true)}>
+        <Styled.AddButton theme={ThemeMedia} onClick={() => setIsOpenForm(true)}>
           <PlusOutlined style={{ padding: '0 15px 0 0' }} />
           <span>{t('add_column')}</span>
         </Styled.AddButton>

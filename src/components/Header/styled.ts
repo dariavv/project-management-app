@@ -26,3 +26,17 @@ export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
+export const ContentTextButton = styled.div`
+  transition: 0.7s;
+  @media ${(props) => props.theme.media.phone} {
+    display: none;
+  }
+`;
+
+export const ContentImgButton = styled.div`
+  display: none;
+  @media ${(props) => props.theme.media.phone} {
+    display: block;
+  }
+`;

@@ -15,7 +15,7 @@ export const Logo = styled.h1`
   color: ${PRIMARY};
   margin: 0 0 0 7px;
   ${Title}
-  @media (max-width: 450px) {
+  @media (max-width: 300px) {
     display: none;
   }
 `;

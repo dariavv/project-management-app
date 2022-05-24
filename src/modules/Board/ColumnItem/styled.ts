@@ -12,6 +12,7 @@ export const ColumnItem = styled.div`
   border-radius: 10px;
   box-shadow: 0 10px 10px ${SHADOW_BLUE};
   overflow-y: auto;
+  transition: 0.7s;
   &::-webkit-scrollbar {
     width: 7px;
   }
@@ -23,6 +24,9 @@ export const ColumnItem = styled.div`
   &::-webkit-scrollbar-thumb {
     border-radius: 15px;
     background: ${GREY};
+  }
+  @media ${(props) => props.theme.media.phone} {
+    min-width: 280px;
   }
 `;
 
