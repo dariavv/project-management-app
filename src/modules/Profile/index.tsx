@@ -17,8 +17,6 @@ import {
   StyledButton,
   ConteinerWrapper,
   DeleteButton,
-  Line,
-  StyledP,
 } from './styled';
 
 type FormValues = {
@@ -106,8 +104,6 @@ const Profile: FC = () => {
               <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
                 {t('update')}
               </StyledButton>
-              <Line />
-              <StyledP>{t('delete_user_text')}</StyledP>
               <DeleteButton
                 onClick={() => setIsOpen(true)}
                 type="primary"

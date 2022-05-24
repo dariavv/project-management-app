@@ -27,20 +27,6 @@ export const ConteinerForm = styled.div`
     min-width: 300px;
   }
 `;
-export const Line = styled.hr`
-  margin: 0 auto 10px;
-  padding: 0;
-  height: 20px;
-  border: none;
-  border-bottom: 1px solid #1f1209;
-  box-shadow: 0 20px 20px -20px #333;
-  width: 85%;
-`;
-export const StyledP = styled.p`
-  font-size: 1.2rem;
-  text-align: center;
-  margin: 0;
-`;
 
 export const StyledLink = styled(Link)`
   display: flex;
