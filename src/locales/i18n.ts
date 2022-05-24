@@ -5,13 +5,17 @@ import { getFromStorage } from 'utils/localStorage';
 
 import mainEN from './en/main.json';
 import mainRU from './ru/main.json';
+import errorBoundaryEN from './en/error-boundary.json';
+import errorBoundaryRU from './ru/error-boundary.json';
 
 export const resources = {
   en: {
     main: mainEN,
+    'error-boundary': errorBoundaryEN,
   },
   ru: {
     main: mainRU,
+    'error-boundary': errorBoundaryRU,
   },
 };
 
