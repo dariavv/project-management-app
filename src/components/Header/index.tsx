@@ -8,8 +8,11 @@ import { useTranslations } from 'hooks/useTranslations';
 import { logOut } from 'store/reducers/authSlice';
 import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
-import { CreateBoardForm } from 'modules/Main/CreateBoardForm';
+import { CreateEditBoardForm } from 'modules/Main/CreateEditBoardForm';
+import { LogoutOutlined, PlusCircleOutlined, UserOutlined } from '@ant-design/icons';
 import * as Styled from './styled';
+import { ContentImgButton, ContentTextButton } from './styled';
+import { ThemeMedia } from 'theme';
 
 export const Header: FC = () => {
   const { t } = useTranslations('main');
@@ -45,9 +48,6 @@ export const Header: FC = () => {
     dispatch(logOut());
   }, [dispatch]);
 
-  // const onUpdateClick = () => {
-  //   navigate('/profile');
-  // };
   const onCreateBoardClick = () => {
     setIsOpen(true);
     navigate('/');
@@ -71,18 +71,27 @@ export const Header: FC = () => {
             </>
           )}
           {token && (
-            <Button type="primary" onClick={onCreateBoardClick}>
-              {t('create_new_board')}
+            <Button type="primary" p="3px 15px" onClick={onCreateBoardClick}>
+              <ContentTextButton theme={ThemeMedia}>{t('create_new_board')}</ContentTextButton>
+              <ContentImgButton theme={ThemeMedia}>
+                <PlusCircleOutlined />
+              </ContentImgButton>
             </Button>
           )}
           {token && (
-            <Button type="primary" onClick={handleLogOut}>
-              {t('log_out')}
+            <Button type="primary" p="3px 15px" onClick={handleLogOut}>
+              <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
+              <ContentImgButton theme={ThemeMedia}>
+                <LogoutOutlined />
+              </ContentImgButton>
             </Button>
           )}
           {token && (
-            <Button type="primary" onClick={() => navigate('/profile')}>
-              {t('update')}
+            <Button type="primary" p="3px 15px" onClick={() => navigate('/profile')}>
+              <ContentTextButton theme={ThemeMedia}>{t('update')}</ContentTextButton>
+              <ContentImgButton theme={ThemeMedia}>
+                <UserOutlined />
+              </ContentImgButton>
             </Button>
           )}
           <Select
@@ -95,7 +104,7 @@ export const Header: FC = () => {
           </Select>
         </Styled.ButtonsContainer>
       </Styled.Header>
-      <CreateBoardForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <CreateEditBoardForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 };

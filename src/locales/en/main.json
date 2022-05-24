@@ -4,7 +4,7 @@
   "log_out": "Log out",
   "sign_up_account": "Already have an account? Sign in",
   "sign_in_account": "Sign up for an account",
-  "go_to_boards": "Go to your boards",
+  "go_to_boards": "Boards",
   "not_found": "Page not found",
   "back_to_main": "Back to main page",
   "create_new_board": "Create new board",
@@ -24,5 +24,5 @@
   "name": "Name",
   "login": "Login",
   "password": "Password",
-  "delete_user_text": "You can delete your profile"
+  "edit_task": "Edit task"
 }

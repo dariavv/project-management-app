@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { CreateTaskForm } from '../CreateTaskForm';
 import { TaskItem } from '../TaskItem';
 import { Column } from 'types';
-import { IconContainer } from 'theme';
+import { IconContainer, ThemeMedia } from 'theme';
 import * as Styled from './styled';
 
 interface ColumnItemProps extends Omit<Column, 'order'> {
@@ -38,7 +38,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
 
   return (
     <>
-      <Styled.ColumnItem>
+      <Styled.ColumnItem theme={ThemeMedia}>
         <Styled.ColumnTitle>
           <div>{title}</div>
           <IconContainer>

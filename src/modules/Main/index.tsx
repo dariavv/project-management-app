@@ -5,6 +5,7 @@ import { BoardItem } from './BoardItem';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { getAllBoards } from 'store/reducers/boardsSlice';
 import * as Styled from './styled';
+import { ThemeMedia } from 'theme';
 
 const Main: FC = () => {
   const { boards, status } = useAppSelector((state) => state.boards);
@@ -19,7 +20,7 @@ const Main: FC = () => {
   }
 
   return (
-    <Styled.Main>
+    <Styled.Main theme={ThemeMedia}>
       <Row justify="center">
         {!boards.length && <div>Add your first board</div>}
         <Col xs={{ span: 24 }} md={{ span: 16 }} xl={{ span: 12 }}>

@@ -9,6 +9,7 @@ export const BoardContainer = styled.main`
   overflow-x: auto;
   height: calc(100vh - 148px);
   background-color: ${WHITE};
+  transition: 0.7s;
   &::-webkit-scrollbar {
     height: 7px;
   }
@@ -20,6 +21,10 @@ export const BoardContainer = styled.main`
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: ${GREY};
+  }
+  @media ${(props) => props.theme.media.phone} {
+    padding: 20px 20px 10px;
+    height: calc(100vh - 122px);
   }
 `;
 
@@ -45,5 +50,8 @@ export const AddButton = styled.div`
     color: ${PRIMARY};
     border: 1px dashed ${PRIMARY};
     transition: 0.2s;
+  }
+  @media ${(props) => props.theme.media.phone} {
+    min-width: 280px;
   }
 `;

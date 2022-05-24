@@ -5,7 +5,7 @@ import { ConfirmationModal } from 'components';
 import { useAppDispatch } from 'hooks';
 import { Board } from 'types';
 import { deleteBoard } from 'store/reducers/boardsSlice';
-import { EditBoardForm } from '../EditBoardForm';
+import { CreateEditBoardForm } from '../CreateEditBoardForm';
 import { IconContainer } from 'theme';
 import * as Styled from './styled';
 
@@ -54,7 +54,8 @@ export const BoardItem: FC<BoardItem> = ({ id, title, description }) => {
         onClose={() => setIsOpen(false)}
         handleSubmit={handleSubmit}
       />
-      <EditBoardForm
+      <CreateEditBoardForm
+        isEditForm
         id={id}
         title={title}
         description={description}
