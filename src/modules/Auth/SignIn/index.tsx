@@ -63,14 +63,14 @@ const SignIn: FC = () => {
           >
             <StyledFormItem
               name="login"
-              label="Login"
+              label={t('login')}
               rules={[{ required: true, message: 'Please input your Login!' }]}
             >
               <Input />
             </StyledFormItem>
             <StyledFormItem
               name="password"
-              label="Password"
+              label={t('password')}
               rules={[{ required: true, message: 'Please input your Password!' }]}
             >
               <Input.Password />

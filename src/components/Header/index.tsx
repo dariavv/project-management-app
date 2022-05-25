@@ -9,7 +9,7 @@ import { logOut } from 'store/reducers/authSlice';
 import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
 import { CreateEditBoardForm } from 'modules/Main/CreateEditBoardForm';
-import { LogoutOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { LogoutOutlined, PlusCircleOutlined, UserOutlined } from '@ant-design/icons';
 import * as Styled from './styled';
 import { ContentImgButton, ContentTextButton } from './styled';
 import { ThemeMedia } from 'theme';
@@ -48,6 +48,11 @@ export const Header: FC = () => {
     dispatch(logOut());
   }, [dispatch]);
 
+  const onCreateBoardClick = () => {
+    navigate('/');
+    setIsOpen(true);
+  };
+
   return (
     <>
       <Styled.Header isAnimated={isAnimated}>
@@ -66,7 +71,7 @@ export const Header: FC = () => {
             </>
           )}
           {token && (
-            <Button type="primary" p="3px 15px" onClick={() => setIsOpen(true)}>
+            <Button type="primary" p="3px 15px" onClick={onCreateBoardClick}>
               <ContentTextButton theme={ThemeMedia}>{t('create_new_board')}</ContentTextButton>
               <ContentImgButton theme={ThemeMedia}>
                 <PlusCircleOutlined />
@@ -78,6 +83,14 @@ export const Header: FC = () => {
               <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
               <ContentImgButton theme={ThemeMedia}>
                 <LogoutOutlined />
+              </ContentImgButton>
+            </Button>
+          )}
+          {token && (
+            <Button type="primary" p="3px 15px" onClick={() => navigate('/profile')}>
+              <ContentTextButton theme={ThemeMedia}>{t('update')}</ContentTextButton>
+              <ContentImgButton theme={ThemeMedia}>
+                <UserOutlined />
               </ContentImgButton>
             </Button>
           )}

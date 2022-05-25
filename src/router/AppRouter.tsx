@@ -10,6 +10,7 @@ const Welcome = React.lazy(() => import('modules/Welcome'));
 const Board = React.lazy(() => import('modules/Board'));
 const SignIn = React.lazy(() => import('modules/Auth/SignIn'));
 const SignUp = React.lazy(() => import('modules/Auth/SignUp'));
+const EditProfile = React.lazy(() => import('modules/EditProfile'));
 
 export const AppRouter = () => {
   return (
@@ -47,6 +48,18 @@ export const AppRouter = () => {
         element={
           <Suspense fallback={<Loader />}>
             <SignUp />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <Suspense fallback={<Loader />}>
+            <ProtectedRoute>
+              <Layout>
+                <EditProfile />
+              </Layout>
+            </ProtectedRoute>
           </Suspense>
         }
       />
