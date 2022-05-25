@@ -105,7 +105,8 @@ const EditProfile: FC = () => {
               </StyledButton>
               <DeleteButton
                 onClick={() => setIsOpen(true)}
-                type="primary"
+                type="ghost"
+                danger
                 htmlType="button"
                 loading={status === 'loading'}
               >

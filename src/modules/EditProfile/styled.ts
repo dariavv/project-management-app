@@ -43,23 +43,11 @@ export const StyledButton = styled(AntButton)`
   width: 100% !important;
   margin: 0 !important;
 `;
+
 export const DeleteButton = styled(AntButton)`
   width: 100% !important;
-  color: #bf4d4d;
   font-weight: bold;
-  border-color: #a87b7b;
-  background-color: #f0eded;
   margin-top: 10px;
-  &:hover {
-    border-color: #f0eded;
-    color: #f0eded;
-    background-color: #bf4d4d;
-  }
-  &:focus {
-    border-color: #f0eded;
-    color: #f0eded;
-    background-color: #bf4d4d;
-  }
 `;
 
 export const StyledButtonCont = styled(AntForm.Item)`
