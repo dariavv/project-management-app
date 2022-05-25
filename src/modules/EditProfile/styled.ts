@@ -6,7 +6,6 @@ import { DARK } from 'constants/colors';
 
 export const ConteinerWrapper = styled.main`
   width: 100%;
-  height: calc(100vh -75px);
   padding-top: 5%;
   padding-bottom: 2%;
   overflow: auto @media (max-width: 1000px) {
