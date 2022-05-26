@@ -1,4 +1,4 @@
-import { FC, useCallback, useState, useEffect, useMemo, useRef, useDebugValue } from 'react';
+import { FC, useCallback, useState, useEffect, useMemo, useRef } from 'react';
 import { PlusOutlined, DeleteOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { ConfirmationModal, Loader } from 'components';
 import { deleteColumn } from 'store/reducers/columnsSlice';
@@ -20,17 +20,24 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
   const { tasks, status } = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [valueInput, setvalueInput] = useState(title);
 
   const [isVisibleButton, setisVisibleButton] = useState(false);
 
-  const FocusEvent = () => {
+  //React.ChangeEvent < { value: string } >
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const FocusEvent = (event: any) => {
     if (inputRef.current === document.activeElement) {
       setisVisibleButton(true);
-      // console.log(inputRef.current?.value);
-      inputRef.current?.value;
+      setvalueInput(event.target.value);
     } else {
       setisVisibleButton(false);
     }
+  };
+
+  const isNewTitle = () => {};
+  const isOldTitle = () => {
+    setvalueInput(title);
   };
 
   useEffect(() => {
@@ -64,13 +71,19 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
     <>
       <Styled.ColumnItem theme={ThemeMedia}>
         <Styled.ColumnTitle>
-          <Styled.Input ref={inputRef} type="text" id={columnId} onChange={FocusEvent} />
+          <Styled.Input
+            ref={inputRef}
+            type="text"
+            id={columnId}
+            value={valueInput}
+            onChange={FocusEvent}
+          />
           <Styled.ToggleInputBtn isVisibleButton={isVisibleButton}>
             <Styled.IconItemContainer>
-              <CheckOutlined />
+              <CheckOutlined onClick={isNewTitle} />
             </Styled.IconItemContainer>
             <Styled.IconItemContainer>
-              <CloseOutlined />
+              <CloseOutlined onClick={isOldTitle} />
             </Styled.IconItemContainer>
           </Styled.ToggleInputBtn>
           <Styled.ToggleColumnBtn isVisibleButton={isVisibleButton}>
