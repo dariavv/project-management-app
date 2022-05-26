@@ -20,24 +20,22 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
   const { tasks, status } = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [valueInput, setvalueInput] = useState(title);
+  const [valueInput, setValueInput] = useState(title);
 
-  const [isVisibleButton, setisVisibleButton] = useState(false);
+  const [isVisibleButton, setIsVisibleButton] = useState(false);
 
-  //React.ChangeEvent < { value: string } >
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const FocusEvent = (event: any) => {
+  const FocusEvent = (event: React.ChangeEvent<{ value: string }> | MouseEvent | null) => {
     if (inputRef.current === document.activeElement) {
-      setisVisibleButton(true);
-      setvalueInput(event.target.value);
+      setIsVisibleButton(true);
+      setValueInput((event?.target as HTMLInputElement).value);
     } else {
-      setisVisibleButton(false);
+      setIsVisibleButton(false);
     }
   };
 
-  const isNewTitle = () => {};
-  const isOldTitle = () => {
-    setvalueInput(title);
+  const updateTitle = () => {};
+  const cancelUpdateTitle = () => {
+    setValueInput(title);
   };
 
   useEffect(() => {
@@ -61,10 +59,6 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
     dispatch(getAllTasksByColumnId({ boardId, columnId }));
   }, [columnId, boardId, dispatch]);
 
-  useEffect(() => {
-    inputRef.current;
-  }, []);
-
   if (status === 'loading') return <Loader />;
 
   return (
@@ -80,10 +74,10 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
           />
           <Styled.ToggleInputBtn isVisibleButton={isVisibleButton}>
             <Styled.IconItemContainer>
-              <CheckOutlined onClick={isNewTitle} />
+              <CheckOutlined onClick={updateTitle} />
             </Styled.IconItemContainer>
             <Styled.IconItemContainer>
-              <CloseOutlined onClick={isOldTitle} />
+              <CloseOutlined onClick={cancelUpdateTitle} />
             </Styled.IconItemContainer>
           </Styled.ToggleInputBtn>
           <Styled.ToggleColumnBtn isVisibleButton={isVisibleButton}>

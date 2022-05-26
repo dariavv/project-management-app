@@ -1,6 +1,6 @@
-import { PRIMARY } from './../../../constants/colors';
 import styled from 'styled-components';
-import { GREY, LIGHTGREY, SHADOW_BLUE } from 'constants/colors';
+import { GREY, LIGHTGREY, SHADOW_BLUE, PRIMARY } from 'constants/colors';
+
 type InputProps = {
   isVisibleButton: boolean;
 };
@@ -55,8 +55,6 @@ export const Input = styled.input`
   font-weight: 700;
   &: focus {
     outline: none;
-    border-radius: 15px 0 0 15px;
-    padding: 0 7px;
   }
 `;
 export const IconItemContainer = styled.div`
