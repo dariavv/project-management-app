@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { Loader } from 'components/Loader/styled';
+import { Loader } from 'components/Loader';
 import { AppRouter } from 'router/AppRouter';
 import { setToken } from 'store/reducers/authSlice';
 import { getFromStorage } from 'utils/localStorage';
