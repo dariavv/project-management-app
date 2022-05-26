@@ -1,8 +1,9 @@
 import { FC, useCallback, useState, useEffect, useMemo } from 'react';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import { ConfirmationModal, Loader } from 'components';
+import { ConfirmationModal } from 'components';
 import { deleteColumn } from 'store/reducers/columnsSlice';
-import { getAllTasksByColumnId } from 'store/reducers/tasksSlice';
+import { getAllTasksByColumnId, setUpdatedTasks, updateTask } from 'store/reducers/tasksSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { CreateTaskForm } from '../CreateTaskForm';
 import { TaskItem } from '../TaskItem';
@@ -17,11 +18,14 @@ interface ColumnItemProps extends Omit<Column, 'order'> {
 export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
-  const { tasks, status } = useAppSelector((state) => state.tasks);
+  const { tasks } = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
 
   const filteredTasks = useMemo(
-    () => tasks.filter((task) => task.boardId === boardId && task.columnId === columnId),
+    () =>
+      tasks
+        .filter((task) => task.boardId === boardId && task.columnId === columnId)
+        .sort((currentTask, nextTask) => currentTask.order - nextTask.order),
     [boardId, columnId, tasks],
   );
 
@@ -30,11 +34,36 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
     dispatch(deleteColumn({ boardId, columnId }));
   }, [boardId, dispatch, columnId]);
 
+  const handleOnDragEnd = (result: DropResult) => {
+    const { destination, source, draggableId } = result;
+    if (!destination) return;
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
+    }
+
+    const newTasks = [...filteredTasks];
+    const [removedTask] = newTasks.splice(source.index, 1);
+    newTasks.splice(destination.index, 0, removedTask);
+
+    const tasksWithUpdatedOrders = newTasks.map((task, idx) => {
+      return { ...task, order: idx + 1 };
+    });
+
+    const movedTask = tasksWithUpdatedOrders.find((task) => task.id === draggableId);
+    if (!movedTask) return;
+
+    const updatedTask = {
+      ...movedTask,
+      taskId: movedTask.id,
+    };
+
+    dispatch(setUpdatedTasks(tasksWithUpdatedOrders));
+    dispatch(updateTask(updatedTask));
+  };
+
   useEffect(() => {
     dispatch(getAllTasksByColumnId({ boardId, columnId }));
   }, [columnId, boardId, dispatch]);
-
-  if (status === 'loading') return <Loader />;
 
   return (
     <>
@@ -46,18 +75,30 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
             <DeleteOutlined onClick={() => setIsOpen(true)} />
           </IconContainer>
         </Styled.ColumnTitle>
-        {filteredTasks?.map(({ id, title, description, order, columnId, boardId, userId }) => (
-          <TaskItem
-            key={id}
-            id={id}
-            userId={userId}
-            boardId={boardId}
-            columnId={columnId}
-            title={title}
-            description={description}
-            order={order}
-          />
-        ))}
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="tasks">
+            {(provided) => (
+              <Styled.TaskContainer {...provided.droppableProps} ref={provided.innerRef}>
+                {filteredTasks?.map(
+                  ({ id, title, description, order, columnId, boardId, userId }, index) => (
+                    <TaskItem
+                      index={index}
+                      key={id}
+                      id={id}
+                      userId={userId}
+                      boardId={boardId}
+                      columnId={columnId}
+                      title={title}
+                      description={description}
+                      order={order}
+                    />
+                  ),
+                )}
+                {provided.placeholder}
+              </Styled.TaskContainer>
+            )}
+          </Droppable>
+        </DragDropContext>
       </Styled.ColumnItem>
       <CreateTaskForm
         columnId={columnId}

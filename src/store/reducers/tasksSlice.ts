@@ -115,7 +115,18 @@ export const deleteTask = createAsyncThunk(
 const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
-  reducers: {},
+  reducers: {
+    setUpdatedTasks: (state, action) => {
+      const updatedTasks = state.tasks.map((taskFromStore) => {
+        const updatedTask = action.payload.find(
+          (taskFromPayload: Task) => taskFromStore.id === taskFromPayload.id,
+        );
+        if (!updatedTask) return taskFromStore;
+        return { ...taskFromStore, order: updatedTask.order };
+      });
+      state.tasks = updatedTasks;
+    },
+  },
   extraReducers: {
     [getAllTasksByColumnId.pending.toString()]: (state) => {
       state.status = 'loading';
@@ -154,7 +165,7 @@ const tasksSlice = createSlice({
     },
     [createTask.fulfilled.toString()]: (state, action) => {
       state.tasks = [...state.tasks, action.payload];
-      openNotificationSuccess({ message: 'Success', description: 'Column successfully created' });
+      openNotificationSuccess({ message: 'Success', description: 'Task successfully created' });
       state.status = 'idle';
     },
     [createTask.rejected.toString()]: (state, action) => {
@@ -173,7 +184,7 @@ const tasksSlice = createSlice({
         if (tasks.id === id) return action.payload;
         return tasks;
       });
-      openNotificationSuccess({ message: 'Success', description: 'Board successfully updated' });
+      openNotificationSuccess({ message: 'Success', description: 'Task successfully updated' });
       state.status = 'idle';
     },
     [updateTask.rejected.toString()]: (state, action) => {
@@ -189,7 +200,7 @@ const tasksSlice = createSlice({
     [deleteTask.fulfilled.toString()]: (state, action) => {
       const taskId = action.payload.taskId;
       state.tasks = state.tasks.filter((tasks) => tasks.id !== taskId);
-      openNotificationSuccess({ message: 'Success', description: 'Column successfully deleted' });
+      openNotificationSuccess({ message: 'Success', description: 'Task successfully deleted' });
       state.status = 'idle';
     },
     [deleteTask.rejected.toString()]: (state, action) => {
@@ -202,6 +213,8 @@ const tasksSlice = createSlice({
   },
 });
 
-const { reducer } = tasksSlice;
+const { reducer, actions } = tasksSlice;
+
+export const { setUpdatedTasks } = actions;
 
 export const tasksReducer = reducer;
