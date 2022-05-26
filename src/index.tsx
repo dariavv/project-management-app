@@ -10,12 +10,10 @@ import 'locales/i18n';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <ErrorBoundary>
-    <React.StrictMode>
-      <BrowserRouter>
-        <AppStore>
-          <App />
-        </AppStore>
-      </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+      <AppStore>
+        <App />
+      </AppStore>
+    </BrowserRouter>
   </ErrorBoundary>,
 );
