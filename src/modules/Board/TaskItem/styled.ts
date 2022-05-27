@@ -1,13 +1,18 @@
-import { GREY, DARK, WHITE, PRIMARY } from 'constants/colors';
+import { GREY, WHITE, PRIMARY } from 'constants/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 90%;
-  max-width: 267px;
-  margin: 5px 0;
+  width: 270px;
+  margin: 0 0 5px 0;
   border: 1px solid ${GREY};
-  border-radius: 10px;
+  border-radius: 4px;
   background-color: ${WHITE};
+  &:last-child {
+    margin: 0;
+  }
+  @media (max-width: 540px) {
+    width: 250px;
+  }
 `;
 
 export const ContainerIcon = styled.div`
@@ -21,12 +26,9 @@ export const Title = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 7px;
-  border-radius: 5px 5px 0 0;
-  border-color: ${DARK};
   z-index: 1;
   position: sticky;
   font-weight: 500;
-  text-align: justify;
 `;
 
 export const Description = styled.div`

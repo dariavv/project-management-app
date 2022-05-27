@@ -43,7 +43,7 @@ export const AddButton = styled.div`
   width: 300px;
   height: 140px;
   border: 1px dashed ${DARK_GREY};
-  border-radius: 10px;
+  border-radius: 5px;
   color: ${DARK_GREY};
   cursor: pointer;
   &:hover {

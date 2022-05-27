@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import request from 'axios';
-import { ColumnParams, columnsService, CreateColumnParams } from 'services/columns';
+import {
+  ColumnParams,
+  columnsService,
+  CreateColumnParams,
+  UpdateColumnParams,
+} from 'services/columns';
 import { Board, Column } from 'types';
 import { openNotificationError, openNotificationSuccess } from 'utils/notifications';
 
@@ -62,6 +67,22 @@ export const createColumn = createAsyncThunk(
   },
 );
 
+export const updateColumn = createAsyncThunk(
+  'columns/updateColumn',
+  async ({ boardId, title, columnId, order }: UpdateColumnParams, thunkAPI) => {
+    try {
+      const response = await columnsService.updateColumn({ boardId, title, columnId, order });
+      return response;
+    } catch (error) {
+      if (request.isAxiosError(error) && error.response) {
+        const message =
+          (error.response && error.response.data) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+      }
+    }
+  },
+);
+
 export const deleteColumn = createAsyncThunk(
   'columns/deleteColumn',
   async ({ boardId, columnId }: ColumnParams, thunkAPI) => {
@@ -87,7 +108,7 @@ const columnsSlice = createSlice({
       state.status = 'loading';
     },
     [getAllColumns.fulfilled.toString()]: (state, action) => {
-      state.columns = action.payload;
+      state.columns = action.payload.sort((a: Column, b: Column) => a.order - b.order);
       state.status = 'idle';
     },
     [getAllColumns.rejected.toString()]: (state, action) => {
@@ -119,6 +140,25 @@ const columnsSlice = createSlice({
       state.status = 'idle';
     },
     [createColumn.rejected.toString()]: (state, action) => {
+      state.status = 'failed';
+      openNotificationError({
+        message: 'Error',
+        description: action.payload.message,
+      });
+    },
+    [updateColumn.pending.toString()]: (state) => {
+      state.status = 'loading';
+    },
+    [updateColumn.fulfilled.toString()]: (state, action) => {
+      const id = action.payload.id;
+      state.columns = state.columns.map((column) => {
+        if (column.id === id) return action.payload;
+        return column;
+      });
+      openNotificationSuccess({ message: 'Success', description: 'Column successfully updated' });
+      state.status = 'idle';
+    },
+    [updateColumn.rejected.toString()]: (state, action) => {
       state.status = 'failed';
       openNotificationError({
         message: 'Error',

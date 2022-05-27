@@ -28,6 +28,7 @@ export type CreateTaskParams = Omit<Task, 'id' | 'order'>;
 
 export interface UpdateTaskParams extends Omit<Task, 'id'> {
   taskId: Task['id'];
+  isDnd?: boolean;
 }
 
 const getAllTasksByColumnId = async ({ boardId, columnId }: TasksParams) => {

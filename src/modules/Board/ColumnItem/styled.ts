@@ -20,22 +20,10 @@ export const ColumnItem = styled.div`
   flex-direction: column;
   background-color: ${LIGHTGREY};
   margin: 0 20px 0 0;
-  border-radius: 10px;
+  padding-bottom: 15px;
+  border-radius: 5px;
   box-shadow: 0 10px 10px ${SHADOW_BLUE};
-  overflow-y: auto;
   transition: 0.7s;
-  &::-webkit-scrollbar {
-    width: 7px;
-  }
-  &::-webkit-scrollbar-track {
-    box-shadow: 5px 5px 5px -5px ${SCROLL_TRACK} inset;
-    background-color: ${SCROLL_COLOR};
-    border-radius: 15px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 15px;
-    background: ${GREY};
-  }
   @media ${(props) => props.theme.media.phone} {
     min-width: 280px;
   }
@@ -46,7 +34,7 @@ export const ColumnTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 7px 12px;
+  padding: 10px 15px;
   background-color: ${LIGHTGREY};
   border-radius: 5px 5px 0 0;
   z-index: 3;
@@ -56,14 +44,33 @@ export const ColumnTitle = styled.div`
   text-align: justify;
 `;
 
+export const TaskContainer = styled.div`
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: 5px 5px 5px -5px ${SCROLL_TRACK} inset;
+    background-color: ${SCROLL_COLOR};
+    border-radius: 15px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background: ${GREY};
+  }
+`;
+
 export const Input = styled.input`
   background-color: transparent;
   border: 0;
   font-weight: 700;
-  &: focus {
+  width: 100%;
+  &:focus {
     outline: none;
+    border-bottom: 1px solid ${GREY};
   }
 `;
+
 export const IconItemContainer = styled.div`
   font-size: 0.8rem;
   padding: 0.2rem;
