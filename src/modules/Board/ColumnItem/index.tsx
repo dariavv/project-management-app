@@ -18,12 +18,19 @@ interface ColumnItemProps extends Omit<Column, 'order'> {
 export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
+  const [valueInput, setValueInput] = useState(title);
+  const [isVisibleButton, setIsVisibleButton] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const { tasks } = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const [valueInput, setValueInput] = useState(title);
 
-  const [isVisibleButton, setIsVisibleButton] = useState(false);
+  const filteredTasks = useMemo(
+    () =>
+      tasks
+        .filter((task) => task.boardId === boardId && task.columnId === columnId)
+        .sort((currentTask, nextTask) => currentTask.order - nextTask.order),
+    [boardId, columnId, tasks],
+  );
 
   const focusEvent = (event: React.ChangeEvent<{ value: string }> | MouseEvent | null) => {
     if (inputRef.current === document.activeElement) {
@@ -34,25 +41,12 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
     }
   };
 
+  // TODO: need to add logic of update column title
   const updateTitle = () => {};
+
   const cancelUpdateTitle = () => {
     setValueInput(title);
   };
-
-  useEffect(() => {
-    document.addEventListener('click', focusEvent);
-    return () => {
-      document.addEventListener('click', focusEvent);
-    };
-  }, []);
-
-  const filteredTasks = useMemo(
-    () =>
-      tasks
-        .filter((task) => task.boardId === boardId && task.columnId === columnId)
-        .sort((currentTask, nextTask) => currentTask.order - nextTask.order),
-    [boardId, columnId, tasks],
-  );
 
   const handleSubmit = useCallback(() => {
     setIsOpen(false);
@@ -94,6 +88,13 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
   useEffect(() => {
     dispatch(getAllTasksByColumnId({ boardId, columnId }));
   }, [columnId, boardId, dispatch]);
+
+  useEffect(() => {
+    document.addEventListener('click', focusEvent);
+    return () => {
+      document.addEventListener('click', focusEvent);
+    };
+  }, []);
 
   return (
     <>

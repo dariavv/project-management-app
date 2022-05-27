@@ -34,7 +34,7 @@ export const ColumnTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 12px;
+  padding: 10px 15px;
   background-color: ${LIGHTGREY};
   border-radius: 5px 5px 0 0;
   z-index: 3;
@@ -67,6 +67,7 @@ export const Input = styled.input`
   width: 100%;
   &:focus {
     outline: none;
+    border-bottom: 1px solid ${GREY};
   }
 `;
 
