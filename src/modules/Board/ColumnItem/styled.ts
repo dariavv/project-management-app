@@ -1,5 +1,16 @@
 import styled from 'styled-components';
-import { GREY, LIGHTGREY, SCROLL_COLOR, SCROLL_TRACK, SHADOW_BLUE } from 'constants/colors';
+import {
+  GREY,
+  LIGHTGREY,
+  SCROLL_COLOR,
+  SCROLL_TRACK,
+  SHADOW_BLUE,
+  PRIMARY,
+} from 'constants/colors';
+
+type InputProps = {
+  isVisibleButton: boolean;
+};
 
 export const ColumnItem = styled.div`
   min-width: 300px;
@@ -43,4 +54,36 @@ export const ColumnTitle = styled.div`
   top: 0;
   font-weight: 700;
   text-align: justify;
+`;
+
+export const Input = styled.input`
+  background-color: transparent;
+  border: 0;
+  font-weight: 700;
+  &: focus {
+    outline: none;
+  }
+`;
+export const IconItemContainer = styled.div`
+  font-size: 0.8rem;
+  padding: 0.2rem;
+  z-index: 7;
+  &:hover {
+    transition: 0.3s;
+    svg {
+      fill: ${PRIMARY};
+    }
+  }
+`;
+
+export const ToggleInputBtn = styled.div<InputProps>`
+  display: flex;
+  transition: 0.3s;
+  display: ${({ isVisibleButton }) => (isVisibleButton ? `flex` : `none`)}; ;
+`;
+
+export const ToggleColumnBtn = styled.div<InputProps>`
+  display: flex;
+  transition: 0.3s;
+  display: ${({ isVisibleButton }) => (isVisibleButton ? `none` : `flex`)}; ;
 `;
