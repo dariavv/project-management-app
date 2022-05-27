@@ -8,7 +8,6 @@ import { DecodedToken } from 'types';
 import jwt from 'jwt-decode';
 import { getUser } from 'store/reducers/usersSlice';
 
-// TODO: refactoring auth with HOC approach
 export const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { token } = useAppSelector((state) => state.auth);

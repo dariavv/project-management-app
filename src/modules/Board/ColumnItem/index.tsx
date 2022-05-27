@@ -41,7 +41,6 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId, 
     }
   };
 
-  // TODO: need to add logic of update column title
   const updateTitle = () => {
     const formValues = {
       title: valueInput,
