@@ -1,11 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { Loader } from 'components/Loader/styled';
+import { Loader } from 'components/Loader';
 import { AppRouter } from 'router/AppRouter';
 import { setToken } from 'store/reducers/authSlice';
 import { getFromStorage } from 'utils/localStorage';
 import { DecodedToken } from 'types';
 import jwt from 'jwt-decode';
+import { getUser } from 'store/reducers/usersSlice';
 
 // TODO: refactoring auth with HOC approach
 export const App: FC = () => {
@@ -19,10 +20,13 @@ export const App: FC = () => {
       if (tokenFromStorage) {
         dispatch(setToken(tokenFromStorage));
         const decodedToken = jwt(tokenFromStorage) as DecodedToken;
-        const userId = decodedToken.userId;
-        console.log(userId);
-        // TODO: get user here like dispatch(getUser(userId));
+        const { userId } = decodedToken;
+        dispatch(getUser(userId));
       }
+    } else {
+      const decodedToken = jwt(token) as DecodedToken;
+      const { userId } = decodedToken;
+      dispatch(getUser(userId));
     }
     setIsLoading(false);
   }, [dispatch, token]);
