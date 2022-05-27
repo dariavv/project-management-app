@@ -36,7 +36,11 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
 
   const handleOnDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
-    if (!destination) return;
+
+    if (!destination) {
+      return;
+    }
+
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
@@ -55,6 +59,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
     const updatedTask = {
       ...movedTask,
       taskId: movedTask.id,
+      isDnd: true,
     };
 
     dispatch(setUpdatedTasks(tasksWithUpdatedOrders));

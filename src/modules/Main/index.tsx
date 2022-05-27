@@ -29,7 +29,7 @@ const Main: FC = () => {
           <p>{t('please_create')}</p>
         </Styled.NoBoards>
       )}
-      {boards.length && (
+      {!!boards.length && (
         <Row gutter={[16, 16]}>
           {boards.map(({ id, title, description }) => (
             <Col

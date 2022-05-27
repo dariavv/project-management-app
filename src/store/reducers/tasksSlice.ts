@@ -72,7 +72,7 @@ export const createTask = createAsyncThunk(
 export const updateTask = createAsyncThunk(
   'tasks/updateTask',
   async (
-    { title, order, description, userId, boardId, columnId, taskId }: UpdateTaskParams,
+    { title, order, description, userId, boardId, columnId, taskId, isDnd }: UpdateTaskParams,
     thunkAPI,
   ) => {
     try {
@@ -85,7 +85,7 @@ export const updateTask = createAsyncThunk(
         columnId,
         taskId,
       });
-      return response;
+      return { response, isDnd };
     } catch (error) {
       if (request.isAxiosError(error) && error.response) {
         const message =
@@ -184,7 +184,12 @@ const tasksSlice = createSlice({
         if (tasks.id === id) return action.payload;
         return tasks;
       });
-      openNotificationSuccess({ message: 'Success', description: 'Task successfully updated' });
+      if (!action.payload.isDnd) {
+        return openNotificationSuccess({
+          message: 'Success',
+          description: 'Task successfully updated',
+        });
+      }
       state.status = 'idle';
     },
     [updateTask.rejected.toString()]: (state, action) => {
