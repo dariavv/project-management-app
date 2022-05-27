@@ -4,7 +4,7 @@ Liosta is a tool for project management. Our goal is to help achieve the set tas
 
 #### Deployment FE: https://liosta.netlify.app
 
-#### Deployment BE: https://pma-57-be.herokuapp.com
+#### Deployment BE: https://pma-be-57.herokuapp.com
 
 ## Installation
 
