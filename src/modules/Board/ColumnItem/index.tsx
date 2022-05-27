@@ -24,7 +24,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
 
   const [isVisibleButton, setIsVisibleButton] = useState(false);
 
-  const FocusEvent = (event: React.ChangeEvent<{ value: string }> | MouseEvent | null) => {
+  const focusEvent = (event: React.ChangeEvent<{ value: string }> | MouseEvent | null) => {
     if (inputRef.current === document.activeElement) {
       setIsVisibleButton(true);
       setValueInput((event?.target as HTMLInputElement).value);
@@ -39,9 +39,9 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
   };
 
   useEffect(() => {
-    document.addEventListener('click', FocusEvent);
+    document.addEventListener('click', focusEvent);
     return () => {
-      document.addEventListener('click', FocusEvent);
+      document.addEventListener('click', focusEvent);
     };
   }, []);
 
@@ -70,7 +70,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
             type="text"
             id={columnId}
             value={valueInput}
-            onChange={FocusEvent}
+            onChange={focusEvent}
           />
           <Styled.ToggleInputBtn isVisibleButton={isVisibleButton}>
             <Styled.IconItemContainer>
