@@ -29,6 +29,7 @@ export type CreateTaskParams = Omit<Task, 'id' | 'order'>;
 export interface UpdateTaskParams extends Omit<Task, 'id'> {
   taskId: Task['id'];
   isDnd?: boolean;
+  updatedColumnId?: Column['id'];
 }
 
 const getAllTasksByColumnId = async ({ boardId, columnId }: TasksParams) => {
@@ -70,15 +71,28 @@ const updateTask = async ({
   boardId,
   columnId,
   taskId,
+  updatedColumnId,
 }: UpdateTaskParams) => {
-  const response = await axios.put<Task>(
-    `${API_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
-    { title, order, description, userId, boardId, columnId },
-    {
-      headers: authHeader(),
-    },
-  );
-  return response.data;
+  if (updatedColumnId) {
+    const response = await axios.put<Task>(
+      `${API_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
+      { title, order, description, userId, boardId, columnId: updatedColumnId },
+      {
+        headers: authHeader(),
+      },
+    );
+    return response.data;
+  }
+  if (!updatedColumnId) {
+    const response = await axios.put<Task>(
+      `${API_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
+      { title, order, description, userId, boardId, columnId },
+      {
+        headers: authHeader(),
+      },
+    );
+    return response.data;
+  }
 };
 
 const deleteTask = async ({ boardId, columnId, taskId }: TaskParams) => {

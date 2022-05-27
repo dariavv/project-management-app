@@ -72,7 +72,17 @@ export const createTask = createAsyncThunk(
 export const updateTask = createAsyncThunk(
   'tasks/updateTask',
   async (
-    { title, order, description, userId, boardId, columnId, taskId, isDnd }: UpdateTaskParams,
+    {
+      title,
+      order,
+      description,
+      userId,
+      boardId,
+      columnId,
+      taskId,
+      updatedColumnId,
+      isDnd,
+    }: UpdateTaskParams,
     thunkAPI,
   ) => {
     try {
@@ -84,6 +94,7 @@ export const updateTask = createAsyncThunk(
         boardId,
         columnId,
         taskId,
+        updatedColumnId,
       });
       return { response, isDnd };
     } catch (error) {
@@ -122,7 +133,7 @@ const tasksSlice = createSlice({
           (taskFromPayload: Task) => taskFromStore.id === taskFromPayload.id,
         );
         if (!updatedTask) return taskFromStore;
-        return { ...taskFromStore, order: updatedTask.order };
+        return { ...taskFromStore, order: updatedTask.order, columnId: updatedTask.columnId };
       });
       state.tasks = updatedTasks;
     },

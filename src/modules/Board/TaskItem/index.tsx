@@ -14,7 +14,6 @@ interface TaskItemProps extends Task {
   index: number;
 }
 
-// TODO: remove order displaying after dnd implementation
 export const TaskItem: FC<TaskItemProps> = (props) => {
   const { id, title, description, order, columnId, boardId, userId, index } = props;
   const { users } = useAppSelector((state) => state.users);
@@ -44,7 +43,7 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
                   tooltip: title,
                 }}
               >
-                {order} - {title}
+                {title}
               </Typography.Text>
               <IconContainer>
                 <EditOutlined onClick={() => setIsOpenForm(true)} />
