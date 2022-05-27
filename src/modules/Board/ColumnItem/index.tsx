@@ -2,7 +2,7 @@ import { FC, useCallback, useState, useEffect, useMemo, useRef } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { PlusOutlined, DeleteOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { ConfirmationModal } from 'components';
-import { deleteColumn } from 'store/reducers/columnsSlice';
+import { deleteColumn, updateColumn } from 'store/reducers/columnsSlice';
 import { getAllTasksByColumnId, setUpdatedTasks, updateTask } from 'store/reducers/tasksSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { CreateTaskForm } from '../CreateTaskForm';
@@ -11,11 +11,11 @@ import { Column } from 'types';
 import { IconContainer, ThemeMedia } from 'theme';
 import * as Styled from './styled';
 
-interface ColumnItemProps extends Omit<Column, 'order'> {
+interface ColumnItemProps extends Column {
   boardId: string;
 }
 
-export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }) => {
+export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId, order }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [valueInput, setValueInput] = useState(title);
@@ -42,7 +42,16 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
   };
 
   // TODO: need to add logic of update column title
-  const updateTitle = () => {};
+  const updateTitle = () => {
+    const formValues = {
+      title: valueInput,
+      columnId,
+      boardId,
+      order,
+    };
+
+    dispatch(updateColumn(formValues));
+  };
 
   const cancelUpdateTitle = () => {
     setValueInput(title);
@@ -106,6 +115,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
             id={columnId}
             value={valueInput}
             onChange={focusEvent}
+            autoComplete="off"
           />
           <Styled.ToggleInputBtn isVisibleButton={isVisibleButton}>
             <Styled.IconItemContainer>
