@@ -1,6 +1,6 @@
-import { FC, useCallback, useState, useEffect, useMemo } from 'react';
+import { FC, useCallback, useState, useEffect, useMemo, useRef } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { ConfirmationModal } from 'components';
 import { deleteColumn } from 'store/reducers/columnsSlice';
 import { getAllTasksByColumnId, setUpdatedTasks, updateTask } from 'store/reducers/tasksSlice';
@@ -20,6 +20,31 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
   const [isOpenForm, setIsOpenForm] = useState(false);
   const { tasks } = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [valueInput, setValueInput] = useState(title);
+
+  const [isVisibleButton, setIsVisibleButton] = useState(false);
+
+  const focusEvent = (event: React.ChangeEvent<{ value: string }> | MouseEvent | null) => {
+    if (inputRef.current === document.activeElement) {
+      setIsVisibleButton(true);
+      setValueInput((event?.target as HTMLInputElement).value);
+    } else {
+      setIsVisibleButton(false);
+    }
+  };
+
+  const updateTitle = () => {};
+  const cancelUpdateTitle = () => {
+    setValueInput(title);
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', focusEvent);
+    return () => {
+      document.addEventListener('click', focusEvent);
+    };
+  }, []);
 
   const filteredTasks = useMemo(
     () =>
@@ -74,11 +99,27 @@ export const ColumnItem: FC<ColumnItemProps> = ({ id: columnId, title, boardId }
     <>
       <Styled.ColumnItem theme={ThemeMedia}>
         <Styled.ColumnTitle>
-          <div>{title}</div>
-          <IconContainer>
-            <PlusOutlined onClick={() => setIsOpenForm(true)} />
-            <DeleteOutlined onClick={() => setIsOpen(true)} />
-          </IconContainer>
+          <Styled.Input
+            ref={inputRef}
+            type="text"
+            id={columnId}
+            value={valueInput}
+            onChange={focusEvent}
+          />
+          <Styled.ToggleInputBtn isVisibleButton={isVisibleButton}>
+            <Styled.IconItemContainer>
+              <CheckOutlined onClick={updateTitle} />
+            </Styled.IconItemContainer>
+            <Styled.IconItemContainer>
+              <CloseOutlined onClick={cancelUpdateTitle} />
+            </Styled.IconItemContainer>
+          </Styled.ToggleInputBtn>
+          <Styled.ToggleColumnBtn isVisibleButton={isVisibleButton}>
+            <IconContainer>
+              <PlusOutlined onClick={() => setIsOpenForm(true)} />
+              <DeleteOutlined onClick={() => setIsOpen(true)} />
+            </IconContainer>
+          </Styled.ToggleColumnBtn>
         </Styled.ColumnTitle>
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <Droppable droppableId="tasks">
