@@ -16,8 +16,8 @@ export const ColumnItem = styled.div`
   min-width: 300px;
   height: calc(100% - 10px);
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   background-color: ${LIGHTGREY};
   margin: 0 20px 0 0;
   padding-bottom: 15px;
@@ -45,7 +45,14 @@ export const ColumnTitle = styled.div`
 `;
 
 export const TaskContainer = styled.div`
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   overflow-y: auto;
+  @media (max-width: 540px) {
+    width: 250px;
+  }
   &::-webkit-scrollbar {
     width: 6px;
   }

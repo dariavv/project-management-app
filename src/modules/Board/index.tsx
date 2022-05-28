@@ -1,17 +1,17 @@
 import { FC, useEffect, useState } from 'react';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useParams } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import { Loader } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
+import { useTranslations } from 'hooks/useTranslations';
+import { setUpdatedTasks, updateTask } from 'store/reducers/tasksSlice';
 import { getAllColumns } from 'store/reducers/columnsSlice';
+import { getAllUsers } from 'store/reducers/usersSlice';
 import { CreateColumnForm } from './CreateColumnForm';
 import { ColumnItem } from './ColumnItem';
-import { getAllUsers } from 'store/reducers/usersSlice';
-import { useTranslations } from 'hooks/useTranslations';
-import * as Styled from './styled';
 import { ThemeMedia } from 'theme';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { setUpdatedTasks, updateTask } from 'store/reducers/tasksSlice';
+import * as Styled from './styled';
 
 type ParamsType = {
   id: string;
@@ -114,17 +114,17 @@ const Board: FC = () => {
 
   return (
     <>
-      <Styled.BoardContainer theme={ThemeMedia}>
-        <DragDropContext onDragEnd={handleOnDragEnd}>
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Styled.BoardContainer theme={ThemeMedia}>
           {columns?.map((column) => (
             <ColumnItem key={column.id} boardId={boardId} column={column} />
           ))}
-        </DragDropContext>
-        <Styled.AddButton theme={ThemeMedia} onClick={() => setIsOpenForm(true)}>
-          <PlusOutlined style={{ padding: '0 15px 0 0' }} />
-          <span>{t('add_column')}</span>
-        </Styled.AddButton>
-      </Styled.BoardContainer>
+          <Styled.AddButton theme={ThemeMedia} onClick={() => setIsOpenForm(true)}>
+            <PlusOutlined style={{ padding: '0 15px 0 0' }} />
+            <span>{t('add_column')}</span>
+          </Styled.AddButton>
+        </Styled.BoardContainer>
+      </DragDropContext>
       <CreateColumnForm isOpen={isOpenForm} onClose={() => setIsOpenForm(false)} />
     </>
   );
