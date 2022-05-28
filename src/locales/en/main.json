@@ -26,5 +26,11 @@
   "delete": "Delete profile ",
   "name": "Name",
   "login": "Login",
-  "password": "Password"
+  "password": "Password",
+  "about_title": "About Liosta",
+  "our_team": "Our Team",
+  "name_one": "Daria",
+  "name_two": "Gleb",
+  "name_three": "Olga",
+  "welcome_description": "Liosta is a tool for project management. Our goal is to help achieve the set tasks, both for an individual in the team and for a group of developers. Manage tasks easy and simple :)"
 }
