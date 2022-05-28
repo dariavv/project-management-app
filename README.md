@@ -22,6 +22,7 @@ Liosta is a tool for project management. Our goal is to help achieve the set tas
 
 - React 18
 - React Router 6
+- React Beautiful DnD
 - Redux Toolkit
 - Typescript
 - Axios
