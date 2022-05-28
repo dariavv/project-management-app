@@ -12,7 +12,10 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response.status === 401 || error.response.status === 404) {
+    if (
+      error.response.status === 401 ||
+      (error.response.status === 404 && error.response.data.message !== 'Board was not founded!')
+    ) {
       authService.logOut();
       window.location.reload();
     }
