@@ -75,13 +75,25 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
         onFinishFailed={handleSubmitFailed}
         autoComplete="off"
       >
-        <Form.Item label={t('title')} name="title" rules={[{}]}>
+        <Form.Item
+          label={t('title')}
+          name="title"
+          rules={[{ required: true, min: 3, message: `${t('min_input_len')}` }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label={t('description')} name="description" rules={[{}]}>
+        <Form.Item
+          label={t('description')}
+          name="description"
+          rules={[{ required: true, min: 3, max: 100, message: `${t('textares_len')}` }]}
+        >
           <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
         </Form.Item>
-        <Form.Item label="Assignee" name="assignee" rules={[{}]}>
+        <Form.Item
+          label="Assignee"
+          name="assignee"
+          rules={[{ required: true, message: `${t('required')}` }]}
+        >
           <Select defaultActiveFirstOption={true} onSelect={handleSelect}>
             {users.map((user) => (
               <Select.Option key={user.id} value={user.login}>

@@ -59,7 +59,11 @@ export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose })
         onFinishFailed={handleSubmitFailed}
         autoComplete="off"
       >
-        <Form.Item label={t('title')} name="title" rules={[{}]}>
+        <Form.Item
+          label={t('title')}
+          name="title"
+          rules={[{ required: true, min: 3, message: `${t('min_input_len')}` }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item

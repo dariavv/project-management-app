@@ -81,21 +81,43 @@ const EditProfile: FC = () => {
             <StyledFormItem
               name="name"
               label={t('name')}
-              rules={[{ required: true, message: 'Please input your Name!' }]}
+              rules={[
+                {
+                  message: `${t('only_eng')}`,
+                  pattern: /^[a-zA-Z]+$/,
+                },
+                { required: true, min: 3, message: `${t('min_input_len')}` },
+              ]}
             >
               <Input placeholder={`${user?.name}`} />
             </StyledFormItem>
             <StyledFormItem
               name="login"
               label={t('login')}
-              rules={[{ required: true, message: 'Please input your Login!' }]}
+              rules={[
+                {
+                  message: `${t('only_eng')}`,
+                  pattern: /^[a-zA-Z]+$/,
+                },
+                { required: true, min: 3, message: `${t('min_input_len')}` },
+              ]}
             >
               <Input placeholder={`${user?.login}`} />
             </StyledFormItem>
             <StyledFormItem
               name="password"
               label={t('password')}
-              rules={[{ required: true, message: 'Please input your Password!' }]}
+              rules={[
+                {
+                  message: `${t('only_num_eng')}`,
+                  pattern: /^[a-zA-Z0-9]+$/,
+                },
+                { required: true, min: 3, message: `${t('min_input_len')}` },
+                {
+                  whitespace: true,
+                  message: `${t('no_spaces')}`,
+                },
+              ]}
             >
               <Input.Password />
             </StyledFormItem>
