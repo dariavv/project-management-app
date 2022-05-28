@@ -12,11 +12,7 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response.status === 401) {
-      authService.logOut();
-      window.location.reload();
-    }
-    if (error.response.status === 404) {
+    if (error.response.status === 401 || error.response.status === 404) {
       authService.logOut();
       window.location.reload();
     }
