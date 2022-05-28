@@ -1,5 +1,5 @@
 import { FC, useCallback, useState, useEffect, useMemo, useRef } from 'react';
-import { Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { PlusOutlined, DeleteOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { ConfirmationModal } from 'components';
 import { deleteColumn, updateColumn } from 'store/reducers/columnsSlice';
@@ -14,9 +14,10 @@ import * as Styled from './styled';
 interface ColumnItemProps {
   boardId: string;
   column: Column;
+  index: number;
 }
 
-export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId }) => {
+export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
   const { id: columnId, title, order } = column;
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
@@ -77,54 +78,63 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId }) => {
 
   return (
     <>
-      <Styled.ColumnItem theme={ThemeMedia}>
-        <Styled.ColumnTitle>
-          <Styled.Input
-            ref={inputRef}
-            type="text"
-            id={columnId}
-            value={valueInput}
-            onChange={focusEvent}
-            autoComplete="off"
-          />
-          <Styled.ToggleInputBtn isVisibleButton={isVisibleButton}>
-            <Styled.IconItemContainer>
-              <CheckOutlined onClick={updateTitle} />
-            </Styled.IconItemContainer>
-            <Styled.IconItemContainer>
-              <CloseOutlined onClick={cancelUpdateTitle} />
-            </Styled.IconItemContainer>
-          </Styled.ToggleInputBtn>
-          <Styled.ToggleColumnBtn isVisibleButton={isVisibleButton}>
-            <IconContainer>
-              <PlusOutlined onClick={() => setIsOpenForm(true)} />
-              <DeleteOutlined onClick={() => setIsOpen(true)} />
-            </IconContainer>
-          </Styled.ToggleColumnBtn>
-        </Styled.ColumnTitle>
-        <Droppable droppableId={columnId}>
-          {(provided) => (
-            <Styled.TaskContainer {...provided.droppableProps} ref={provided.innerRef}>
-              {filteredTasks?.map(
-                ({ id, title, description, order, columnId, boardId, userId }, index) => (
-                  <TaskItem
-                    index={index}
-                    key={id}
-                    id={id}
-                    userId={userId}
-                    boardId={boardId}
-                    columnId={columnId}
-                    title={title}
-                    description={description}
-                    order={order}
-                  />
-                ),
+      <Draggable draggableId={columnId} index={index}>
+        {(provided) => (
+          <Styled.ColumnItem
+            theme={ThemeMedia}
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            <Styled.ColumnTitle>
+              <Styled.Input
+                ref={inputRef}
+                type="text"
+                id={columnId}
+                value={valueInput}
+                onChange={focusEvent}
+                autoComplete="off"
+              />
+              <Styled.ToggleInputBtn isVisibleButton={isVisibleButton}>
+                <Styled.IconItemContainer>
+                  <CheckOutlined onClick={updateTitle} />
+                </Styled.IconItemContainer>
+                <Styled.IconItemContainer>
+                  <CloseOutlined onClick={cancelUpdateTitle} />
+                </Styled.IconItemContainer>
+              </Styled.ToggleInputBtn>
+              <Styled.ToggleColumnBtn isVisibleButton={isVisibleButton}>
+                <IconContainer>
+                  <PlusOutlined onClick={() => setIsOpenForm(true)} />
+                  <DeleteOutlined onClick={() => setIsOpen(true)} />
+                </IconContainer>
+              </Styled.ToggleColumnBtn>
+            </Styled.ColumnTitle>
+            <Droppable droppableId={columnId} type="tasks">
+              {(provided) => (
+                <Styled.TaskContainer {...provided.droppableProps} ref={provided.innerRef}>
+                  {filteredTasks?.map(
+                    ({ id, title, description, order, columnId, boardId, userId }, index) => (
+                      <TaskItem
+                        index={index}
+                        key={id}
+                        id={id}
+                        userId={userId}
+                        boardId={boardId}
+                        columnId={columnId}
+                        title={title}
+                        description={description}
+                        order={order}
+                      />
+                    ),
+                  )}
+                  {provided.placeholder}
+                </Styled.TaskContainer>
               )}
-              {provided.placeholder}
-            </Styled.TaskContainer>
-          )}
-        </Droppable>
-      </Styled.ColumnItem>
+            </Droppable>
+          </Styled.ColumnItem>
+        )}
+      </Draggable>
       <CreateTaskForm
         columnId={columnId}
         isOpen={isOpenForm}
