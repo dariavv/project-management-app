@@ -23,7 +23,6 @@ export const ColumnItem = styled.div`
   padding-bottom: 15px;
   border-radius: 5px;
   box-shadow: 0 10px 10px ${SHADOW_BLUE};
-  transition: 0.7s;
   @media ${(props) => props.theme.media.phone} {
     min-width: 280px;
   }
@@ -45,13 +44,14 @@ export const ColumnTitle = styled.div`
 `;
 
 export const TaskContainer = styled.div`
-  width: 270px;
+  width: 277px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex-grow: 1;
   overflow-y: auto;
   @media (max-width: 540px) {
-    width: 250px;
+    width: 257px;
   }
   &::-webkit-scrollbar {
     width: 6px;

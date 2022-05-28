@@ -1,12 +1,11 @@
 import { FC, useEffect, useState } from 'react';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { useParams } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
-import { Loader } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
 import { setUpdatedTasks, updateTask } from 'store/reducers/tasksSlice';
-import { getAllColumns } from 'store/reducers/columnsSlice';
+import { getAllColumns, setUpdatedColumns, updateColumn } from 'store/reducers/columnsSlice';
 import { getAllUsers } from 'store/reducers/usersSlice';
 import { CreateColumnForm } from './CreateColumnForm';
 import { ColumnItem } from './ColumnItem';
@@ -20,13 +19,13 @@ type ParamsType = {
 const Board: FC = () => {
   const { id: boardId } = useParams() as ParamsType;
   const [isOpenForm, setIsOpenForm] = useState(false);
-  const { columns, status } = useAppSelector((state) => state.columns);
+  const { columns } = useAppSelector((state) => state.columns);
   const { tasks } = useAppSelector((state) => state.tasks);
   const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
 
   const handleOnDragEnd = (result: DropResult) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
@@ -47,7 +46,32 @@ const Board: FC = () => {
     const startColumnId = source.droppableId;
     const finishColumnId = destination.droppableId;
 
-    if (startColumnId === finishColumnId) {
+    if (type === 'column') {
+      const newColumns = [...columns];
+      const [removedColumn] = newColumns.splice(source.index, 1);
+      newColumns.splice(destination.index, 0, removedColumn);
+
+      const columnsWithUpdatedOrders = newColumns.map((column, idx) => {
+        return { ...column, order: idx + 1 };
+      });
+
+      const movedColumn = columnsWithUpdatedOrders.find((column) => column.id === draggableId);
+      if (!movedColumn) return;
+
+      const updatedColumn = {
+        ...movedColumn,
+        columnId: movedColumn.id,
+        isDnd: true,
+        boardId,
+      };
+
+      console.log('columnsWithUpdatedOrders', columnsWithUpdatedOrders);
+
+      dispatch(setUpdatedColumns(columnsWithUpdatedOrders));
+      dispatch(updateColumn(updatedColumn));
+    }
+
+    if (startColumnId === finishColumnId && type === 'tasks') {
       const newTasks = [...startColumnTasks];
       const [removedTask] = newTasks.splice(source.index, 1);
       newTasks.splice(destination.index, 0, removedTask);
@@ -69,7 +93,7 @@ const Board: FC = () => {
       dispatch(updateTask(updatedTask));
     }
 
-    if (startColumnId !== finishColumnId) {
+    if (startColumnId !== finishColumnId && type === 'tasks') {
       const startTasks = [...startColumnTasks];
       const [removedTask] = startTasks.splice(source.index, 1);
 
@@ -108,22 +132,27 @@ const Board: FC = () => {
     dispatch(getAllUsers());
   }, [dispatch, boardId]);
 
-  if (status === 'loading') {
-    return <Loader />;
-  }
-
   return (
     <>
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Styled.BoardContainer theme={ThemeMedia}>
-          {columns?.map((column) => (
-            <ColumnItem key={column.id} boardId={boardId} column={column} />
-          ))}
-          <Styled.AddButton theme={ThemeMedia} onClick={() => setIsOpenForm(true)}>
-            <PlusOutlined style={{ padding: '0 15px 0 0' }} />
-            <span>{t('add_column')}</span>
-          </Styled.AddButton>
-        </Styled.BoardContainer>
+        <Droppable droppableId="columns" direction="horizontal" type="column">
+          {(provided) => (
+            <Styled.BoardContainer
+              theme={ThemeMedia}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {columns?.map((column, index) => (
+                <ColumnItem key={column.id} boardId={boardId} column={column} index={index} />
+              ))}
+              <Styled.AddButton theme={ThemeMedia} onClick={() => setIsOpenForm(true)}>
+                <PlusOutlined style={{ padding: '0 15px 0 0' }} />
+                <span>{t('add_column')}</span>
+              </Styled.AddButton>
+              {provided.placeholder}
+            </Styled.BoardContainer>
+          )}
+        </Droppable>
       </DragDropContext>
       <CreateColumnForm isOpen={isOpenForm} onClose={() => setIsOpenForm(false)} />
     </>
