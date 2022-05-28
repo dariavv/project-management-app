@@ -79,18 +79,18 @@ export const Header: FC = () => {
             </Button>
           )}
           {token && (
-            <Button type="primary" p="3px 10px" onClick={handleLogOut}>
-              <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
-              <ContentImgButton theme={ThemeMedia}>
-                <LogoutOutlined />
-              </ContentImgButton>
-            </Button>
-          )}
-          {token && (
             <Button type="primary" p="3px 10px" onClick={() => navigate('/profile')}>
               <ContentTextButton theme={ThemeMedia}>{t('update')}</ContentTextButton>
               <ContentImgButton theme={ThemeMedia}>
                 <UserOutlined />
+              </ContentImgButton>
+            </Button>
+          )}
+          {token && (
+            <Button type="primary" p="3px 10px" onClick={handleLogOut}>
+              <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
+              <ContentImgButton theme={ThemeMedia}>
+                <LogoutOutlined />
               </ContentImgButton>
             </Button>
           )}
