@@ -16,6 +16,10 @@ axios.interceptors.response.use(
       authService.logOut();
       window.location.reload();
     }
+    if (error.response.status === 404) {
+      authService.logOut();
+      window.location.reload();
+    }
     return Promise.reject(error);
   },
 );
