@@ -41,6 +41,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
       setValueInput((event?.target as HTMLInputElement).value);
     } else {
       setIsVisibleButton(false);
+      setValueInput(title);
     }
   };
 
@@ -73,7 +74,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
     return () => {
       document.addEventListener('click', focusEvent);
     };
-  }, []);
+  });
 
   return (
     <>

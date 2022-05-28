@@ -10,7 +10,7 @@ export const Button = styled(AntButton)<{
 }>`
   ${({ color }) => color && `color: ${color} !important`}
   ${({ bgc }) => bgc && `background-color: ${bgc} !important`}
-  margin: ${({ m }) => (m ? m : '0 0 0 10px')} !important;
+  margin: ${({ m }) => (m ? m : '0 0 0 7px')} !important;
   ${({ br }) => br && `border-radius: ${br} !important`}
   ${({ p }) => p && `padding: ${p} !important`}
 `;
