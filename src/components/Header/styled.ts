@@ -21,7 +21,7 @@ export const Header = styled.header<HeaderProps>`
     padding: ${({ isAnimated }) => (isAnimated ? '10px 20px' : '15px 20px')};
   }
   @media (max-width: 340px) {
-    padding: ${({ isAnimated }) => (isAnimated ? '10px 15px' : '15px 15px')};
+    padding: ${({ isAnimated }) => (isAnimated ? '10px 20px' : '15px 20px')};
   }
 `;
 
