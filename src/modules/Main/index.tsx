@@ -23,13 +23,13 @@ const Main: FC = () => {
 
   return (
     <Styled.Main theme={ThemeMedia}>
-      {!boards.length && (
+      {!boards?.length && (
         <Styled.NoBoards>
           <p>{t('no_boards')}</p>
           <p>{t('please_create')}</p>
         </Styled.NoBoards>
       )}
-      {!!boards.length && (
+      {!!boards?.length && (
         <Row gutter={[16, 16]}>
           {boards.map(({ id, title, description }) => (
             <Col

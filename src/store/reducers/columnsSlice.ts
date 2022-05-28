@@ -112,7 +112,7 @@ const columnsSlice = createSlice({
       state.status = 'loading';
     },
     [getAllColumns.fulfilled.toString()]: (state, action) => {
-      state.columns = action.payload.sort((a: Column, b: Column) => a.order - b.order);
+      state.columns = action.payload?.sort((a: Column, b: Column) => a.order - b.order);
       state.status = 'idle';
     },
     [getAllColumns.rejected.toString()]: (state, action) => {
