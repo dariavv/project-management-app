@@ -4,6 +4,11 @@ import { useTranslations } from 'hooks/useTranslations';
 import { Button, Footer, Logo } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { logOut } from 'store/reducers/authSlice';
+import { GithubOutlined } from '@ant-design/icons';
+import avaDaria from 'assets/images/4husky.png';
+import avaGleb from 'assets/images/2panda.png';
+import avaOlga from 'assets/images/1cat.png';
+import { ThemeMedia } from 'theme';
 import * as Styled from './styled';
 
 const Welcome: FC = () => {
@@ -41,18 +46,43 @@ const Welcome: FC = () => {
           </Styled.ButtonsContainer>
         )}
       </Styled.Header>
-      <Styled.Container>
-        <Styled.Info>
-          <Styled.Title>Welcome!</Styled.Title>
-          <Styled.Description>
-            Привет! Мы Дарья, Глеб и Ольга - команда фронтенд разработчиков. В рамках курса
-            «Разработка на React» от Rolling Scopes School представляем вам инструмент Liosta для
-            управления проектами. Наша цель помочь достичь поставленных задач, как отдельному
-            человеку в команде, так и группе разработчиков. С помощью приложения можно
-            организовывать рабочие процессы и визуально отслеживать прогресс. Управляйте задачами
-            легко и просто :)
-          </Styled.Description>
+      <Styled.Container theme={ThemeMedia}>
+        <Styled.Info theme={ThemeMedia}>
+          <Styled.Title>{t('about_app')}</Styled.Title>
+          <Styled.Description theme={ThemeMedia}>{t('welcome_Description')}</Styled.Description>
         </Styled.Info>
+        <Styled.Teams>
+          <Styled.Title>{t('about_team')}</Styled.Title>
+          <Styled.TeamContainer>
+            <Styled.AvatarContainer theme={ThemeMedia}>
+              <Styled.ImgAv src={avaDaria} theme={ThemeMedia}></Styled.ImgAv>
+              <Styled.LinkItem href="https://github.com/dariavv" target="_blank" rel="noreferrer">
+                <Styled.ItemIcon>
+                  <GithubOutlined />
+                </Styled.ItemIcon>
+                Daria
+              </Styled.LinkItem>
+            </Styled.AvatarContainer>
+            <Styled.AvatarContainer theme={ThemeMedia}>
+              <Styled.ImgAv src={avaGleb} theme={ThemeMedia}></Styled.ImgAv>
+              <Styled.LinkItem href="https://github.com/GBaykov" target="_blank" rel="noreferrer">
+                <Styled.ItemIcon>
+                  <GithubOutlined />
+                </Styled.ItemIcon>
+                Gleb
+              </Styled.LinkItem>
+            </Styled.AvatarContainer>
+            <Styled.AvatarContainer theme={ThemeMedia}>
+              <Styled.ImgAv src={avaOlga} theme={ThemeMedia}></Styled.ImgAv>
+              <Styled.LinkItem href="https://github.com/Olga-plus" target="_blank" rel="noreferrer">
+                <Styled.ItemIcon>
+                  <GithubOutlined />
+                </Styled.ItemIcon>
+                Olga
+              </Styled.LinkItem>
+            </Styled.AvatarContainer>
+          </Styled.TeamContainer>
+        </Styled.Teams>
       </Styled.Container>
       <Footer />
     </>
