@@ -40,12 +40,8 @@ const SignUp: FC = () => {
     },
     [dispatch],
   );
-  const errorMessageParser = (errorInfo: ValidateErrorEntity) => {
-    return errorInfo.errorFields.map((field) => field.errors[0]);
-  };
 
   const handleSubmitFailed = (errorInfo: ValidateErrorEntity) => {
-    console.log(errorMessageParser(errorInfo));
     openNotificationError({
       message: 'Error',
       description: `${errorInfo}`,
