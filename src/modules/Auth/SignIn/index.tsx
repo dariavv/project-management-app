@@ -83,10 +83,6 @@ const SignIn: FC = () => {
                   pattern: /^[a-zA-Z0-9]+$/,
                 },
                 { required: true, min: 3, message: `${t('min_input_len')}` },
-                {
-                  whitespace: true,
-                  message: `${t('no_spaces')}`,
-                },
               ]}
             >
               <Input.Password />

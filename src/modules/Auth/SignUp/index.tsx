@@ -15,6 +15,7 @@ import {
 import { Footer } from 'components';
 import { signUp } from 'store/reducers/authSlice';
 import { openNotificationError } from 'utils/notifications';
+import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 
 type FormValues = {
   name: string;
@@ -39,8 +40,12 @@ const SignUp: FC = () => {
     },
     [dispatch],
   );
+  const errorMessageParser = (errorInfo: ValidateErrorEntity) => {
+    return errorInfo.errorFields.map((field) => field.errors[0]);
+  };
 
-  const handleSubmitFailed = (errorInfo: unknown) => {
+  const handleSubmitFailed = (errorInfo: ValidateErrorEntity) => {
+    console.log(errorMessageParser(errorInfo));
     openNotificationError({
       message: 'Error',
       description: `${errorInfo}`,
@@ -100,10 +105,6 @@ const SignUp: FC = () => {
                   pattern: /^[a-zA-Z0-9]+$/,
                 },
                 { required: true, min: 3, message: `${t('min_input_len')}` },
-                {
-                  whitespace: true,
-                  message: `${t('no_spaces')}`,
-                },
               ]}
             >
               <Input.Password />

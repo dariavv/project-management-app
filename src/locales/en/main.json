@@ -27,7 +27,9 @@
   "name": "Name",
   "login": "Login",
   "password": "Password",
+  "required": "Please fill in the field",
   "min_input_len": "You must enter more than 3 characters",
+  "textares_len": "You must enter more than 3 and less then 100 characters",
   "only_eng": "Only latin alphabet letters can be used",
   "only_num_eng": "Only numbers and english letters can be used",
   "no_spaces": "Cannot enter spaces"
