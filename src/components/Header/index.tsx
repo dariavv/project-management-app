@@ -55,7 +55,7 @@ export const Header: FC = () => {
 
   return (
     <>
-      <Styled.Header isAnimated={isAnimated}>
+      <Styled.Header theme={ThemeMedia} isAnimated={isAnimated}>
         <Row>
           <Logo />
         </Row>
@@ -71,7 +71,7 @@ export const Header: FC = () => {
             </>
           )}
           {token && (
-            <Button type="primary" p="3px 15px" onClick={onCreateBoardClick}>
+            <Button type="primary" p="3px 10px" onClick={onCreateBoardClick}>
               <ContentTextButton theme={ThemeMedia}>{t('create_new_board')}</ContentTextButton>
               <ContentImgButton theme={ThemeMedia}>
                 <PlusCircleOutlined />
@@ -79,7 +79,7 @@ export const Header: FC = () => {
             </Button>
           )}
           {token && (
-            <Button type="primary" p="3px 15px" onClick={handleLogOut}>
+            <Button type="primary" p="3px 10px" onClick={handleLogOut}>
               <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
               <ContentImgButton theme={ThemeMedia}>
                 <LogoutOutlined />
@@ -87,7 +87,7 @@ export const Header: FC = () => {
             </Button>
           )}
           {token && (
-            <Button type="primary" p="3px 15px" onClick={() => navigate('/profile')}>
+            <Button type="primary" p="3px 10px" onClick={() => navigate('/profile')}>
               <ContentTextButton theme={ThemeMedia}>{t('update')}</ContentTextButton>
               <ContentImgButton theme={ThemeMedia}>
                 <UserOutlined />

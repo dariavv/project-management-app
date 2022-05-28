@@ -69,10 +69,10 @@ export const createColumn = createAsyncThunk(
 
 export const updateColumn = createAsyncThunk(
   'columns/updateColumn',
-  async ({ boardId, title, columnId, order }: UpdateColumnParams, thunkAPI) => {
+  async ({ boardId, title, columnId, order, isDnd }: UpdateColumnParams, thunkAPI) => {
     try {
       const response = await columnsService.updateColumn({ boardId, title, columnId, order });
-      return response;
+      return { response, isDnd };
     } catch (error) {
       if (request.isAxiosError(error) && error.response) {
         const message =
@@ -102,7 +102,11 @@ export const deleteColumn = createAsyncThunk(
 const columnsSlice = createSlice({
   name: 'columns',
   initialState,
-  reducers: {},
+  reducers: {
+    setUpdatedColumns: (state, action) => {
+      state.columns = action.payload;
+    },
+  },
   extraReducers: {
     [getAllColumns.pending.toString()]: (state) => {
       state.status = 'loading';
@@ -150,12 +154,14 @@ const columnsSlice = createSlice({
       state.status = 'loading';
     },
     [updateColumn.fulfilled.toString()]: (state, action) => {
-      const id = action.payload.id;
+      const id = action.payload.response.id;
       state.columns = state.columns.map((column) => {
-        if (column.id === id) return action.payload;
+        if (column.id === id) return action.payload.response;
         return column;
       });
-      openNotificationSuccess({ message: 'Success', description: 'Column successfully updated' });
+      if (!action.payload.isDnd) {
+        openNotificationSuccess({ message: 'Success', description: 'Column successfully updated' });
+      }
       state.status = 'idle';
     },
     [updateColumn.rejected.toString()]: (state, action) => {
@@ -184,6 +190,8 @@ const columnsSlice = createSlice({
   },
 });
 
-const { reducer } = columnsSlice;
+const { reducer, actions } = columnsSlice;
+
+export const { setUpdatedColumns } = actions;
 
 export const columnsReducer = reducer;

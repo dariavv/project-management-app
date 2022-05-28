@@ -16,14 +16,13 @@ export const ColumnItem = styled.div`
   min-width: 300px;
   height: calc(100% - 10px);
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   background-color: ${LIGHTGREY};
   margin: 0 20px 0 0;
   padding-bottom: 15px;
   border-radius: 5px;
   box-shadow: 0 10px 10px ${SHADOW_BLUE};
-  transition: 0.7s;
   @media ${(props) => props.theme.media.phone} {
     min-width: 280px;
   }
@@ -35,6 +34,7 @@ export const ColumnTitle = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
+  margin: 5px 0 0 0;
   background-color: ${LIGHTGREY};
   border-radius: 5px 5px 0 0;
   z-index: 3;
@@ -45,7 +45,15 @@ export const ColumnTitle = styled.div`
 `;
 
 export const TaskContainer = styled.div`
+  width: 277px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
   overflow-y: auto;
+  @media (max-width: 540px) {
+    width: 257px;
+  }
   &::-webkit-scrollbar {
     width: 6px;
   }

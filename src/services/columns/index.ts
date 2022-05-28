@@ -30,6 +30,7 @@ export type UpdateColumnParams = {
   columnId: Column['id'];
   title: Column['title'];
   order: Column['order'];
+  isDnd?: boolean;
 };
 
 const getAllColumns = async (boardId: Board['id']) => {
