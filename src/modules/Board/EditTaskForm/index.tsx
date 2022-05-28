@@ -105,7 +105,7 @@ export const EditTaskForm: FC<EditTaskFormProps> = ({
           <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
         </Form.Item>
         <Form.Item
-          label="Assignee"
+          label={t('assignee')}
           name="assignee"
           rules={[{ required: true, message: `${t('required')}` }]}
         >
