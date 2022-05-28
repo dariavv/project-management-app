@@ -25,7 +25,7 @@ const Board: FC = () => {
   const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
 
-  const rightBoardIdFromUrl = useMemo(
+  const validBoardIdFromUrl = useMemo(
     () => boards.find((board) => board.id === boardId),
     [boardId, boards],
   );
@@ -136,7 +136,7 @@ const Board: FC = () => {
     dispatch(getAllUsers());
   }, [dispatch, boardId]);
 
-  if (!rightBoardIdFromUrl) {
+  if (!validBoardIdFromUrl) {
     return <Navigate to="/" replace />;
   }
 
