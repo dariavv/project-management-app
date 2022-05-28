@@ -154,9 +154,9 @@ const columnsSlice = createSlice({
       state.status = 'loading';
     },
     [updateColumn.fulfilled.toString()]: (state, action) => {
-      const id = action.payload.id;
+      const id = action.payload.response.id;
       state.columns = state.columns.map((column) => {
-        if (column.id === id) return action.payload;
+        if (column.id === id) return action.payload.response;
         return column;
       });
       if (!action.payload.isDnd) {

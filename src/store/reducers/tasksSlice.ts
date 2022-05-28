@@ -190,9 +190,11 @@ const tasksSlice = createSlice({
       state.status = 'loading';
     },
     [updateTask.fulfilled.toString()]: (state, action) => {
-      const id = action.payload.id;
+      const id = action.payload.response.id;
       state.tasks = state.tasks.map((tasks) => {
-        if (tasks.id === id) return action.payload;
+        if (tasks.id === id) {
+          return action.payload.response;
+        }
         return tasks;
       });
       if (!action.payload.isDnd) {

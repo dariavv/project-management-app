@@ -34,6 +34,7 @@ export const ColumnTitle = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
+  margin: 5px 0 0 0;
   background-color: ${LIGHTGREY};
   border-radius: 5px 5px 0 0;
   z-index: 3;

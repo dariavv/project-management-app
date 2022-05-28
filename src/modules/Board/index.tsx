@@ -65,8 +65,6 @@ const Board: FC = () => {
         boardId,
       };
 
-      console.log('columnsWithUpdatedOrders', columnsWithUpdatedOrders);
-
       dispatch(setUpdatedColumns(columnsWithUpdatedOrders));
       dispatch(updateColumn(updatedColumn));
     }
