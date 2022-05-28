@@ -48,11 +48,11 @@ const Welcome: FC = () => {
       </Styled.Header>
       <Styled.Container theme={ThemeMedia}>
         <Styled.Info theme={ThemeMedia}>
-          <Styled.Title>{t('about_app')}</Styled.Title>
-          <Styled.Description theme={ThemeMedia}>{t('welcome_Description')}</Styled.Description>
+          <Styled.Title>{t('about_title')}</Styled.Title>
+          <Styled.Description theme={ThemeMedia}>{t('welcome_description')}</Styled.Description>
         </Styled.Info>
         <Styled.Teams>
-          <Styled.Title>{t('about_team')}</Styled.Title>
+          <Styled.Title>{t('our_team')}</Styled.Title>
           <Styled.TeamContainer>
             <Styled.AvatarContainer theme={ThemeMedia}>
               <Styled.ImgAv src={avaDaria} theme={ThemeMedia}></Styled.ImgAv>
@@ -60,7 +60,7 @@ const Welcome: FC = () => {
                 <Styled.ItemIcon>
                   <GithubOutlined />
                 </Styled.ItemIcon>
-                Daria
+                {t('name_one')}
               </Styled.LinkItem>
             </Styled.AvatarContainer>
             <Styled.AvatarContainer theme={ThemeMedia}>
@@ -69,7 +69,7 @@ const Welcome: FC = () => {
                 <Styled.ItemIcon>
                   <GithubOutlined />
                 </Styled.ItemIcon>
-                Gleb
+                {t('name_two')}
               </Styled.LinkItem>
             </Styled.AvatarContainer>
             <Styled.AvatarContainer theme={ThemeMedia}>
@@ -78,7 +78,7 @@ const Welcome: FC = () => {
                 <Styled.ItemIcon>
                   <GithubOutlined />
                 </Styled.ItemIcon>
-                Olga
+                {t('name_three')}
               </Styled.LinkItem>
             </Styled.AvatarContainer>
           </Styled.TeamContainer>

@@ -33,10 +33,10 @@ export const Info = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   transition: 0.7s;
   @media ${(props) => props.theme.media.tablet} {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     justify-content: space-around;
   }
   @media ${(props) => props.theme.media.phone} {
@@ -49,24 +49,25 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const Title = styled.h2`
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   font-weight: 600;
   color: ${PRIMARY};
 `;
 
 export const Description = styled.p`
-  width: 65%;
+  width: 60%;
   height: auto;
   font-weight: 500;
-  font-size: 1.05rem;
+  font-size: 1.3rem;
   text-align: center;
-  transition: 0.7s;
+  transition: 0.3s;
   @media ${(props) => props.theme.media.tablet} {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     width: 85%;
   }
   @media ${(props) => props.theme.media.phone} {
-    font-size: 0.95rem;
+    font-size: 1rem;
+    line-height: 2;
     width: 85%;
   }
 `;
@@ -86,21 +87,24 @@ export const TeamContainer = styled.div`
 `;
 
 export const ImgAv = styled.img`
-  width: 75px;
+  width: 135px;
   border-radius: 50%;
   box-shadow: 0 0 3px #666;
   margin: 0.3rem;
-  transition: 0.7s;
+  transition: 0.3s;
+  @media ${(props) => props.theme.media.tablet} {
+    width: 125px;
+  }
   @media ${(props) => props.theme.media.phone} {
-    width: 65px;
+    width: 85px;
   }
 `;
 
 export const LinkItem = styled.a`
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  font-size: 0.9rem;
+  align-items: center;
+  font-size: 1.123rem;
   color: ${DARK};
 `;
 
@@ -111,7 +115,7 @@ export const AvatarContainer = styled.div`
   align-items: center;
   padding: 10px 15px;
   font-weight: 500;
-  transition: 0.7s;
+  transition: 0.3s;
   @media ${(props) => props.theme.media.phone} {
     padding: 5px 5px;
   }
