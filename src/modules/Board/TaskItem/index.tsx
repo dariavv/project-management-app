@@ -2,6 +2,7 @@ import { FC, useCallback, useMemo, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Typography } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { useTranslations } from 'hooks/useTranslations';
 import { Task } from 'types';
 import { IconContainer } from 'theme';
 import { useAppDispatch, useAppSelector } from 'hooks';
@@ -19,6 +20,7 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
   const { users } = useAppSelector((state) => state.users);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
+  const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
 
   const assignee = useMemo(() => users.find((user) => user.id === userId), [userId, users]);
@@ -52,7 +54,7 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
             </Styled.Title>
             <Styled.Description>{description}</Styled.Description>
             <Styled.Assignee>
-              Assignee: <span>{assignee?.login}</span>
+              {t('assignee')}:<span>{assignee?.login}</span>
             </Styled.Assignee>
           </Styled.Container>
         )}

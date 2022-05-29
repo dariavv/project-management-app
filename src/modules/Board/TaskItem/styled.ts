@@ -40,6 +40,7 @@ export const Description = styled.div`
 export const Assignee = styled.div`
   display: flex;
   margin: 5px 7px;
+  font-size: 14px;
   span {
     color: ${PRIMARY};
     margin-left: 5px;

@@ -9,7 +9,6 @@ export const BoardContainer = styled.main`
   overflow-x: auto;
   height: calc(100vh - 148px);
   background-color: ${WHITE};
-  transition: 0.7s;
   &::-webkit-scrollbar {
     height: 7px;
   }
