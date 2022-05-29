@@ -33,7 +33,7 @@ export const Info = styled.section`
   margin-bottom: 3rem;
   transition: 0.7s;
   @media ${(props) => props.theme.media.phone} {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -59,7 +59,7 @@ export const Description = styled.p`
   @media ${(props) => props.theme.media.phone} {
     font-size: 1rem;
     line-height: 2;
-    width: 85%;
+    width: 86%;
   }
 `;
 export const Teams = styled.section`

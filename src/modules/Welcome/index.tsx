@@ -28,7 +28,7 @@ const Welcome: FC = () => {
         {token && (
           <Styled.ButtonsContainer>
             <Button type="primary" onClick={() => navigate('/')}>
-              {t('go_to_boards')}
+              {t('go_to_main')}
             </Button>
             <Button type="primary" onClick={handleLogOut}>
               {t('log_out')}
