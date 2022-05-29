@@ -126,11 +126,14 @@ const Board: FC = () => {
   };
 
   useEffect(() => {
-    if (boardId) {
-      dispatch(getAllColumns(boardId));
-    }
-    dispatch(getAllUsers());
-    setIsInitialLoading(false);
+    const getData = async () => {
+      if (boardId) {
+        await dispatch(getAllColumns(boardId));
+      }
+      await dispatch(getAllUsers());
+      setIsInitialLoading(false);
+    };
+    getData();
   }, [dispatch, boardId]);
 
   if (isInitialLoading) {
