@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { WHITE, DARK, GREY } from 'constants/colors';
 import styled from 'styled-components';
 
@@ -39,8 +40,13 @@ export const RSLogo = styled.img`
   }
 `;
 
-export const Copyright = styled.span`
+export const Copyright = styled(Link)`
   margin: 0 22px 0 0;
+  color: ${WHITE};
+  &:hover {
+    transition: 0.3s ease;
+    color: ${GREY};
+  }
   @media ${({ theme }) => theme.media.tablet} {
     font-size: 1.12rem;
   }
