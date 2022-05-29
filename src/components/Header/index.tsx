@@ -10,9 +10,9 @@ import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
 import { CreateEditBoardForm } from 'modules/Main/CreateEditBoardForm';
 import { LogoutOutlined, PlusCircleOutlined, UserOutlined } from '@ant-design/icons';
-import * as Styled from './styled';
 import { ContentImgButton, ContentTextButton } from './styled';
 import { ThemeMedia } from 'theme';
+import * as Styled from './styled';
 
 export const Header: FC = () => {
   const { t } = useTranslations('main');
