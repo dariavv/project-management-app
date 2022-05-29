@@ -43,14 +43,12 @@ export const ButtonsContainer = styled.div`
 
 export const Title = styled.h2`
   font-size: 1.7rem;
-  font-weight: 600;
   color: ${PRIMARY};
 `;
 
 export const Description = styled.p`
   width: 60%;
   height: auto;
-  font-weight: 500;
   font-size: 1.3rem;
   text-align: center;
   transition: 0.3s;
