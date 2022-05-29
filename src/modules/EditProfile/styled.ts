@@ -5,11 +5,14 @@ import { Button as AntButton } from 'antd';
 import { DARK } from 'constants/colors';
 
 export const ConteinerWrapper = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  padding-top: 5%;
-  padding-bottom: 2%;
-  overflow: auto @media (max-width: 1000px) {
-    padding-top: 2%;
+  min-height: calc(100vh - 150px);
+  overflow-y: auto;
+  @media (max-width: 540px) {
+    min-height: calc(100vh - 120px);
   }
 `;
 
@@ -18,10 +21,7 @@ export const ConteinerForm = styled.div`
   padding: 10px;
   width: 40%;
   max-width: 700px;
-  margin: 0 auto;
   border-radius: 5px;
-  overflow: auto;
-  margin-bottom: 75px;
   @media (max-width: 1000px) {
     min-width: 440px;
   }
@@ -74,5 +74,8 @@ export const StyledFormItem = styled(AntForm.Item)`
 export const Title = styled.h3`
   text-align: center;
   color: ${DARK};
-  margin: 5px 0 0 0;
+  margin: 10px 0 0 0;
+  @media (max-width: 540px) {
+    font-size: 1.45rem;
+  }
 `;

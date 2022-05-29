@@ -9,6 +9,7 @@ import { getAllColumns, setUpdatedColumns, updateColumn } from 'store/reducers/c
 import { getAllUsers } from 'store/reducers/usersSlice';
 import { CreateColumnForm } from './CreateColumnForm';
 import { ColumnItem } from './ColumnItem';
+import { Loader } from 'components';
 import { ThemeMedia } from 'theme';
 import * as Styled from './styled';
 
@@ -22,6 +23,7 @@ const Board: FC = () => {
   const { boards } = useAppSelector((state) => state.boards);
   const { columns } = useAppSelector((state) => state.columns);
   const { tasks } = useAppSelector((state) => state.tasks);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
 
@@ -134,10 +136,15 @@ const Board: FC = () => {
       dispatch(getAllColumns(boardId));
     }
     dispatch(getAllUsers());
+    setIsInitialLoading(false);
   }, [dispatch, boardId]);
 
   if (!validBoardIdFromUrl) {
     return <Navigate to="/" replace />;
+  }
+
+  if (isInitialLoading) {
+    return <Loader />;
   }
 
   return (
