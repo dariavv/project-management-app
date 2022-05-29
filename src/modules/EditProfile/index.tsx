@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
 import { deleteUser, updateUser } from 'store/reducers/usersSlice';
 import { logOut } from 'store/reducers/authSlice';
-import { openNotificationError } from 'utils/notifications';
 import {
   StyledButtonCont,
   ConteinerForm,
@@ -28,6 +27,7 @@ const EditProfile: FC = () => {
   const { token } = useAppSelector((state) => state.auth);
   const { status, user } = useAppSelector((state) => state.users);
   const [isOpen, setIsOpen] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
   const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
 
@@ -41,22 +41,17 @@ const EditProfile: FC = () => {
           password: values.password,
         };
         dispatch(updateUser(formValues));
+        setIsTouched(false);
       }
     },
     [dispatch, user],
   );
+
   const onDelete = () => {
     if (user) {
       dispatch(deleteUser(user.id));
       dispatch(logOut());
     }
-  };
-
-  const handleSubmitFailed = (errorInfo: unknown) => {
-    openNotificationError({
-      message: 'Error',
-      description: `${errorInfo}`,
-    });
   };
 
   if (!token) {
@@ -72,10 +67,13 @@ const EditProfile: FC = () => {
           </Title>
           <Form
             onFinish={handleSubmit}
-            onFinishFailed={handleSubmitFailed}
+            onFieldsChange={() => {
+              setIsTouched(true);
+            }}
             initialValues={{
               remember: true,
             }}
+            validateTrigger="onSubmit"
             autoComplete="off"
           >
             <StyledFormItem
@@ -96,8 +94,8 @@ const EditProfile: FC = () => {
               label={t('login')}
               rules={[
                 {
-                  message: `${t('only_eng')}`,
-                  pattern: /^[a-zA-Z]+$/,
+                  message: `${t('only_num_eng')}`,
+                  pattern: /^[a-zA-Z0-9]+$/,
                 },
                 { required: true, min: 3, message: `${t('min_input_len')}` },
               ]}
@@ -122,7 +120,12 @@ const EditProfile: FC = () => {
               <Input.Password />
             </StyledFormItem>
             <StyledButtonCont>
-              <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
+              <StyledButton
+                type="primary"
+                htmlType="submit"
+                loading={status === 'loading'}
+                disabled={!isTouched}
+              >
                 {t('update')}
               </StyledButton>
               <DeleteButton

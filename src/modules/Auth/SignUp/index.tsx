@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
 import { useAppDispatch, useAppSelector } from 'hooks';
@@ -14,8 +14,6 @@ import {
 } from '../styled';
 import { Footer } from 'components';
 import { signUp } from 'store/reducers/authSlice';
-import { openNotificationError } from 'utils/notifications';
-import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 
 type FormValues = {
   name: string;
@@ -26,8 +24,8 @@ type FormValues = {
 const SignUp: FC = () => {
   const { t } = useTranslations('main');
   const { token, status } = useAppSelector((state) => state.auth);
+  const [isTouched, setIsTouched] = useState(false);
   const dispatch = useAppDispatch();
-  const [form] = Form.useForm();
 
   const handleSubmit = useCallback(
     (values: FormValues) => {
@@ -37,16 +35,10 @@ const SignUp: FC = () => {
         password: values.password,
       };
       dispatch(signUp(formValues));
+      setIsTouched(false);
     },
     [dispatch],
   );
-
-  const handleSubmitFailed = (errorInfo: ValidateErrorEntity) => {
-    openNotificationError({
-      message: 'Error',
-      description: `${errorInfo}`,
-    });
-  };
 
   if (token) {
     return <Navigate to="/" replace />;
@@ -58,9 +50,11 @@ const SignUp: FC = () => {
         <ConteinerForm>
           <Title>{t('sign_up')}</Title>
           <Form
-            form={form}
             onFinish={handleSubmit}
-            onFinishFailed={handleSubmitFailed}
+            onFieldsChange={() => {
+              setIsTouched(true);
+            }}
+            validateTrigger="onSubmit"
             initialValues={{
               remember: true,
             }}
@@ -70,11 +64,11 @@ const SignUp: FC = () => {
               name="name"
               label={t('name')}
               rules={[
+                { required: true, min: 3, message: `${t('min_input_len')}` },
                 {
                   message: `${t('only_eng')}`,
                   pattern: /^[a-zA-Z]+$/,
                 },
-                { required: true, min: 3, message: `${t('min_input_len')}` },
               ]}
             >
               <Input />
@@ -83,11 +77,11 @@ const SignUp: FC = () => {
               name="login"
               label={t('login')}
               rules={[
-                {
-                  message: `${t('only_eng')}`,
-                  pattern: /^[a-zA-Z]+$/,
-                },
                 { required: true, min: 3, message: `${t('min_input_len')}` },
+                {
+                  message: `${t('only_num_eng')}`,
+                  pattern: /^[a-zA-Z0-9]+$/,
+                },
               ]}
             >
               <Input />
@@ -96,18 +90,23 @@ const SignUp: FC = () => {
               name="password"
               label={t('password')}
               rules={[
+                { required: true, min: 3, message: `${t('min_input_len')}` },
                 {
                   message: `${t('only_num_eng')}`,
                   pattern: /^[a-zA-Z0-9]+$/,
                 },
-                { required: true, min: 3, message: `${t('min_input_len')}` },
               ]}
             >
               <Input.Password />
             </StyledFormItem>
             <StyledButtonCont>
               <StyledLink to="/signin">{t('sign_up_account')}</StyledLink>
-              <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
+              <StyledButton
+                type="primary"
+                htmlType="submit"
+                loading={status === 'loading'}
+                disabled={!isTouched}
+              >
                 {t('sign_up')}
               </StyledButton>
             </StyledButtonCont>

@@ -21,9 +21,9 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
   const { id: columnId, title, order } = column;
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
-  const [valueInput, setValueInput] = useState(title);
-  const [isVisibleButton, setIsVisibleButton] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [titleValue, setTitleValue] = useState(title);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { tasks } = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
 
@@ -35,29 +35,27 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
     [boardId, columnId, tasks],
   );
 
-  const focusEvent = (event: React.ChangeEvent<{ value: string }> | MouseEvent | null) => {
-    if (inputRef.current === document.activeElement) {
-      setIsVisibleButton(true);
-      setValueInput((event?.target as HTMLInputElement).value);
-    } else {
-      setIsVisibleButton(false);
-      setValueInput(title);
+  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitleValue(event.target.value);
+  }, []);
+
+  const updateTitle = () => {
+    if (titleValue) {
+      const formValues = {
+        title: titleValue,
+        columnId,
+        boardId,
+        order,
+      };
+
+      dispatch(updateColumn(formValues));
+      setIsEditing(false);
     }
   };
 
-  const updateTitle = () => {
-    const formValues = {
-      title: valueInput,
-      columnId,
-      boardId,
-      order,
-    };
-
-    dispatch(updateColumn(formValues));
-  };
-
   const cancelUpdateTitle = () => {
-    setValueInput(title);
+    setIsEditing(false);
+    setTitleValue(title);
   };
 
   const handleSubmit = useCallback(() => {
@@ -70,11 +68,10 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
   }, [columnId, boardId, dispatch]);
 
   useEffect(() => {
-    document.addEventListener('click', focusEvent);
-    return () => {
-      document.addEventListener('click', focusEvent);
-    };
-  });
+    if (isEditing) {
+      inputRef.current?.focus();
+    }
+  }, [isEditing]);
 
   return (
     <>
@@ -87,15 +84,21 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
             {...provided.dragHandleProps}
           >
             <Styled.ColumnTitle>
-              <Styled.Input
-                ref={inputRef}
-                type="text"
-                id={columnId}
-                value={valueInput}
-                onChange={focusEvent}
-                autoComplete="off"
-              />
-              <Styled.ToggleInputBtn isVisibleButton={isVisibleButton}>
+              {isEditing ? (
+                <Styled.Input
+                  maxLength={20}
+                  ref={inputRef}
+                  type="text"
+                  id={columnId}
+                  value={titleValue}
+                  onChange={handleChange}
+                  onBlur={cancelUpdateTitle}
+                  autoComplete="off"
+                />
+              ) : (
+                <span onClick={() => setIsEditing(true)}>{titleValue}</span>
+              )}
+              <Styled.ToggleInputBtn isVisibleButton={isEditing}>
                 <Styled.IconItemContainer>
                   <CheckOutlined onClick={updateTitle} />
                 </Styled.IconItemContainer>
@@ -103,7 +106,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
                   <CloseOutlined onClick={cancelUpdateTitle} />
                 </Styled.IconItemContainer>
               </Styled.ToggleInputBtn>
-              <Styled.ToggleColumnBtn isVisibleButton={isVisibleButton}>
+              <Styled.ToggleColumnBtn isVisibleButton={isEditing}>
                 <IconContainer>
                   <PlusOutlined onClick={() => setIsOpenForm(true)} />
                   <DeleteOutlined onClick={() => setIsOpen(true)} />

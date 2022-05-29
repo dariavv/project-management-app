@@ -1,3 +1,7 @@
+import { FC, useCallback, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useTranslations } from 'hooks/useTranslations';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { Footer } from 'components';
 import {
   StyledButtonCont,
@@ -8,13 +12,8 @@ import {
   StyledButton,
   ConteinerWrapper,
 } from '../styled';
-import { FC, useCallback } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useTranslations } from 'hooks/useTranslations';
-import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
 import { signIn } from 'store/reducers/authSlice';
-import { openNotificationError } from 'utils/notifications';
 
 type FormValues = {
   login: string;
@@ -23,6 +22,7 @@ type FormValues = {
 
 const SignIn: FC = () => {
   const { token, status } = useAppSelector((state) => state.auth);
+  const [isTouched, setIsTouched] = useState(false);
   const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
 
@@ -33,16 +33,10 @@ const SignIn: FC = () => {
         password: values.password,
       };
       dispatch(signIn(formValues));
+      setIsTouched(false);
     },
     [dispatch],
   );
-
-  const handleSubmitFailed = (errorInfo: unknown) => {
-    openNotificationError({
-      message: 'Error',
-      description: `${errorInfo}`,
-    });
-  };
 
   if (token) {
     return <Navigate to="/" replace />;
@@ -55,7 +49,10 @@ const SignIn: FC = () => {
           <Title>{t('sign_in')}</Title>
           <Form
             onFinish={handleSubmit}
-            onFinishFailed={handleSubmitFailed}
+            validateTrigger="onSubmit"
+            onFieldsChange={() => {
+              setIsTouched(true);
+            }}
             initialValues={{
               remember: true,
             }}
@@ -66,8 +63,8 @@ const SignIn: FC = () => {
               label={t('login')}
               rules={[
                 {
-                  message: `${t('only_eng')}`,
-                  pattern: /^[a-zA-Z]+$/,
+                  message: `${t('only_num_eng')}`,
+                  pattern: /^[a-zA-Z0-9]+$/,
                 },
                 { required: true, min: 3, message: `${t('min_input_len')}` },
               ]}
@@ -89,7 +86,12 @@ const SignIn: FC = () => {
             </StyledFormItem>
             <StyledButtonCont>
               <StyledLink to="/signup">{t('sign_in_account')}</StyledLink>
-              <StyledButton type="primary" htmlType="submit" loading={status === 'loading'}>
+              <StyledButton
+                type="primary"
+                htmlType="submit"
+                loading={status === 'loading'}
+                disabled={!isTouched}
+              >
                 {t('sign_in')}
               </StyledButton>
             </StyledButtonCont>

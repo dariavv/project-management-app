@@ -5,7 +5,6 @@ import { Button, Modal } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
 import { updateTask } from 'store/reducers/tasksSlice';
-import { openNotificationError } from 'utils/notifications';
 import { Task } from 'types';
 import { UpdateTaskParams } from 'services/tasks';
 
@@ -32,6 +31,7 @@ export const EditTaskForm: FC<EditTaskFormProps> = ({
   const { t } = useTranslations('main');
   const { id: boardId } = useParams() as ParamsType;
   const [assigneeId, setAssigneeId] = useState('');
+  const [isTouched, setIsTouched] = useState(false);
   const { users } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
@@ -60,16 +60,10 @@ export const EditTaskForm: FC<EditTaskFormProps> = ({
       };
       dispatch(updateTask(formValues));
       onClose();
+      setIsTouched(false);
     },
     [taskId, title, description, assigneeId, userId, boardId, columnId, order, dispatch, onClose],
   );
-
-  const handleSubmitFailed = (errorInfo: unknown) => {
-    openNotificationError({
-      message: 'Error',
-      description: `${errorInfo}`,
-    });
-  };
 
   return (
     <Modal title={t('edit_task')} isOpen={isOpen} onClose={onClose}>
@@ -86,8 +80,11 @@ export const EditTaskForm: FC<EditTaskFormProps> = ({
           description: description,
           assignee: currentUser?.login,
         }}
+        onFieldsChange={() => {
+          setIsTouched(true);
+        }}
         onFinish={handleSubmitForm}
-        onFinishFailed={handleSubmitFailed}
+        validateTrigger="onSubmit"
         autoComplete="off"
       >
         <Form.Item
@@ -102,7 +99,12 @@ export const EditTaskForm: FC<EditTaskFormProps> = ({
           name="description"
           rules={[{ required: true, min: 3, max: 100, message: `${t('textares_len')}` }]}
         >
-          <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
+          <Input.TextArea
+            rows={4}
+            showCount
+            placeholder="Max length is 100 characters"
+            maxLength={100}
+          />
         </Form.Item>
         <Form.Item
           label={t('assignee')}
@@ -126,7 +128,7 @@ export const EditTaskForm: FC<EditTaskFormProps> = ({
           <Button key="back" onClick={onClose}>
             {t('cancel')}
           </Button>
-          <Button key="submit" type="primary" htmlType="submit">
+          <Button key="submit" type="primary" htmlType="submit" disabled={!isTouched}>
             {t('submit')}
           </Button>
         </Form.Item>

@@ -1,9 +1,8 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Form, Input } from 'antd';
 import { useTranslations } from 'hooks/useTranslations';
 import { Button, Modal } from 'components';
 import { useAppDispatch } from 'hooks';
-import { openNotificationError } from 'utils/notifications';
 import { createBoard, updateBoard } from 'store/reducers/boardsSlice';
 import { Board } from 'types';
 
@@ -24,6 +23,7 @@ export const CreateEditBoardForm: FC<CreateEditBoardFormProps> = ({
   onClose,
 }) => {
   const { t } = useTranslations('main');
+  const [isTouched, setIsTouched] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleSubmitForm = useCallback(
@@ -43,16 +43,10 @@ export const CreateEditBoardForm: FC<CreateEditBoardFormProps> = ({
         dispatch(createBoard(formValues));
       }
       onClose();
+      setIsTouched(false);
     },
     [description, title, id, isEditForm, onClose, dispatch],
   );
-
-  const handleSubmitFailed = (errorInfo: unknown) => {
-    openNotificationError({
-      message: 'Error',
-      description: `${errorInfo}`,
-    });
-  };
 
   return (
     <Modal
@@ -79,7 +73,10 @@ export const CreateEditBoardForm: FC<CreateEditBoardFormProps> = ({
               }
         }
         onFinish={handleSubmitForm}
-        onFinishFailed={handleSubmitFailed}
+        onFieldsChange={() => {
+          setIsTouched(true);
+        }}
+        validateTrigger="onSubmit"
         autoComplete="off"
       >
         <Form.Item
@@ -94,7 +91,12 @@ export const CreateEditBoardForm: FC<CreateEditBoardFormProps> = ({
           name="description"
           rules={[{ required: true, min: 3, max: 100, message: `${t('textares_len')}` }]}
         >
-          <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
+          <Input.TextArea
+            rows={4}
+            showCount
+            placeholder="Max length is 100 characters"
+            maxLength={100}
+          />
         </Form.Item>
         <Form.Item
           wrapperCol={{
@@ -105,7 +107,7 @@ export const CreateEditBoardForm: FC<CreateEditBoardFormProps> = ({
           <Button key="back" onClick={onClose}>
             {t('cancel')}
           </Button>
-          <Button key="submit" type="primary" htmlType="submit">
+          <Button key="submit" type="primary" htmlType="submit" disabled={!isTouched}>
             {t('submit')}
           </Button>
         </Form.Item>

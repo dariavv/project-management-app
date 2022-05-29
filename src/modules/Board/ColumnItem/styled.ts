@@ -42,6 +42,9 @@ export const ColumnTitle = styled.div`
   top: 0;
   font-weight: 700;
   text-align: justify;
+  span {
+    width: 100%;
+  }
 `;
 
 export const TaskContainer = styled.div`

@@ -3,7 +3,6 @@ import { Form, Input, Select } from 'antd';
 import { useTranslations } from 'hooks/useTranslations';
 import { Button, Modal } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { openNotificationError } from 'utils/notifications';
 import { useParams } from 'react-router-dom';
 import { createTask } from 'store/reducers/tasksSlice';
 import { Column, Task } from 'types';
@@ -24,6 +23,7 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
   const { t } = useTranslations('main');
   const { id: boardId } = useParams() as ParamsType;
   const [assigneeId, setAssigneeId] = useState('');
+  const [isTouched, setIsTouched] = useState(false);
   const { users } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
@@ -48,16 +48,10 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
       };
       dispatch(createTask(formValues));
       onClose();
+      setIsTouched(false);
     },
     [assigneeId, boardId, columnId, dispatch, onClose],
   );
-
-  const handleSubmitFailed = (errorInfo: unknown) => {
-    openNotificationError({
-      message: 'Error',
-      description: `${errorInfo}`,
-    });
-  };
 
   return (
     <Modal title={t('create_new_task')} isOpen={isOpen} onClose={onClose}>
@@ -72,7 +66,10 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
           remember: true,
         }}
         onFinish={handleSubmitForm}
-        onFinishFailed={handleSubmitFailed}
+        onFieldsChange={() => {
+          setIsTouched(true);
+        }}
+        validateTrigger="onSubmit"
         autoComplete="off"
       >
         <Form.Item
@@ -87,7 +84,12 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
           name="description"
           rules={[{ required: true, min: 3, max: 100, message: `${t('textares_len')}` }]}
         >
-          <Input.TextArea rows={4} showCount placeholder="Max length is 100 " maxLength={100} />
+          <Input.TextArea
+            rows={4}
+            showCount
+            placeholder="Max length is 100 characters"
+            maxLength={100}
+          />
         </Form.Item>
         <Form.Item
           label={t('assignee')}
@@ -111,7 +113,7 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onCl
           <Button key="back" onClick={onClose}>
             {t('cancel')}
           </Button>
-          <Button key="submit" type="primary" htmlType="submit">
+          <Button key="submit" type="primary" htmlType="submit" disabled={!isTouched}>
             {t('submit')}
           </Button>
         </Form.Item>

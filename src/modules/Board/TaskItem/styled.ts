@@ -32,9 +32,9 @@ export const Title = styled.div`
 `;
 
 export const Description = styled.div`
-  display: flex;
   width: 100%;
   padding: 0 7px;
+  overflow-wrap: break-word;
 `;
 
 export const Assignee = styled.div`

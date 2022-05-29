@@ -1,4 +1,4 @@
-import { DARK } from './../../constants/colors';
+import { DARK } from 'constants/colors';
 import styled from 'styled-components';
 import { PRIMARY } from 'constants/colors';
 
@@ -23,9 +23,6 @@ export const Container = styled.main`
   flex-direction: column;
   height: calc(100vh - 150px);
   transition: 0.7s;
-  @media ${(props) => props.theme.media.phone} {
-    justify-content: space-around;
-  }
 `;
 
 export const Info = styled.section`
@@ -33,14 +30,10 @@ export const Info = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   transition: 0.7s;
-  @media ${(props) => props.theme.media.tablet} {
-    margin-bottom: 1rem;
-    justify-content: space-around;
-  }
   @media ${(props) => props.theme.media.phone} {
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
   }
 `;
 
@@ -50,14 +43,12 @@ export const ButtonsContainer = styled.div`
 
 export const Title = styled.h2`
   font-size: 1.7rem;
-  font-weight: 600;
   color: ${PRIMARY};
 `;
 
 export const Description = styled.p`
   width: 60%;
   height: auto;
-  font-weight: 500;
   font-size: 1.3rem;
   text-align: center;
   transition: 0.3s;
@@ -89,7 +80,7 @@ export const TeamContainer = styled.div`
 export const ImgAv = styled.img`
   width: 135px;
   border-radius: 50%;
-  box-shadow: 0 0 3px #666;
+  box-shadow: 0 0 3px ${DARK};
   margin: 0.3rem;
   transition: 0.3s;
   @media ${(props) => props.theme.media.tablet} {
@@ -116,6 +107,9 @@ export const AvatarContainer = styled.div`
   padding: 10px 15px;
   font-weight: 500;
   transition: 0.3s;
+  a {
+    margin-right: 7px;
+  }
   @media ${(props) => props.theme.media.phone} {
     padding: 5px 5px;
   }
