@@ -56,7 +56,11 @@ export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose })
         autoComplete="off"
         validateTrigger="onSubmit"
       >
-        <Form.Item label={t('title')} name="title" rules={[{ required: true }]}>
+        <Form.Item
+          label={t('title')}
+          name="title"
+          rules={[{ required: true, max: 20, message: `${t('max_length')}` }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item

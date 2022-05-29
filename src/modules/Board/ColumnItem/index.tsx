@@ -40,15 +40,17 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
   }, []);
 
   const updateTitle = () => {
-    const formValues = {
-      title: titleValue,
-      columnId,
-      boardId,
-      order,
-    };
+    if (titleValue) {
+      const formValues = {
+        title: titleValue,
+        columnId,
+        boardId,
+        order,
+      };
 
-    dispatch(updateColumn(formValues));
-    setIsEditing(false);
+      dispatch(updateColumn(formValues));
+      setIsEditing(false);
+    }
   };
 
   const cancelUpdateTitle = () => {
@@ -84,7 +86,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
             <Styled.ColumnTitle>
               {isEditing ? (
                 <Styled.Input
-                  maxLength={30}
+                  maxLength={20}
                   ref={inputRef}
                   type="text"
                   id={columnId}
