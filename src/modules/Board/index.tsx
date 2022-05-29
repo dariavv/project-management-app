@@ -1,6 +1,6 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
@@ -20,17 +20,11 @@ type ParamsType = {
 const Board: FC = () => {
   const { id: boardId } = useParams() as ParamsType;
   const [isOpenForm, setIsOpenForm] = useState(false);
-  const { boards } = useAppSelector((state) => state.boards);
   const { columns } = useAppSelector((state) => state.columns);
   const { tasks } = useAppSelector((state) => state.tasks);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
-
-  const validBoardIdFromUrl = useMemo(
-    () => boards.find((board) => board.id === boardId),
-    [boardId, boards],
-  );
 
   const handleOnDragEnd = (result: DropResult) => {
     const { destination, source, draggableId, type } = result;
@@ -138,10 +132,6 @@ const Board: FC = () => {
     dispatch(getAllUsers());
     setIsInitialLoading(false);
   }, [dispatch, boardId]);
-
-  if (!validBoardIdFromUrl) {
-    return <Navigate to="/" replace />;
-  }
 
   if (isInitialLoading) {
     return <Loader />;
