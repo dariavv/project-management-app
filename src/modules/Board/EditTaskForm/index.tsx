@@ -69,7 +69,7 @@ export const EditTaskForm: FC<EditTaskFormProps> = ({
     <Modal title={t('edit_task')} isOpen={isOpen} onClose={onClose}>
       <Form
         labelCol={{
-          span: 5,
+          span: 6,
         }}
         wrapperCol={{
           span: 15,

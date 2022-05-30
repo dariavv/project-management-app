@@ -54,7 +54,8 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
             </Styled.Title>
             <Styled.Description>{description}</Styled.Description>
             <Styled.Assignee>
-              {t('assignee')}:<span>{assignee?.login}</span>
+              {t('assignee')}
+              <span>{assignee?.login}</span>
             </Styled.Assignee>
           </Styled.Container>
         )}
