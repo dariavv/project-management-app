@@ -128,7 +128,7 @@ const EditProfile: FC = () => {
                 loading={status === 'loading'}
                 disabled={!isTouched}
               >
-                {t('update')}
+                {t('edit_profile')}
               </StyledButton>
               <DeleteButton
                 onClick={onOpen}
@@ -137,7 +137,7 @@ const EditProfile: FC = () => {
                 htmlType="button"
                 loading={status === 'loading'}
               >
-                {t('delete')}
+                {t('delete_profile')}
               </DeleteButton>
             </StyledButtonCont>
           </Form>

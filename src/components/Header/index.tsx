@@ -18,12 +18,11 @@ import * as Styled from './styled';
 export const Header: FC = () => {
   const { t } = useTranslations('main');
   const { isOpen, onOpen, onClose } = useModal();
+  const [isAnimated, setIsAnimated] = useState(false);
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const language = getFromStorage('language') || EN;
-
-  const [isAnimated, setIsAnimated] = useState(false);
 
   const listenScrollEvent = () => {
     if (window.scrollY <= 50) {
@@ -72,28 +71,26 @@ export const Header: FC = () => {
             </>
           )}
           {token && (
-            <Button type="primary" p="3px 10px" onClick={onCreateBoardClick}>
-              <ContentTextButton theme={ThemeMedia}>{t('create_new_board')}</ContentTextButton>
-              <ContentImgButton theme={ThemeMedia}>
-                <PlusCircleOutlined />
-              </ContentImgButton>
-            </Button>
-          )}
-          {token && (
-            <Button type="primary" p="3px 10px" onClick={() => navigate('/profile')}>
-              <ContentTextButton theme={ThemeMedia}>{t('update')}</ContentTextButton>
-              <ContentImgButton theme={ThemeMedia}>
-                <UserOutlined />
-              </ContentImgButton>
-            </Button>
-          )}
-          {token && (
-            <Button type="primary" p="3px 10px" onClick={handleLogOut}>
-              <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
-              <ContentImgButton theme={ThemeMedia}>
-                <LogoutOutlined />
-              </ContentImgButton>
-            </Button>
+            <>
+              <Button type="primary" p="3px 10px" onClick={onCreateBoardClick}>
+                <ContentTextButton theme={ThemeMedia}>{t('create_new_board')}</ContentTextButton>
+                <ContentImgButton theme={ThemeMedia}>
+                  <PlusCircleOutlined />
+                </ContentImgButton>
+              </Button>
+              <Button type="primary" p="3px 10px" onClick={() => navigate('/profile')}>
+                <ContentTextButton theme={ThemeMedia}>{t('edit_profile')}</ContentTextButton>
+                <ContentImgButton theme={ThemeMedia}>
+                  <UserOutlined />
+                </ContentImgButton>
+              </Button>
+              <Button type="primary" p="3px 10px" onClick={handleLogOut}>
+                <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
+                <ContentImgButton theme={ThemeMedia}>
+                  <LogoutOutlined />
+                </ContentImgButton>
+              </Button>
+            </>
           )}
           <Select
             defaultValue={language}
