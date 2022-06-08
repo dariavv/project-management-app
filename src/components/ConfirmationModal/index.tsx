@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Modal } from 'antd';
 import { useTranslations } from 'hooks/useTranslations';
 
@@ -8,7 +8,7 @@ type ModalProps = {
   handleSubmit: () => void;
 };
 
-export const ConfirmationModal: FC<ModalProps> = ({ isOpen, onClose, handleSubmit }) => {
+export const ConfirmationModal: FC<ModalProps> = memo(({ isOpen, onClose, handleSubmit }) => {
   const { t } = useTranslations('main');
   return (
     <Modal
@@ -21,4 +21,4 @@ export const ConfirmationModal: FC<ModalProps> = ({ isOpen, onClose, handleSubmi
       <p>{t('confirmation_message')}</p>
     </Modal>
   );
-};
+});

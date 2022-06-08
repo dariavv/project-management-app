@@ -5,6 +5,7 @@ import { Row, Select } from 'antd';
 import { Button, Logo } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
+import { useModal } from 'hooks/useModal';
 import { logOut } from 'store/reducers/authSlice';
 import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
@@ -16,7 +17,7 @@ import * as Styled from './styled';
 
 export const Header: FC = () => {
   const { t } = useTranslations('main');
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useModal();
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ export const Header: FC = () => {
 
   const onCreateBoardClick = () => {
     navigate('/');
-    setIsOpen(true);
+    onOpen();
   };
 
   return (
@@ -104,7 +105,7 @@ export const Header: FC = () => {
           </Select>
         </Styled.ButtonsContainer>
       </Styled.Header>
-      <CreateEditBoardForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <CreateEditBoardForm isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

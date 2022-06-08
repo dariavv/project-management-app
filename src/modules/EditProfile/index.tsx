@@ -1,9 +1,10 @@
-import { ConfirmationModal } from 'components';
 import { FC, useCallback, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useTranslations } from 'hooks/useTranslations';
+import { useModal } from 'hooks/useModal';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Form, Input } from 'antd';
+import { ConfirmationModal } from 'components';
 import { deleteUser, updateUser } from 'store/reducers/usersSlice';
 import { logOut } from 'store/reducers/authSlice';
 import {
@@ -26,7 +27,7 @@ type FormValues = {
 const EditProfile: FC = () => {
   const { token } = useAppSelector((state) => state.auth);
   const { status, user } = useAppSelector((state) => state.users);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useModal();
   const [isTouched, setIsTouched] = useState(false);
   const { t } = useTranslations('main');
   const dispatch = useAppDispatch();
@@ -47,16 +48,17 @@ const EditProfile: FC = () => {
     [dispatch, user],
   );
 
-  const onDelete = () => {
+  const onDelete = useCallback(() => {
     if (user) {
       dispatch(deleteUser(user.id));
       dispatch(logOut());
     }
-  };
+  }, [dispatch, user]);
 
   if (!token) {
     return <Navigate to="/" replace />;
   }
+
   return (
     <>
       <ConteinerWrapper>
@@ -129,7 +131,7 @@ const EditProfile: FC = () => {
                 {t('update')}
               </StyledButton>
               <DeleteButton
-                onClick={() => setIsOpen(true)}
+                onClick={onOpen}
                 type="ghost"
                 danger
                 htmlType="button"
@@ -142,7 +144,7 @@ const EditProfile: FC = () => {
           <StyledLink to="/">{t('back_to_main')}</StyledLink>
         </ConteinerForm>
       </ConteinerWrapper>
-      <ConfirmationModal isOpen={isOpen} onClose={() => setIsOpen(false)} handleSubmit={onDelete} />
+      <ConfirmationModal isOpen={isOpen} onClose={onClose} handleSubmit={onDelete} />
     </>
   );
 };
