@@ -32,14 +32,7 @@ export const Header: FC = () => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', listenScrollEvent);
-    return () => {
-      window.removeEventListener('scroll', listenScrollEvent);
-    };
-  }, []);
-
-  const handleChange = (value: string) => {
+  const handleChangeSelect = (value: string) => {
     setToStorage('language', value);
     i18n.changeLanguage(value);
   };
@@ -48,10 +41,17 @@ export const Header: FC = () => {
     dispatch(logOut());
   }, [dispatch]);
 
-  const onCreateBoardClick = () => {
+  const handleCreateBoard = () => {
     navigate('/');
     onOpen();
   };
+
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent);
+    return () => {
+      window.removeEventListener('scroll', listenScrollEvent);
+    };
+  }, []);
 
   return (
     <>
@@ -72,7 +72,7 @@ export const Header: FC = () => {
           )}
           {token && (
             <>
-              <Button type="primary" p="3px 10px" onClick={onCreateBoardClick}>
+              <Button type="primary" p="3px 10px" onClick={handleCreateBoard}>
                 <ContentTextButton theme={ThemeMedia}>{t('create_new_board')}</ContentTextButton>
                 <ContentImgButton theme={ThemeMedia}>
                   <PlusCircleOutlined />
@@ -95,7 +95,7 @@ export const Header: FC = () => {
           <Select
             defaultValue={language}
             style={{ width: 62, margin: '0 0 0 8px' }}
-            onChange={handleChange}
+            onChange={handleChangeSelect}
           >
             <Select.Option value={EN}>{EN.toUpperCase()}</Select.Option>
             <Select.Option value={RU}>{RU.toUpperCase()}</Select.Option>
