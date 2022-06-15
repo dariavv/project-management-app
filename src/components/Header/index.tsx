@@ -80,7 +80,7 @@ export const Header: FC = () => {
           )}
           {token && (
             <Button type="primary" p="3px 10px" onClick={() => navigate('/profile')}>
-              <ContentTextButton theme={ThemeMedia}>{t('update')}</ContentTextButton>
+              <ContentTextButton theme={ThemeMedia}>{t('edit_profile')}</ContentTextButton>
               <ContentImgButton theme={ThemeMedia}>
                 <UserOutlined />
               </ContentImgButton>
