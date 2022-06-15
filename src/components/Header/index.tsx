@@ -5,6 +5,7 @@ import { Row, Select } from 'antd';
 import { Button, Logo } from 'components';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
+import { useModal } from 'hooks/useModal';
 import { logOut } from 'store/reducers/authSlice';
 import { EN, RU } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
@@ -16,13 +17,12 @@ import * as Styled from './styled';
 
 export const Header: FC = () => {
   const { t } = useTranslations('auth');
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useModal();
+  const [isAnimated, setIsAnimated] = useState(false);
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const language = getFromStorage('language') || EN;
-
-  const [isAnimated, setIsAnimated] = useState(false);
 
   const listenScrollEvent = () => {
     if (window.scrollY <= 50) {
@@ -32,14 +32,7 @@ export const Header: FC = () => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', listenScrollEvent);
-    return () => {
-      window.removeEventListener('scroll', listenScrollEvent);
-    };
-  }, []);
-
-  const handleChange = (value: string) => {
+  const handleChangeSelect = (value: string) => {
     setToStorage('language', value);
     i18n.changeLanguage(value);
   };
@@ -48,10 +41,17 @@ export const Header: FC = () => {
     dispatch(logOut());
   }, [dispatch]);
 
-  const onCreateBoardClick = () => {
+  const handleCreateBoard = () => {
     navigate('/');
-    setIsOpen(true);
+    onOpen();
   };
+
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent);
+    return () => {
+      window.removeEventListener('scroll', listenScrollEvent);
+    };
+  }, []);
 
   return (
     <>
@@ -71,40 +71,38 @@ export const Header: FC = () => {
             </>
           )}
           {token && (
-            <Button type="primary" p="3px 10px" onClick={onCreateBoardClick}>
-              <ContentTextButton theme={ThemeMedia}>{t('create_new_board')}</ContentTextButton>
-              <ContentImgButton theme={ThemeMedia}>
-                <PlusCircleOutlined />
-              </ContentImgButton>
-            </Button>
-          )}
-          {token && (
-            <Button type="primary" p="3px 10px" onClick={() => navigate('/profile')}>
-              <ContentTextButton theme={ThemeMedia}>{t('edit_profile')}</ContentTextButton>
-              <ContentImgButton theme={ThemeMedia}>
-                <UserOutlined />
-              </ContentImgButton>
-            </Button>
-          )}
-          {token && (
-            <Button type="primary" p="3px 10px" onClick={handleLogOut}>
-              <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
-              <ContentImgButton theme={ThemeMedia}>
-                <LogoutOutlined />
-              </ContentImgButton>
-            </Button>
+            <>
+              <Button type="primary" p="3px 10px" onClick={handleCreateBoard}>
+                <ContentTextButton theme={ThemeMedia}>{t('create_new_board')}</ContentTextButton>
+                <ContentImgButton theme={ThemeMedia}>
+                  <PlusCircleOutlined />
+                </ContentImgButton>
+              </Button>
+              <Button type="primary" p="3px 10px" onClick={() => navigate('/profile')}>
+                <ContentTextButton theme={ThemeMedia}>{t('edit_profile')}</ContentTextButton>
+                <ContentImgButton theme={ThemeMedia}>
+                  <UserOutlined />
+                </ContentImgButton>
+              </Button>
+              <Button type="primary" p="3px 10px" onClick={handleLogOut}>
+                <ContentTextButton theme={ThemeMedia}>{t('log_out')}</ContentTextButton>
+                <ContentImgButton theme={ThemeMedia}>
+                  <LogoutOutlined />
+                </ContentImgButton>
+              </Button>
+            </>
           )}
           <Select
             defaultValue={language}
             style={{ width: 62, margin: '0 0 0 8px' }}
-            onChange={handleChange}
+            onChange={handleChangeSelect}
           >
             <Select.Option value={EN}>{EN.toUpperCase()}</Select.Option>
             <Select.Option value={RU}>{RU.toUpperCase()}</Select.Option>
           </Select>
         </Styled.ButtonsContainer>
       </Styled.Header>
-      <CreateEditBoardForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <CreateEditBoardForm isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
