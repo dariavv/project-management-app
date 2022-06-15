@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Modal as AntModal } from 'antd';
 
 type ModalProps = {
@@ -8,10 +8,8 @@ type ModalProps = {
   onClose: () => void;
 };
 
-export const Modal: FC<ModalProps> = ({ title, children, isOpen, onClose }) => {
-  return (
-    <AntModal title={title} visible={isOpen} onCancel={onClose} destroyOnClose footer={null}>
-      {children}
-    </AntModal>
-  );
-};
+export const Modal: FC<ModalProps> = memo(({ title, children, isOpen, onClose }) => (
+  <AntModal title={title} visible={isOpen} onCancel={onClose} destroyOnClose footer={null}>
+    {children}
+  </AntModal>
+));

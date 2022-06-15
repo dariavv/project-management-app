@@ -3,6 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { Typography } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { useTranslations } from 'hooks/useTranslations';
+import { useModal } from 'hooks/useModal';
 import { Task } from 'types';
 import { IconContainer } from 'theme';
 import { useAppDispatch, useAppSelector } from 'hooks';
@@ -18,7 +19,7 @@ interface TaskItemProps extends Task {
 export const TaskItem: FC<TaskItemProps> = (props) => {
   const { id, title, description, order, columnId, boardId, userId, index } = props;
   const { users } = useAppSelector((state) => state.users);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useModal();
   const [isOpenForm, setIsOpenForm] = useState(false);
   const { t } = useTranslations('board');
   const dispatch = useAppDispatch();
@@ -26,9 +27,9 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
   const assignee = useMemo(() => users.find((user) => user.id === userId), [userId, users]);
 
   const handleSubmit = useCallback(() => {
-    setIsOpen(false);
     dispatch(deleteTask({ boardId, columnId, taskId: id }));
-  }, [dispatch, boardId, columnId, id]);
+    onClose();
+  }, [dispatch, boardId, columnId, id, onClose]);
 
   return (
     <>
@@ -49,7 +50,7 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
               </Typography.Text>
               <IconContainer>
                 <EditOutlined onClick={() => setIsOpenForm(true)} />
-                <DeleteOutlined onClick={() => setIsOpen(true)} />
+                <DeleteOutlined onClick={onOpen} />
               </IconContainer>
             </Styled.Title>
             <Styled.Description>{description}</Styled.Description>
@@ -70,11 +71,7 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
         isOpen={isOpenForm}
         onClose={() => setIsOpenForm(false)}
       />
-      <ConfirmationModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        handleSubmit={handleSubmit}
-      />
+      <ConfirmationModal isOpen={isOpen} onClose={onClose} handleSubmit={handleSubmit} />
     </>
   );
 };

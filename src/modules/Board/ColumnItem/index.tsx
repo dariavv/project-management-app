@@ -5,6 +5,7 @@ import { ConfirmationModal } from 'components';
 import { deleteColumn, updateColumn } from 'store/reducers/columnsSlice';
 import { getAllTasksByColumnId } from 'store/reducers/tasksSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
+import { useModal } from 'hooks/useModal';
 import { CreateTaskForm } from '../CreateTaskForm';
 import { TaskItem } from '../TaskItem';
 import { Column } from 'types';
@@ -19,7 +20,7 @@ interface ColumnItemProps {
 
 export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
   const { id: columnId, title, order } = column;
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useModal();
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [titleValue, setTitleValue] = useState(title);
@@ -39,7 +40,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
     setTitleValue(event.target.value);
   }, []);
 
-  const updateTitle = () => {
+  const updateTitle = useCallback(() => {
     if (titleValue) {
       const formValues = {
         title: titleValue,
@@ -51,17 +52,17 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
       dispatch(updateColumn(formValues));
       setIsEditing(false);
     }
-  };
+  }, [boardId, columnId, dispatch, order, titleValue]);
 
-  const cancelUpdateTitle = () => {
+  const cancelUpdateTitle = useCallback(() => {
     setIsEditing(false);
     setTitleValue(title);
-  };
+  }, [title]);
 
   const handleSubmit = useCallback(() => {
-    setIsOpen(false);
     dispatch(deleteColumn({ boardId, columnId }));
-  }, [boardId, dispatch, columnId]);
+    onClose();
+  }, [onClose, dispatch, boardId, columnId]);
 
   useEffect(() => {
     dispatch(getAllTasksByColumnId({ boardId, columnId }));
@@ -109,7 +110,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
               <Styled.ToggleColumnBtn isVisibleButton={isEditing}>
                 <IconContainer>
                   <PlusOutlined onClick={() => setIsOpenForm(true)} />
-                  <DeleteOutlined onClick={() => setIsOpen(true)} />
+                  <DeleteOutlined onClick={onOpen} />
                 </IconContainer>
               </Styled.ToggleColumnBtn>
             </Styled.ColumnTitle>
@@ -143,11 +144,7 @@ export const ColumnItem: FC<ColumnItemProps> = ({ column, boardId, index }) => {
         isOpen={isOpenForm}
         onClose={() => setIsOpenForm(false)}
       />
-      <ConfirmationModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        handleSubmit={handleSubmit}
-      />
+      <ConfirmationModal isOpen={isOpen} onClose={onClose} handleSubmit={handleSubmit} />
     </>
   );
 };

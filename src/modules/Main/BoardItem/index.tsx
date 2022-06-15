@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { ConfirmationModal } from 'components';
 import { useAppDispatch } from 'hooks';
+import { useModal } from 'hooks/useModal';
 import { Board } from 'types';
 import { deleteBoard } from 'store/reducers/boardsSlice';
 import { CreateEditBoardForm } from '../CreateEditBoardForm';
@@ -17,14 +18,14 @@ type EventType = {
 };
 
 export const BoardItem: FC<BoardItem> = ({ id, title, description }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useModal();
   const [isOpenForm, setIsOpenForm] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const showConfirmationModal = (e: EventType) => {
     e.stopPropagation();
-    setIsOpen(true);
+    onOpen();
   };
 
   const updateBoardInfo = (e: EventType) => {
@@ -33,9 +34,9 @@ export const BoardItem: FC<BoardItem> = ({ id, title, description }) => {
   };
 
   const handleSubmit = useCallback(() => {
-    setIsOpen(false);
     dispatch(deleteBoard(id));
-  }, [dispatch, id]);
+    onClose();
+  }, [dispatch, id, onClose]);
 
   const goToItem = useCallback(
     (id: Board['id']) => {
@@ -75,11 +76,7 @@ export const BoardItem: FC<BoardItem> = ({ id, title, description }) => {
           </Typography.Text>
         </Styled.CardItem>
       </Styled.Container>
-      <ConfirmationModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        handleSubmit={handleSubmit}
-      />
+      <ConfirmationModal isOpen={isOpen} onClose={onClose} handleSubmit={handleSubmit} />
       <CreateEditBoardForm
         isEditForm
         id={id}
