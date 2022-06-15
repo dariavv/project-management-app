@@ -13,7 +13,7 @@ import {
 import { Footer } from 'components';
 
 export const NotFound: FC = () => {
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('not-found');
 
   return (
     <>

@@ -19,7 +19,7 @@ type ParamsType = {
 type FormValues = Pick<Column, 'title'>;
 
 export const CreateColumnForm: FC<CreateColumnFormProps> = ({ isOpen, onClose }) => {
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('board');
   const { id: boardId } = useParams() as ParamsType;
   const [isTouched, setIsTouched] = useState(false);
   const dispatch = useAppDispatch();

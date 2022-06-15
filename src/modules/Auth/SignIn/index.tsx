@@ -23,7 +23,7 @@ type FormValues = {
 const SignIn: FC = () => {
   const { token, status } = useAppSelector((state) => state.auth);
   const [isTouched, setIsTouched] = useState(false);
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('auth');
   const dispatch = useAppDispatch();
 
   const handleSubmit = useCallback(

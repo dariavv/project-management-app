@@ -20,7 +20,7 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
   const { users } = useAppSelector((state) => state.users);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('board');
   const dispatch = useAppDispatch();
 
   const assignee = useMemo(() => users.find((user) => user.id === userId), [userId, users]);

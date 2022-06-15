@@ -13,7 +13,7 @@ import * as Styled from './styled';
 
 const Welcome: FC = () => {
   const { token } = useAppSelector((state) => state.auth);
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('welcome');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

@@ -28,7 +28,7 @@ const EditProfile: FC = () => {
   const { status, user } = useAppSelector((state) => state.users);
   const [isOpen, setIsOpen] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('auth');
   const dispatch = useAppDispatch();
 
   const handleSubmit = useCallback(
@@ -126,7 +126,7 @@ const EditProfile: FC = () => {
                 loading={status === 'loading'}
                 disabled={!isTouched}
               >
-                {t('update')}
+                {t('edit_profile')}
               </StyledButton>
               <DeleteButton
                 onClick={() => setIsOpen(true)}
@@ -135,7 +135,7 @@ const EditProfile: FC = () => {
                 htmlType="button"
                 loading={status === 'loading'}
               >
-                {t('delete')}
+                {t('delete_profile')}
               </DeleteButton>
             </StyledButtonCont>
           </Form>
