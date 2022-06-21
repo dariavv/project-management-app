@@ -29,7 +29,7 @@ const EditProfile: FC = () => {
   const { status, user } = useAppSelector((state) => state.users);
   const { isOpen, onOpen, onClose } = useModal();
   const [isTouched, setIsTouched] = useState(false);
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('auth');
   const dispatch = useAppDispatch();
 
   const handleSubmit = useCallback(

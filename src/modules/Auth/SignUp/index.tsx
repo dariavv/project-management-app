@@ -22,7 +22,7 @@ type FormValues = {
 };
 
 const SignUp: FC = () => {
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('auth');
   const { token, status } = useAppSelector((state) => state.auth);
   const [isTouched, setIsTouched] = useState(false);
   const dispatch = useAppDispatch();

@@ -16,7 +16,7 @@ import { ThemeMedia } from 'theme';
 import * as Styled from './styled';
 
 export const Header: FC = () => {
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('auth');
   const { isOpen, onOpen, onClose } = useModal();
   const [isAnimated, setIsAnimated] = useState(false);
   const { token } = useAppSelector((state) => state.auth);

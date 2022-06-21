@@ -23,7 +23,7 @@ const Board: FC = () => {
   const { columns } = useAppSelector((state) => state.columns);
   const { tasks } = useAppSelector((state) => state.tasks);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('board');
   const dispatch = useAppDispatch();
 
   const handleOnDragEnd = (result: DropResult) => {

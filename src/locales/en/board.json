@@ -1,0 +1,11 @@
+{
+  "title": "Title",
+  "description": "Description",
+  "assignee": "Assignee:",
+  "add_column": "Add column",
+  "create_new_column": "Create new column",
+  "create_new_task": "Create new task",
+  "edit_task": "Edit task",
+  "cancel": "Cancel",
+  "submit": "Submit"
+}

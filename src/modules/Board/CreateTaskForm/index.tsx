@@ -20,7 +20,7 @@ type ParamsType = {
 type FormValues = Omit<Task, 'id' | 'order'>;
 
 export const CreateTaskForm: FC<CreateTaskFormProps> = ({ columnId, isOpen, onClose }) => {
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('board');
   const { id: boardId } = useParams() as ParamsType;
   const [assigneeId, setAssigneeId] = useState('');
   const [isTouched, setIsTouched] = useState(false);

@@ -9,7 +9,7 @@ type ModalProps = {
 };
 
 export const ConfirmationModal: FC<ModalProps> = memo(({ isOpen, onClose, handleSubmit }) => {
-  const { t } = useTranslations('main');
+  const { t } = useTranslations('confirmation-modal');
   return (
     <Modal
       title={t('confirmation_modal')}
