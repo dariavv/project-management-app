@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { useTranslations } from 'hooks/useTranslations';
 import { useModal } from 'hooks/useModal';
 import { logOut } from 'store/reducers/authSlice';
-import { EN, RU } from 'constants/languages';
+import { EN, RU, PL } from 'constants/languages';
 import { getFromStorage, setToStorage } from 'utils/localStorage';
 import { CreateEditBoardForm } from 'modules/Main/CreateEditBoardForm';
 import { LogoutOutlined, PlusCircleOutlined, UserOutlined } from '@ant-design/icons';
@@ -99,6 +99,7 @@ export const Header: FC = () => {
           >
             <Select.Option value={EN}>{EN.toUpperCase()}</Select.Option>
             <Select.Option value={RU}>{RU.toUpperCase()}</Select.Option>
+            <Select.Option value={PL}>{PL.toUpperCase()}</Select.Option>
           </Select>
         </Styled.ButtonsContainer>
       </Styled.Header>

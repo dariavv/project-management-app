@@ -1,0 +1,11 @@
+{
+  "title": "Tytuł",
+  "description": "Opis",
+  "assignee": "Wykonawca:",
+  "add_column": "Dodaj kolumnę",
+  "create_new_column": "Utwórz kolumnę",
+  "create_new_task": "Utwórz zadanie",
+  "edit_task": "Edytuj zadanie",
+  "cancel": "Cofnij",
+  "submit": "Zatwierdź"
+}
