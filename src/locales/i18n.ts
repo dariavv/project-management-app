@@ -5,31 +5,24 @@ import { getFromStorage } from 'utils/localStorage';
 import mainEN from './en/main.json';
 import mainRU from './ru/main.json';
 import mainPL from './pl/main.json';
-
 import authEN from './en/auth.json';
 import authRU from './ru/auth.json';
 import authPL from './pl/auth.json';
-
 import boardEN from './en/board.json';
 import boardRU from './ru/board.json';
 import boardPL from './pl/board.json';
-
 import confirmationModalEN from './en/confirmation-modal.json';
 import confirmationModalRU from './ru/confirmation-modal.json';
 import confirmationModalPL from './pl/confirmation-modal.json';
-
 import notFoundEN from './en/not-found.json';
 import notFoundRU from './ru/not-found.json';
 import notFoundPL from './pl/not-found.json';
-
 import validationsEN from './en/validations.json';
 import validationsRU from './ru/validations.json';
 import validationsPL from './pl/validations.json';
-
 import welcomeEN from './en/welcome.json';
 import welcomeRU from './ru/welcome.json';
 import welcomePL from './pl/welcome.json';
-
 import errorBoundaryEN from './en/error-boundary.json';
 import errorBoundaryRU from './ru/error-boundary.json';
 import errorBoundaryPL from './ru/error-boundary.json';
