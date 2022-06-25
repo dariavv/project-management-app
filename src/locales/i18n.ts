@@ -25,7 +25,7 @@ import welcomeRU from './ru/welcome.json';
 import welcomePL from './pl/welcome.json';
 import errorBoundaryEN from './en/error-boundary.json';
 import errorBoundaryRU from './ru/error-boundary.json';
-import errorBoundaryPL from './ru/error-boundary.json';
+import errorBoundaryPL from './pl/error-boundary.json';
 
 export const resources = {
   en: {
