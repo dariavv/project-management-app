@@ -1,0 +1,9 @@
+{
+  "required": "Proszę wypełnić pole",
+  "min_input_len": "Proszę wpisać co najmniej 3 znaki",
+  "max_length": "Wpisz nie więcej niż 20 znaków",
+  "textares_len": "Proszę wpisać co najmniej 3 znaki",
+  "only_eng": "Można używać tylko łaciny",
+  "only_num_eng": "Można używać tylko łaciny i cyfr",
+  "no_spaces": "Nie może być spacji"
+}
