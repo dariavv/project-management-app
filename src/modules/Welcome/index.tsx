@@ -8,6 +8,7 @@ import { GithubOutlined } from '@ant-design/icons';
 import avaDaria from 'assets/images/4husky.png';
 import avaGleb from 'assets/images/2panda.png';
 import avaOlga from 'assets/images/1cat.png';
+import welcomeImg from 'assets/images/welcome.svg';
 import { ThemeMedia } from 'theme';
 import * as Styled from './styled';
 
@@ -27,9 +28,9 @@ const Welcome: FC = () => {
         <Logo />
         {token && (
           <Styled.ButtonsContainer>
-            <Button type="primary" onClick={() => navigate('/')}>
+            {/* <Button type="primary" onClick={() => navigate('/')}>
               {t('go_to_main')}
-            </Button>
+            </Button> */}
             <Button type="primary" onClick={handleLogOut}>
               {t('log_out')}
             </Button>
@@ -48,37 +49,46 @@ const Welcome: FC = () => {
       </Styled.Header>
       <Styled.Container theme={ThemeMedia}>
         <Styled.Info theme={ThemeMedia}>
-          <Styled.Title>{t('about_title')}</Styled.Title>
-          <Styled.Description theme={ThemeMedia}>{t('welcome_description')}</Styled.Description>
+          <Styled.ContainerDescription>
+            <Styled.Title>{t('about_title')}</Styled.Title>
+            <Styled.Description theme={ThemeMedia}>{t('welcome_description')}</Styled.Description>
+            <Button type="primary" onClick={() => navigate('/')}>
+              {t('go_to_main')}
+            </Button>
+          </Styled.ContainerDescription>
+          <Styled.ImgMain src={welcomeImg} theme={ThemeMedia}></Styled.ImgMain>
         </Styled.Info>
         <Styled.Teams>
           <Styled.Title>{t('our_team')}</Styled.Title>
           <Styled.TeamContainer>
             <Styled.AvatarContainer theme={ThemeMedia}>
               <Styled.ImgAv src={avaDaria} theme={ThemeMedia}></Styled.ImgAv>
+              <Styled.NameItem>{t('name_one')}</Styled.NameItem>
               <Styled.LinkItem href="https://github.com/dariavv" target="_blank" rel="noreferrer">
                 <Styled.ItemIcon>
                   <GithubOutlined />
                 </Styled.ItemIcon>
-                {t('name_one')}
+                {t('team_role_1')}
               </Styled.LinkItem>
             </Styled.AvatarContainer>
             <Styled.AvatarContainer theme={ThemeMedia}>
               <Styled.ImgAv src={avaGleb} theme={ThemeMedia}></Styled.ImgAv>
+              <Styled.NameItem>{t('name_two')}</Styled.NameItem>
               <Styled.LinkItem href="https://github.com/GBaykov" target="_blank" rel="noreferrer">
                 <Styled.ItemIcon>
                   <GithubOutlined />
                 </Styled.ItemIcon>
-                {t('name_two')}
+                {t('team_role_2')}
               </Styled.LinkItem>
             </Styled.AvatarContainer>
             <Styled.AvatarContainer theme={ThemeMedia}>
               <Styled.ImgAv src={avaOlga} theme={ThemeMedia}></Styled.ImgAv>
+              <Styled.NameItem>{t('name_three')}</Styled.NameItem>
               <Styled.LinkItem href="https://github.com/Olga-plus" target="_blank" rel="noreferrer">
                 <Styled.ItemIcon>
                   <GithubOutlined />
                 </Styled.ItemIcon>
-                {t('name_three')}
+                {t('team_role_2')}
               </Styled.LinkItem>
             </Styled.AvatarContainer>
           </Styled.TeamContainer>
