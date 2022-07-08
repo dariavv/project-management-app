@@ -9,5 +9,7 @@
   "name_two": "Gleb",
   "name_three": "Olga",
   "name_team": "Team 57",
+  "team_role_1": "Team Leader",
+  "team_role_2": "Developer",
   "welcome_description": "Liosta is a tool for project management. Our goal is to help achieve the set tasks, both for an individual in the team and for a group of developers. Manage tasks easy and simple :)"
 }

@@ -17,68 +17,78 @@ export const Header = styled.header`
 
 export const Container = styled.main`
   margin: 0;
-  padding: 0;
+  padding: 0 105px 90px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: calc(100vh - 150px);
+  // height: calc(100vh + 150px);
   transition: 0.7s;
 `;
 
 export const Info = styled.section`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 0 40px;
   align-items: center;
   margin-bottom: 3rem;
   transition: 0.7s;
-  @media ${(props) => props.theme.media.phone} {
+  @media ${(props) => props.theme.media.tablet} {
+    flex-direction: column;
     margin-bottom: 1rem;
+    padding: 0 20px;
+  }
+  @media ${(props) => props.theme.media.phone} {
+    flex-direction: column;
+    margin-bottom: 1rem;
+    padding: 0 20px;
   }
 `;
 
 export const ButtonsContainer = styled.div`
   display: flex;
 `;
+export const ContainerDescription = styled.div`
+  width: 50%;
+`;
 
 export const Title = styled.h2`
-  font-size: 1.7rem;
-  color: ${PRIMARY};
+  font-size: 2.75rem;
+  font-weight: bold;
+  color: #334154;
 `;
 
 export const Description = styled.p`
-  width: 60%;
-  height: auto;
-  font-size: 1.3rem;
-  text-align: center;
+  // width: 80%;
+  // height: auto;
+  font-size: 1.35rem;
   transition: 0.3s;
   @media ${(props) => props.theme.media.tablet} {
     font-size: 1.2rem;
-    width: 85%;
+    width: 95%;
   }
   @media ${(props) => props.theme.media.phone} {
     font-size: 1rem;
     line-height: 2;
-    width: 86%;
+    width: 95%;
   }
 `;
 export const Teams = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  align-items: flex-start;
   color: ${PRIMARY};
 `;
 
 export const TeamContainer = styled.div`
   display: flex;
+  width: 95%;
   justify-content: center;
   align-items: center;
   color: ${DARK};
 `;
 
 export const ImgAv = styled.img`
-  width: 135px;
+  width: 75%;
   border-radius: 50%;
   box-shadow: 0 0 3px ${DARK};
   margin: 0.3rem;
@@ -91,11 +101,27 @@ export const ImgAv = styled.img`
   }
 `;
 
+export const ImgMain = styled.img`
+  width: 45%;
+  margin: 0.3rem;
+  transition: 0.3s;
+  @media ${(props) => props.theme.media.tablet} {
+    width: 75%;
+  }
+  @media ${(props) => props.theme.media.phone} {
+    width: 60%;
+  }
+`;
+
+export const NameItem = styled.div`
+  font-size: 2.33rem;
+`;
+
 export const LinkItem = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.123rem;
+  font-size: 1.33rem;
   color: ${DARK};
 `;
 
@@ -116,6 +142,6 @@ export const AvatarContainer = styled.div`
 `;
 
 export const ItemIcon = styled.div`
-  font-size: 1.05rem;
-  padding-right: 3px;
+  font-size: 2.55rem;
+  padding-right: 10px;
 `;
